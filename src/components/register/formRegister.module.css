@@ -1,14 +1,40 @@
-#form{
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.containerForm {
-    background: rgb(98, 96, 96);
-    padding: 50px 0;
-}
 
 #container{
-    background: gray;
-    border-radius: 3%;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #E4E5E7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+#inputField{
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+#inputField:focus {
+    outline: none;
+    border-color: #007bff; /* Cambia el color del borde al enfocar */
+  }
+
+#submitBtn{
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#submitBtn:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+  }

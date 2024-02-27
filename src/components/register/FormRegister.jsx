@@ -1,7 +1,7 @@
 import React from "react";
 import {  useForm } from "react-hook-form";
 import { Button, Col, Form, InputGroup } from "react-bootstrap";
-import { container } from "./FormRegister.module.css"
+import { container, inputField, submitBtn } from "./FormRegister.module.css"
 import { passwordRegex } from "../../utils/passwordRegex.js";
 import { emailRegex } from "../../utils/emailRegex.js";
 import axios from "axios";
@@ -40,15 +40,16 @@ export const FormRegister = () => {
 
   return (
     <Col id={container} className="container vh-100 mt-5 w-100 d-flex justify-content-center" >
-        <Form noValidate style={{maxWidth: "494px"}} onSubmit={handleSubmit(onSubmit)}>
+        <Form noValidate onSubmit={handleSubmit(onSubmit)}>
             <div className="text-center d-flex aling-items-center my- pb-3 border border-light border-0 border-bottom">
                 <div className="ms-4 text-start">
                     <h1 className="display-5 fw-semibold"> Encuestaap</h1>
                 </div>
             </div>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3">
                 <Form.Label className="fw-bold">Email</Form.Label>
-                <Form.Control 
+                <Form.Control
+                id={inputField}
                 type="email" 
                 placeholder="Email"
                 className={errors.email?.message ? "is-invalid" : ""}
@@ -71,7 +72,8 @@ export const FormRegister = () => {
             <Form.Group>
             <Form.Label className="fw-bold">Password</Form.Label>
             {/* <InputGroup className="mb-3"> */}
-                <Form.Control 
+                <Form.Control
+                id={inputField}
                 name="password"
                 type="password"
                 aria-describedby="passwordHelpBlock"
@@ -97,6 +99,7 @@ export const FormRegister = () => {
             <Form.Label className="fw-bold mt-3">Confirm Password</Form.Label>
             <InputGroup>
                 <Form.Control
+                id={inputField}
                 name="password"
                 onPaste={(e) => e.preventDefault()}
                 type="password"
@@ -119,7 +122,19 @@ export const FormRegister = () => {
                     {errors.confirmPassword?.message}
                 </Form.Control.Feedback>
             </InputGroup>
-            <Button className="mt-3" variant="primary" type="submit"> 
+
+            <Form.Group>
+                <Form.Label>
+                    Acepto terminos y condiciones
+                </Form.Label>
+                <input type="checkbox" />
+            </Form.Group>
+            <Button
+
+            id={submitBtn}
+            className="mt-3" 
+            variant="primary" 
+            type="submit"> 
                 Registrarme
             </Button>
         </Form>
