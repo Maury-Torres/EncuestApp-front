@@ -39,15 +39,15 @@ export const FormRegister = () => {
     
 
   return (
-    <Col id={container} className="container vh-100 mt-5 w-100 d-flex justify-content-center" >
+    <Col id={container} className="container vh-50  w-100 d-flex justify-content-center" >
         <Form noValidate onSubmit={handleSubmit(onSubmit)}>
             <div className="text-center d-flex aling-items-center my- pb-3 border border-light border-0 border-bottom">
                 <div className="ms-4 text-start">
-                    <h1 className="display-5 fw-semibold"> Encuestaap</h1>
+                    <h1 className="display-5 fw-semibold text-black"> EncuestApp</h1>
                 </div>
             </div>
             <Form.Group className="mb-3">
-                <Form.Label className="fw-bold">Email</Form.Label>
+                <Form.Label className="fw-bold text-black">Email</Form.Label>
                 <Form.Control
                 id={inputField}
                 type="email" 
@@ -70,7 +70,7 @@ export const FormRegister = () => {
             </Form.Group>
 
             <Form.Group>
-            <Form.Label className="fw-bold">Password</Form.Label>
+            <Form.Label className="fw-bold text-black">Password</Form.Label>
             {/* <InputGroup className="mb-3"> */}
                 <Form.Control
                 id={inputField}
@@ -96,7 +96,7 @@ export const FormRegister = () => {
             {/* </InputGroup> */}
             </Form.Group>
 
-            <Form.Label className="fw-bold mt-3">Confirm Password</Form.Label>
+            <Form.Label className="fw-bold mt-3 text-black">Confirm Password</Form.Label>
             <InputGroup>
                 <Form.Control
                 id={inputField}
@@ -124,10 +124,10 @@ export const FormRegister = () => {
             </InputGroup>
 
             <Form.Group>
-                <Form.Label>
+                <Form.Label className="fw-bold text-black">
                     Acepto terminos y condiciones
                 </Form.Label>
-                <input type="checkbox" />
+                <input type="checkbox"/>
             </Form.Group>
             <Button
 

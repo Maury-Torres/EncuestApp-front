@@ -1,30 +1,36 @@
 import React from 'react'
-import { Col, Container, Row, Nav, NavDropdown, Navbar } from 'react-bootstrap'
+import { Container, Nav, Navbar, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import { container, link, button, btnHamburguesa } from "./NavbarTest.module.css"
+import  logo  from '../assets/logo.png'
 
 export const NavbarTest = () => {
   return (
-    <Container fluid>
-      <Row>
-        <Col>
-          <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
-              <Navbar.Brand href="#home">EncuestaAp</Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-                  <Navbar.Text>
-                    <Link to='/'>Go to home</Link>
-                  </Navbar.Text>
-                  <Navbar.Text>
-                    <Link to='/register'>Go to Register</Link>
-                  </Navbar.Text>
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
-        </Col>
-      </Row>
-    </Container>
+    <Navbar expand="lg"  id={container} fixed='top'>
+      <Container>
+        <img src={logo} alt="logo" width="30" height="30" className="d-inline-block align-top"/>
+        <Navbar.Brand className='fw-bold text-white'>EncuestApp</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav text-white" id={btnHamburguesa}/>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto gap-3">
+            <Button id={button} size="sm">
+              <Navbar.Text>
+                <Link to='/' className='fw-bold' id={link}>Go to home</Link>
+              </Navbar.Text>
+            </Button >
+            <Button id={button} size="sm">
+              <Navbar.Text>
+                <Link to='/register' className='fw-bold' id={link}>Go to Register</Link>
+              </Navbar.Text>
+            </Button>
+            <Button id={button} size="sm">
+              <Navbar.Text>
+                <Link to='/register' className='fw-bold' id={link}>Admin</Link>
+              </Navbar.Text>
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
