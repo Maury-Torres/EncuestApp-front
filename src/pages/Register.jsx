@@ -4,7 +4,7 @@ import { FormRegister } from '../components/register/FormRegister'
 
 export const Register = () => {
   return (
-    <Container >
+    <Container>
       <Row>
           <FormRegister/>
       </Row>
