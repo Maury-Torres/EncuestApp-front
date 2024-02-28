@@ -1,11 +1,11 @@
 #container{
-    /* background-image: url(/src/assets/fondo.webp); */
+    background-image: url(/src/assets/fondo.webp);
     background-color: #0DCAF0;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
     border-radius: 15%;
-    width: 50%;
+    width: 55%;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -14,7 +14,8 @@
 
 #containerNav{
     padding: 0;
-    background-color: #FF9B00;
+    /* background-color: #FF9B00; */
+    justify-content: end;
 }
 
 #link{
@@ -27,6 +28,7 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    justify-content: center;
 }
 
 #button:hover {
@@ -35,8 +37,29 @@
 
 #btnHamburguesa{
     background-color: white;
+    height: 32px;
+    padding: 0;
 }
 
-/* .navCollapse{
-    background-color: aqua;
-} */
+@media (max-width: 991px){
+    #button{
+        font-size: 12px;
+        width: 50%;
+    }
+}
+
+
+@media (max-width: 911px){
+    #container{
+        width: 80%;
+        padding-bottom: 5%;
+        margin-bottom: 200px;
+    }
+}
+
+@media (max-width: 629px){
+    #container{
+        width: 100%;
+        padding-bottom: 5%;
+    }
+}

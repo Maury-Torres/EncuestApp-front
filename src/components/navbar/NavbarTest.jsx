@@ -1,18 +1,17 @@
 import React from 'react'
 import { Container, Nav, Navbar, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import { container, link, button, btnHamburguesa } from "./NavbarTest.module.css"
-import  logo  from '../assets/logo.png'
+import { container, link, button, btnHamburguesa, containerNav } from "./NavbarTest.module.css"
+import logo from '/src/assets/logo.png'
 
 export const NavbarTest = () => {
   return (
     <Navbar expand="lg"  id={container} fixed='top'>
       <Container>
-        <img src={logo} alt="logo" width="30" height="30" className="d-inline-block align-top"/>
         <Navbar.Brand className='fw-bold text-white'>EncuestApp</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav text-white" id={btnHamburguesa}/>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto gap-3">
+          <Nav className="gap-3" id={containerNav}>
             <Button id={button} size="sm">
               <Navbar.Text>
                 <Link to='/' className='fw-bold' id={link}>Go to home</Link>
