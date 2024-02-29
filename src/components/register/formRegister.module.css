@@ -18,6 +18,24 @@
     box-sizing: border-box;
     font-size: 16px;
 }
+#inputField2{
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+#inputField3{
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
 
 #inputField:focus {
     outline: none;

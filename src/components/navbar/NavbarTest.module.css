@@ -1,6 +1,6 @@
 #container{
     background-image: url(/src/assets/fondo.webp);
-    background-color: #0DCAF0;
+    /* background-color: #0DCAF0; */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
@@ -18,11 +18,23 @@
     justify-content: end;
 }
 
-#link{
-    text-decoration: none;
-}
-
 #button{
+    background-color: #FF9B00;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    justify-content: center;
+}
+#button2{
+    background-color: #FF9B00;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    justify-content: center;
+}
+#button3{
     background-color: #FF9B00;
     border: none;
     border-radius: 5px;
@@ -34,6 +46,12 @@
 #button:hover {
     background-color: #31D2F2; 
 }
+#button2:hover {
+    background-color: #31D2F2; 
+}
+#button3:hover {
+    background-color: #31D2F2; 
+}
 
 #btnHamburguesa{
     background-color: white;
@@ -41,10 +59,41 @@
     padding: 0;
 }
 
+/* #img{
+    position: absolute;
+} */
+
+
+.navCollapse{
+    justify-content:center;
+}
+
+
+@media (max-width: 991px){
+    #title{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 @media (max-width: 991px){
     #button{
         font-size: 12px;
-        width: 50%;
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #button2{
+        font-size: 12px;
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #button3{
+        font-size: 12px;
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
