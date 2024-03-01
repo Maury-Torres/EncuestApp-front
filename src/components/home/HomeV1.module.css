@@ -1,5 +1,5 @@
 body{
-  margin: 0;
+  margin-top: 5%;
   padding: 0;
   background-image: url(/src/assets/fondo.webp);
   background-size: cover ;
@@ -10,36 +10,16 @@ body{
 }
 
 #container{
-  /* position: absolute; */
-  /* top: 300px;
-  left: 50px; */
-  margin-top: 200px;
-  margin-left: 50px;
+  position: absolute;
+  top: 300px;
+  left: 50px;
 }
 
 img{
-  /* position: absolute; */
-  /* top: 50px;
-  right: 50px; */
-  /* width="30"
-  height="30" */
-  width: 500px;
-  height: 500px;
+
+  position: absolute;
+  top: 50px;
+  right: 50px;
+
 }
 
-#containerCol{
-  display: flex;
-}
-
-
-@media (max-width: 911px){
-  #containerCol{
-      display: block;
-}
-}
-
-@media (max-width: 911px){
-  #secctionImg{
-      text-align: center;
-}
-}
