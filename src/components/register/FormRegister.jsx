@@ -7,6 +7,7 @@ import { emailRegex } from "../../utils/emailRegex.js";
 import axios from "axios";
 import { alertcustom } from "../../utils/alertCustom.js";
 import { messages } from "../../utils/message.js";
+import 'animate.css';
 
 const BASE_URL= import.meta.env.VITE_BASE_URL;
 
@@ -48,7 +49,7 @@ export const FormRegister = () => {
     
 
   return (
-    <Col id={container} className="container vh-50  w-100 d-flex justify-content-center" >
+    <Col id={container} className="container vh-50  w-100 d-flex justify-content-center animate__animated animate__backInDown" >
         <Form noValidate onSubmit={handleSubmit(onSubmit)}>
             <div className="text-center d-flex aling-items-center my- pb-3 border border-light border-0 border-bottom">
                 <div className="ms-4 text-start">
