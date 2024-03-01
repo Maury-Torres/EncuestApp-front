@@ -1,13 +1,14 @@
 import React from "react";
 import {  useForm } from "react-hook-form";
 import { Button, Col, Form, InputGroup } from "react-bootstrap";
-import { container, inputField, submitBtn } from "./FormRegister.module.css"
+import { container, inputField, inputField2, inputField3, submitBtn } from "./FormRegister.module.css"
 import { passwordRegex } from "../../utils/passwordRegex.js";
 import { emailRegex } from "../../utils/emailRegex.js";
 import axios from "axios";
+import { alertcustom } from "../../utils/alertCustom.js";
+import { messages } from "../../utils/message.js";
 
-
-const BASE_URL= import.meta.VITE_BASE_URL;
+const BASE_URL= import.meta.env.VITE_BASE_URL;
 
 export const FormRegister = () => {
     const form = useForm();
@@ -25,29 +26,58 @@ export const FormRegister = () => {
     // }
 
 
-    const onSubmit = async (formData) =>{
+    const onSubmit = async (data) =>{
 
-
-        if (!passwordRegex.test(formData.password)) {
-            return alert('La contraseña debe tener: una mayuscula, una minuscula, un numero, un caracter, min 8 caracteres');
+        try {
+            if (!passwordRegex.test(data.password)) {
+                return alertcustom('La contraseña debe tener: una mayuscula, una minuscula, un numero, un caracter, min 8 caracteres', 'Error', 'warning')
+            }
+            alertcustom(messages.userSuccessful, messages.congratulations, 'success',console.log(data))
+            
+            console.log(BASE_URL);
+        } catch (error) {
+            console.log(error);
         }
+        
 
-        console.log(formData)
-        console.log(BASE_URL);
+        
+
+        // formData.target.reset();
     };
 
     
 
   return (
-    <Col id={container} className="container vh-100 mt-5 w-100 d-flex justify-content-center" >
+    <Col id={container} className="container vh-50  w-100 d-flex justify-content-center" >
         <Form noValidate onSubmit={handleSubmit(onSubmit)}>
             <div className="text-center d-flex aling-items-center my- pb-3 border border-light border-0 border-bottom">
                 <div className="ms-4 text-start">
-                    <h1 className="display-5 fw-semibold"> Encuestaap</h1>
+                    <h1 className="display-5 fw-semibold text-black"> EncuestApp</h1>
                 </div>
             </div>
+
             <Form.Group className="mb-3">
-                <Form.Label className="fw-bold">Email</Form.Label>
+                <Form.Label className="fw-bold text-black">Nombre</Form.Label>
+                <Form.Control
+                id={inputField}
+                type="text" 
+                placeholder="Ingrese su nombre"
+                className={errors.text?.message ? "is-invalid" : ""}
+                {...register("text", {
+                    required:{
+                        value: true,
+                        message: "Ingrese un nombre"
+                        
+                    }
+                })}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.text?.message}
+                </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label className="fw-bold text-black">Email</Form.Label>
                 <Form.Control
                 id={inputField}
                 type="email" 
@@ -70,10 +100,10 @@ export const FormRegister = () => {
             </Form.Group>
 
             <Form.Group>
-            <Form.Label className="fw-bold">Password</Form.Label>
+            <Form.Label className="fw-bold text-black">Password</Form.Label>
             {/* <InputGroup className="mb-3"> */}
                 <Form.Control
-                id={inputField}
+                id={inputField2}
                 name="password"
                 type="password"
                 aria-describedby="passwordHelpBlock"
@@ -96,10 +126,10 @@ export const FormRegister = () => {
             {/* </InputGroup> */}
             </Form.Group>
 
-            <Form.Label className="fw-bold mt-3">Confirm Password</Form.Label>
+            <Form.Label className="fw-bold mt-3 text-black">Confirm Password</Form.Label>
             <InputGroup>
                 <Form.Control
-                id={inputField}
+                id={inputField3}
                 name="password"
                 onPaste={(e) => e.preventDefault()}
                 type="password"
@@ -108,7 +138,7 @@ export const FormRegister = () => {
                 {...register("confirmPassword", {
                     required: {
                         value: true,
-                        message: "La contraseña no coinciden"
+                        message: "Campo requerido"
                     },
                     validate: (value) =>{
                         if (value == watch("password")) {
@@ -124,10 +154,10 @@ export const FormRegister = () => {
             </InputGroup>
 
             <Form.Group>
-                <Form.Label>
+                <Form.Label className="fw-bold text-black">
                     Acepto terminos y condiciones
                 </Form.Label>
-                <input type="checkbox" />
+                <input type="checkbox"/>
             </Form.Group>
             <Button
 
