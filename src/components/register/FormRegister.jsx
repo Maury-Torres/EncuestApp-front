@@ -55,6 +55,27 @@ export const FormRegister = () => {
                     <h1 className="display-5 fw-semibold text-black"> EncuestApp</h1>
                 </div>
             </div>
+
+            <Form.Group className="mb-3">
+                <Form.Label className="fw-bold text-black">Nombre</Form.Label>
+                <Form.Control
+                id={inputField}
+                type="text" 
+                placeholder="Ingrese su nombre"
+                className={errors.text?.message ? "is-invalid" : ""}
+                {...register("text", {
+                    required:{
+                        value: true,
+                        message: "Ingrese un nombre"
+                        
+                    }
+                })}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.text?.message}
+                </Form.Control.Feedback>
+            </Form.Group>
+
             <Form.Group className="mb-3">
                 <Form.Label className="fw-bold text-black">Email</Form.Label>
                 <Form.Control
