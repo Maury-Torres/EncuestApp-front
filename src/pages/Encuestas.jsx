@@ -1,9 +1,12 @@
-import React from 'react'
+import { Footer } from "../components/footer/Footer";
 
 export const Encuestas = () => {
   return (
-    <div>Encuestas</div>
-  )
-}
+    <>
+      <div>Encuestas</div>
+      <Footer />
+    </>
+  );
+};
 
-export default Encuestas
+export default Encuestas;
