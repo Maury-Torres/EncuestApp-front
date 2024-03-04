@@ -1,0 +1,17 @@
+.list_abm {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.rowFlex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cardMargin {
+  margin: 10px;
+}
