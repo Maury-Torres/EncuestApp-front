@@ -6,6 +6,7 @@ body {
   background-position: center;
   background-attachment: fixed;
   color: azure;
+  min-height: 100vh;
 }
 
 .container {
