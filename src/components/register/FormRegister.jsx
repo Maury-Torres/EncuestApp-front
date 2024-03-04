@@ -55,6 +55,8 @@ export const FormRegister = () => {
         alertcustom(messages.userSuccessful, messages.congratulations, "success");
 
         console.log(BASE_URL);
+        console.log(data);
+
         } catch (error) {
         console.log(error);
         }
@@ -78,8 +80,8 @@ return (
                 id={inputFieldName}
                 type="text"
                 placeholder="Ingrese su nombre"
-                className={errors.text?.message ? "is-invalid" : ""}
-                {...register("text", {
+                className={errors.username?.message ? "is-invalid" : ""}
+                {...register("username", {
                 required: {
                     value: true,
                     message: "Ingrese un nombre",
@@ -87,7 +89,7 @@ return (
                 })}
             />
             <Form.Control.Feedback type="invalid">
-                {errors.text?.message}
+                {errors.name?.message}
             </Form.Control.Feedback>
         </Form.Group>
 
