@@ -9,16 +9,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#inputFieldName{
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-
 #inputField{
     width: 100%;
     margin-bottom: 20px;
@@ -29,7 +19,7 @@
     font-size: 16px;
 }
 #inputField2{
-    width: 50%;
+    width: 100%;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -38,7 +28,7 @@
     font-size: 16px;
 }
 #inputField3{
-    width: 50%;
+    width: 100%;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -66,21 +56,6 @@
 #submitBtn:hover {
     background-color: #0056b3;
   }
-
-#hiddenButton{
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 70%;
-    background-color: white;
-}
-
-#hiddenButtonConfirm{
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 70%;
-    background-color: white;
-}
-
 
   @media (max-width: 911px){
     #container{

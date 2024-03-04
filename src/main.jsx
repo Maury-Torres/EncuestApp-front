@@ -23,12 +23,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <NavbarTest />
         <Routes>
-          <Route path='/' element={<HomeV1 />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/encuestas' element={<EncuestasV1 />} />
-          <Route path='/encuestas2' element={<Banners />} />
-          <Route path='*' element={<h1>Error</h1>} />
+          <Route path='/' element = {<HomeV1/>} />
+          <Route path='/register' element={<Register />}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/encuestas' element = {<EncuestasV1/>} />
+          <Route path='/encuestas2' element={<Banners/>}/>
+          <Route path='*' element={<h1>Error</h1>}/>
         </Routes>
       </BrowserRouter>
 
