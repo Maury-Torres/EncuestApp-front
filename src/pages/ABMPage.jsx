@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { ABMCard } from "../components/abm/card/ABMCard";
 import { ABMPagination } from "../components/abm/pagination/ABMPagination";
-import { Row, Form } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import styles from "./ABMPage.module.css";
 import { Select } from "../components/ui/select/Select";
+import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
 
 export const ABMPage = () => {
   const [page, setPage] = useState(1);
@@ -74,10 +75,13 @@ export const ABMPage = () => {
       <hr className="border-5" />
       <section className={styles.list_abm}>
         <Row className={`g-0 ${styles.flexRow}`}>
-          {!isLoading &&
+          {!isLoading ? (
             data.encuestas.map((encuesta) => (
               <ABMCard key={encuesta._id} encuesta={encuesta} />
-            ))}
+            ))
+          ) : (
+            <LoadingSpinner />
+          )}
         </Row>
       </section>
       <ABMPagination
