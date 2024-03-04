@@ -1,7 +1,9 @@
 import { useState } from "react";
-import styles from "./ABMPage.module.css";
 import { useFetch } from "../hooks/useFetch";
-import { Card, Button, Row, Col, Pagination } from "react-bootstrap";
+import { ABMCard } from "../components/abm/card/ABMCard";
+import { ABMPagination } from "../components/abm/pagination/ABMPagination";
+import { Row } from "react-bootstrap";
+import styles from "./ABMPage.module.css";
 
 export const ABMPage = () => {
   const [page, setPage] = useState(1);
@@ -26,41 +28,18 @@ export const ABMPage = () => {
       </section>
       <hr className="border-5" />
       <section className={styles.list_abm}>
-        <Row
-          className={`${styles.rowFlex} ${
-            data && data?.encuestas.length > 1
-              ? "justify-content-around"
-              : "justify-content-center"
-          }`}
-        >
+        <Row className={`g-0 ${styles.flexRow}`}>
           {!isLoading &&
             data.encuestas.map((encuesta) => (
-              <Col xs={12} md={4} key={encuesta._id}>
-                <Card className={styles.cardMargin} style={{ width: "18rem" }}>
-                  <Card.Body>
-                    <Card.Title>{encuesta.nombre}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      {encuesta.categoria}
-                    </Card.Subtitle>
-                    <Card.Text>{encuesta.descripcion}</Card.Text>
-                    <Button variant="primary">Ver detalles</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
+              <ABMCard key={encuesta._id} encuesta={encuesta} />
             ))}
         </Row>
       </section>
-      <Pagination className="mt-5 justify-content-center">
-        <Pagination.Prev
-          onClick={() => handlePageChange(page - 1)}
-          disabled={page === 1}
-        />
-        <Pagination.Item active>{page}</Pagination.Item>
-        <Pagination.Next
-          onClick={() => handlePageChange(page + 1)}
-          disabled={page === (data ? data.totalPages : 1)}
-        />
-      </Pagination>
+      <ABMPagination
+        page={page}
+        handlePageChange={handlePageChange}
+        data={data}
+      />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import HomeV1 from "./components/home/HomeV1";
 import EncuestasV1 from "./components/encuestas/EncuestasV1";
 import Banners from "./components/banners/Banners";
 import Login from "./pages/Login";
+import { ABMPage } from "./pages/ABMPage";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/login" element={<Login />} />
           <Route path="/encuestas" element={<EncuestasV1 />} />
           <Route path="/encuestas2" element={<Banners />} />
+          <Route path="/abm" element={<ABMPage />} />
           <Route path="*" element={<h1>Error</h1>} />
         </Routes>
       </BrowserRouter>
