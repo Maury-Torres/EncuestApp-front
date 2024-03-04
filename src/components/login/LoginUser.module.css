@@ -2,15 +2,15 @@
 #container{
     width: 100%;
     max-width: 500px;
-    margin: 65px auto;
+    margin: 165px auto;
     padding: 20px;
     border-radius: 10px;
     background-color: #E4E5E7;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#inputField{
-    width: 100%;
+#input1{
+    width: 80%;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -18,8 +18,8 @@
     box-sizing: border-box;
     font-size: 16px;
 }
-#inputField2{
-    width: 100%;
+#input2{
+    width: 80%;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -28,7 +28,7 @@
     font-size: 16px;
 }
 
-#inputField:focus {
+#input:focus {
     outline: none;
     border-color: #007bff; 
   }

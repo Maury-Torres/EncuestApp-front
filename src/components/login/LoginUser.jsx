@@ -1,6 +1,9 @@
 import React, {useState, useRef} from 'react';
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { container, input1, input2, submitBtn  } from "../login/LoginUser.module.css";
 import { alertcustom } from '../../utils/alertCustom';
+
+const BASE_URL= import.meta.env.VITE_BASE_URL;
 
 const LoginUser = () => {
   const formDataRef = useRef({
@@ -40,15 +43,21 @@ const LoginUser = () => {
   };
 
   return (
-    <Container>
-      <h3>Login</h3>
-      <Row className = 'justify-content-center '>
-        <Col sm={10}>
+    <Col id={container} className="vh-50 w-100 d-flex"  >
+     <Container>
+            <div className="d-flex justify-content-center aling-items-center my-3 pb-3 border border-light border-0 border-bottom">
+                <div className="ms-4 text-center">
+                    <h1 className="display-5 fw-semibold text-black"> Login</h1>
+                </div>
+            </div>
+
+
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3"
-            controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+
+            <Form.Group>
+              <Form.Label className='fw-bold text-black'>Email address</Form.Label>
               <Form.Control
+              id={input1}
               type="email"
               placeholder="Enter email"
               name='email'
@@ -60,14 +69,14 @@ const LoginUser = () => {
               <Form.Control.Feedback type='invalid'>
                 {errors.email}
               </Form.Control.Feedback>
-              <Form.Control.Feedback type='vaild'>Hola
+              <Form.Control.Feedback type='valid'>
               </Form.Control.Feedback>
             </Form.Group>
             
-            <Form.Group className="mb-3"
-            controlId="formBasicpassword1">
-              <Form.Label>password</Form.Label>
+            <Form.Group>
+              <Form.Label className="fw-bold text-black">password</Form.Label>
               <Form.Control
+              id={input2}
               type="password"
               placeholder="Password"
               name='password'
@@ -79,15 +88,19 @@ const LoginUser = () => {
               <Form.Control.Feedback type='invalid'>
                 {errors.password}
               </Form.Control.Feedback>
-              <Form.Control.Feedback type='vaild'>Hola
+              <Form.Control.Feedback type='valid'>
               </Form.Control.Feedback>
             </Form.Group>
-            <Button variant="secondary" type="submit">Login
+
+            <Button
+            id={submitBtn}
+            className="my-3" 
+            variant="primary" 
+            type="submit">Login
             </Button>
           </Form>
-        </Col>
-      </Row>
     </Container>
+    </Col>
   )
 };
 
