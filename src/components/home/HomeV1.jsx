@@ -17,7 +17,7 @@ const HomeV1 = () => {
             respuestas de manera fácil y segura.
           </p>
           <div>
-            <Link to="/encuestas">
+            <Link to="/banners">
               <Button variant="info" size="lg" className="rounded-5">
                 Empezar
               </Button>

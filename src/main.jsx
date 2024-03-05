@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/" element={<HomeV1 />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/encuestas2" element={<Banners />} />
+          <Route path="/banners" element={<Banners />} />
           <Route path="/abm" element={<ABMPage />} />
           <Route path="*" element={<h1>Error</h1>} />
 
