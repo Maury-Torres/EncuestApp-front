@@ -7,7 +7,6 @@ import { Register } from "./pages/Register";
 import { NavbarTest } from "./components/navbar/NavbarTest";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeV1 from "./components/home/HomeV1";
-
 import Banners from "./components/banners/Banners";
 import Login from "./pages/Login";
 import { ABMPage } from "./pages/ABMPage";
