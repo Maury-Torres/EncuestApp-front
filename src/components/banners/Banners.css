@@ -1,10 +1,17 @@
 .category-img {
-  
-  
-  position:sticky;
-  width: 205px; 
-  height: auto;
-  border-radius: 30px; 
-  margin: 50px; 
+  position: sticky;
+  opacity: 90%;
 }
 
+.card{
+  background-color: #FF9B00;
+}
+
+a{
+  text-decoration: none;
+  
+}
+
+#cardStyle:hover{
+  background-color: #31D2F2;
+}
