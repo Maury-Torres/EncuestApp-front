@@ -17,10 +17,8 @@ import axios from "axios";
 import { alertcustom } from "../../utils/alertCustom.js";
 import { messages } from "../../utils/message.js";
 import "animate.css";
-// import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const FormRegister = () => {
@@ -37,13 +35,10 @@ export const FormRegister = () => {
   const togglePasswordVisibilityConfirm = () => {
     setPasswordVisibleConfirm(!passwordVisibleConfirm);
   };
-  // function handleRedirect() {
-  //     const history = useHistory();
-  //     history.push('/encuestas2');
-  //   }
 
   const onSubmit = async (data) => {
     try {
+
       if (!passwordRegex.test(data.password)) {
         return alertcustom(
           "La contraseña debe tener: una mayuscula, una minuscula, un numero, un caracter, min 8 caracteres",
@@ -67,14 +62,13 @@ export const FormRegister = () => {
         },
       });
 
-      alertcustom(messages.userSuccessful, messages.congratulations, "success");
-      console.log(response);
-      console.log(data);
+        alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {window.location.href = "/home"});
+
     } catch (error) {
       console.log(error);
 
       if (error.code == "ERR_NETWORK") {
-        alert("error de red");
+        alertcustom('Error de red','Error','warning')
       }
     }
   };
@@ -82,10 +76,10 @@ export const FormRegister = () => {
   return (
     <Col
       id={container}
-      className="container vh-50  w-100 d-flex justify-content-center animate__animated animate__backInDown"
+      className=" d-flex justify-content-center animate__animated animate__backInDown"
     >
       <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <div className="text-center d-flex aling-items-center my- pb-3 border border-light border-0 border-bottom">
+        <div className="text-center aling-items-center  pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-start">
             <h1 className="display-5 fw-semibold text-black"> EncuestApp</h1>
           </div>
