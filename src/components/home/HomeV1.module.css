@@ -1,27 +1,21 @@
-
 body{
-
-  margin-top: 6%;
+  margin-top: 5%;
   padding: 0;
   background-image: url(/src/assets/fondo.webp);
-  background-size: cover ;
+  background-size: cover;
   background-position: center;
   background-attachment: fixed;
   color: azure;
-
 }
 
-#container{
+#container {
   position: absolute;
   top: 300px;
   left: 50px;
 }
 
-img{
-
+img {
   position: absolute;
   top: 50px;
   right: 50px;
-
 }
-
