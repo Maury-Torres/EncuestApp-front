@@ -52,19 +52,14 @@ export const FormRegister = () => {
         );
       }
 
-      //   const response = await axios.post(`${BASE_URL}/api/signup`, data, {
-      //     withCredentials: true,
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      const response = await fetch(`http://localhost:3000/api/signup`, {
+      const response = await fetch(`${BASE_URL}/api/signup`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({
           username: data.userName,
           email: data.email,
           password: data.password,
+          confirmPassword: data.confirmPassword
         }),
         headers: {
           "Content-Type": "application/json",
