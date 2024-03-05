@@ -25,7 +25,7 @@ export const NavbarTest = () => {
             </Button>
             <Button id={button3} size="sm">
               <Navbar.Text>
-                <Link to='/register' className='fw-bold text-decoration-none'>Admin</Link>
+                <Link to='/admin' className='fw-bold text-decoration-none'>Admin</Link>
               </Navbar.Text>
             </Button>
           </Nav>
