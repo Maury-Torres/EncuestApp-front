@@ -12,7 +12,12 @@ export const ABMPage = () => {
   const [orderByDate, setOrderByDate] = useState("");
   const [orderByCategory, setOrderByCategory] = useState("");
 
-  const { data, error, hasError, isLoading } = useFetch(
+  //TODO 1. el metodo de react-router-dom para traer los queries y crear una variable para ir agregando las queries.
+  //TODO 2. ordenar correctamente los estilos de la pagina.
+  //TODO 3. Separar en otro componente a los selects.
+  //TODO 4. Agregar las funcionalidades de los botones Crear encuesta y categoria.
+  //TODO 5. Debo crear una tabla categorias y hacer un fetch en el select.
+  const { data, isLoading } = useFetch(
     `http://localhost:3000/api/encuestas?page=${page}&order=${orderByDate}&categoria=${orderByCategory}`
   );
 
