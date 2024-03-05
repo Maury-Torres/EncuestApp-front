@@ -52,16 +52,20 @@ export const FormRegister = () => {
         );
       }
 
-    //   const response = await axios.post(`${BASE_URL}/api/signup`, data, {
-    //     withCredentials: true,
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    const response = await fetch(`http://localhost:3000/api/signup`, {
+      //   const response = await axios.post(`${BASE_URL}/api/signup`, data, {
+      //     withCredentials: true,
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
+      const response = await fetch(`http://localhost:3000/api/signup`, {
         method: "POST",
         credentials: "include",
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          username: data.userName,
+          email: data.email,
+          password: data.password,
+        }),
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
