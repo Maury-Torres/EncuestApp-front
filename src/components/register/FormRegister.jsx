@@ -13,7 +13,6 @@ import {
 } from "./FormRegister.module.css";
 import { passwordRegex } from "../../utils/passwordRegex.js";
 import { emailRegex } from "../../utils/emailRegex.js";
-import axios from "axios";
 import { alertcustom } from "../../utils/alertCustom.js";
 import { messages } from "../../utils/message.js";
 import "animate.css";
@@ -38,39 +37,41 @@ export const FormRegister = () => {
 
   const onSubmit = async (data) => {
     try {
+        if (!passwordRegex.test(data.password)) {
+          return alertcustom(
+            "La contraseña debe tener: una mayuscula, una minuscula, un numero, un caracter, min 8 caracteres",
+            "Error",
+            "warning"
+          );
+        }
 
-      if (!passwordRegex.test(data.password)) {
-        return alertcustom(
-          "La contraseña debe tener: una mayuscula, una minuscula, un numero, un caracter, min 8 caracteres",
-          "Error",
-          "warning"
-        );
+        const response = await fetch(`${BASE_URL}/api/signup`, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify({
+              username: data.userName,
+              email: data.email,
+              password: data.password,
+              confirmPassword: data.confirmPassword
+              }),
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Credentials": true,
+            },
+            });
+
+        if (response.status === 400) {
+          return alertcustom('', messages.emailRegister, "error");
+        } else {
+          alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {window.location.href = "/home"});
+        }
+      } 
+      catch (error) {
+        console.log(error);
+        if (error.code == "ERR_NETWORK") {
+          alertcustom('Error de red','Error','warning')
+        }
       }
-
-      const response = await fetch(`${BASE_URL}/api/signup`, {
-        method: "POST",
-        credentials: "include",
-        body: JSON.stringify({
-          username: data.userName,
-          email: data.email,
-          password: data.password,
-          confirmPassword: data.confirmPassword
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      });
-
-        alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {window.location.href = "/home"});
-
-    } catch (error) {
-      console.log(error);
-
-      if (error.code == "ERR_NETWORK") {
-        alertcustom('Error de red','Error','warning')
-      }
-    }
   };
 
   return (
@@ -81,7 +82,7 @@ export const FormRegister = () => {
       <Form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="text-center aling-items-center  pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-start">
-            <h1 className="display-5 fw-semibold text-black"> EncuestApp</h1>
+            <h1 className="display-5 fw-semibold text-black"> EncuestApp </h1>
           </div>
         </div>
 
@@ -148,17 +149,17 @@ export const FormRegister = () => {
                     "Su contraseña debe contener como minimo 8 caracteres, una letra mayúscula, una minúscula, un numero, un caracter especial",
                 },
               })}
-            />
-            <div className="input-group-append">
-              <button
-                id={hiddenButton}
-                type="button"
-                className="toggle-password-visibility"
-                onClick={togglePasswordVisibility}
-              >
-                <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
-              </button>
-            </div>
+              />
+              <div className="input-group-append">
+                <button
+                  id={hiddenButton}
+                  type="button"
+                  className="toggle-password-visibility"
+                  onClick={togglePasswordVisibility}
+                  >
+                  <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
+                </button>
+              </div>
             <Form.Control.Feedback type="invalid">
               {errors.password?.message}
             </Form.Control.Feedback>
@@ -188,30 +189,24 @@ export const FormRegister = () => {
                 return "Las contraseñas no coinciden";
               },
             })}
-          />
-          <div>
-            <button
-              id={hiddenButtonConfirm}
-              type="button"
-              className="toggle-password-visibility"
-              onClick={togglePasswordVisibilityConfirm}
-            >
-              <FontAwesomeIcon
-                icon={passwordVisibleConfirm ? faEye : faEyeSlash}
-              />
-            </button>
-          </div>
+            />
+            <div>
+              <button
+                id={hiddenButtonConfirm}
+                type="button"
+                className="toggle-password-visibility"
+                onClick={togglePasswordVisibilityConfirm}
+                >
+                <FontAwesomeIcon
+                  icon={passwordVisibleConfirm ? faEye : faEyeSlash}
+                />
+              </button>
+            </div>
           <Form.Control.Feedback type="invalid">
             {errors.confirmPassword?.message}
           </Form.Control.Feedback>
         </InputGroup>
 
-        {/* <Form.Group>
-          <Form.Label className="fw-bold text-black">
-            Acepto terminos y condiciones
-          </Form.Label>
-          <input type="checkbox" />
-        </Form.Group> */}
         <Button id={submitBtn} className="mt-3" variant="primary" type="submit">
           Registrarse
         </Button>
