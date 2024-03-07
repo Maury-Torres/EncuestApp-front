@@ -1,11 +1,14 @@
-import { Footer } from "../components/footer/Footer";
+import React from "react";
+import { Container, Col } from "react-bootstrap";
+import EncuestasV1 from "../components/EncuestasV1";
 
 export const Encuestas = () => {
   return (
-    <>
-      <div>Encuestas</div>
-      <Footer />
-    </>
+    <Container>
+      <Col>
+        <EncuestasV1 />
+      </Col>
+    </Container>
   );
 };
 
