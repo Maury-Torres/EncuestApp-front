@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
+import { ABMFiltros } from "../components/abm/filtros/ABMFiltros";
+import { Row } from "react-bootstrap";
 import { ABMCard } from "../components/abm/card/ABMCard";
 import { ABMPagination } from "../components/abm/pagination/ABMPagination";
-import { Row } from "react-bootstrap";
-import styles from "./ABMPage.module.css";
 import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
-import { ABMFiltros } from "../components/abm/filtros/ABMFiltros";
 
 export const ABMPage = () => {
   const [page, setPage] = useState(1);
@@ -13,13 +12,10 @@ export const ABMPage = () => {
   const [orderByCategory, setOrderByCategory] = useState("");
 
   //TODO 1. el metodo de react-router-dom para traer los queries y crear una variable para ir agregando las queries.
-  //TODO 3. Separar en otro componente a los selects.
   //TODO 4. Agregar las funcionalidades de los botones Crear encuesta y categoria.
   const { data, isLoading } = useFetch(
     `http://localhost:3000/api/encuestas?page=${page}&order=${orderByDate}&categoria=${orderByCategory}`
   );
-
-  const [userName, setUserName] = useState("Admin"); //! Placeholder
 
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
@@ -35,7 +31,6 @@ export const ABMPage = () => {
 
   return (
     <div className="container-fluid">
-      <h1 className="h1 text-center">Bienvenido, {userName}!</h1>
       <div className="row align-items-center">
         <ABMFiltros
           orderByDate={orderByDate}
@@ -55,8 +50,8 @@ export const ABMPage = () => {
             </div>
           </section>
           <hr className="border-5" />
-          <section className={styles.list_abm}>
-            <Row className={`g-0 ${styles.flexRow}`}>
+          <section>
+            <Row className={`g-0`}>
               {!isLoading ? (
                 data.encuestas.map((encuesta) => (
                   <ABMCard key={encuesta._id} encuesta={encuesta} />

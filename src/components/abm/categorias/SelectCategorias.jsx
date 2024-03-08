@@ -12,6 +12,7 @@ export const SelectCategorias = ({
       id="categoria"
       value={orderByCategory}
       onChange={(e) => handleOrderByCategory(e.target.value)}
+      className="mb-3 bg-white bg-opacity-75 border-secondary text-black mt"
     >
       <option disabled value="">
         Categorias

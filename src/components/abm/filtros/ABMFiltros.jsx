@@ -14,11 +14,20 @@ export const ABMFiltros = ({
       style={{ top: 0 }}
     >
       <div className="d-flex flex-column align-items-center">
-        <p className="text-center">Ordenar por:</p>
+        <h2 className="mt-2 text-secondary">Filtros</h2>
+        <input
+          type="search"
+          name="abmBuscador"
+          id="abmBuscador"
+          placeholder="Buscar..."
+          className="form-control mt-3 mb-3 text-center bg-white bg-opacity-75 border-secondary text-black"
+        />
+        <p className="text-center mt-3">Ordenar por:</p>
         <Select
           name="order"
           id="order"
           value={orderByDate}
+          className="mb-3 bg-white bg-opacity-75 border-secondary text-black mt"
           onChange={(e) => handleOrderByDate(e.target.value)}
         >
           <option disabled value="">
@@ -27,7 +36,7 @@ export const ABMFiltros = ({
           <option value="asc">Ascendente</option>
           <option value="desc">Descendente</option>
         </Select>
-        <p className="text-center">Filtrar por:</p>
+        <p className="text-center mt-3">Filtrar por:</p>
         <SelectCategorias
           orderByCategory={orderByCategory}
           handleOrderByCategory={handleOrderByCategory}
