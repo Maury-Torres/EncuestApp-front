@@ -77,7 +77,6 @@ export const FormRegister = () => {
 
         if (response.status === 400) {
           return alertcustom('', messages.emailRegister, "error");
-          
         } else {
           // alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {});
           Toast.fire({
