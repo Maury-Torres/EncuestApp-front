@@ -22,8 +22,6 @@ export const ABMPage = () => {
     `http://localhost:3000/api/encuestas?page=${page}&order=${orderByDate}&categoria=${orderByCategory}`
   );
 
-  console.log(data);
-
   const [userName, setUserName] = useState("Admin"); //! Placeholder
 
   const handlePageChange = (pageNumber) => {
@@ -39,64 +37,59 @@ export const ABMPage = () => {
   };
 
   return (
-    <div className="d-flex flex-column align-items-center">
-      <section className="header-abm">
-        <h1 className="h1 text-center">Bienvenido, {userName}!</h1>
-        <div className="d-flex justify-content-between mt-5 gap-5">
-          <button className="btn btn-primary p-3">Crear nueva encuesta</button>
-          <button className="btn btn-primary p-3">Crear nueva categoria</button>
+    <div className="container-fluid">
+      <h1 className="h1 text-center">Bienvenido, {userName}!</h1>
+      <div className="row align-items-center">
+        <div
+          className="col-lg-2 order-lg-1 position-sticky bg-primary p-5 bg-opacity-25 rounded-3 d-none d-lg-block min-vh-100"
+          style={{ top: 0 }}
+        >
+          <div className="d-flex flex-column align-items-center">
+            <p className="text-center">Ordenar por:</p>
+            <Select
+              name="order"
+              id="order"
+              value={orderByDate}
+              onChange={(e) => handleOrderByDate(e.target.value)}
+            >
+              <option disabled value="">
+                Fecha de creación
+              </option>
+              <option value="asc">Ascendente</option>
+              <option value="desc">Descendente</option>
+            </Select>
+            <p className="text-center">Filtrar por:</p>
+            <SelectCategorias
+              orderByCategory={orderByCategory}
+              handleOrderByCategory={handleOrderByCategory}
+            />
+          </div>
         </div>
-      </section>
-      <hr className="border-5" />
-      <section>
-        <article className="">
-          <p className="text-center">Ordenar por:</p>
-          <Select
-            name="order"
-            id="order"
-            value={orderByDate}
-            onChange={(e) => handleOrderByDate(e.target.value)}
-          >
-            <option disabled value="">
-              Fecha de creación
-            </option>
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
-          </Select>
-          <p className="text-center mt-4">Filtrar por:</p>
-
-          {/*     <Select
-            name="category"
-            id="category"
-            value={orderByCategory}
-            onChange={(e) => handleOrderByCategory(e.target.value)}
-          >
-            <option disabled value="">
-              Categorias
-            </option>
-            <option value="Default">Por defecto</option>
-            <option value="Deportes">Deportes</option>
-            <option value="Animales">Animales</option>
-          </Select> */}
-
-          <SelectCategorias
-            orderByCategory={orderByCategory}
-            handleOrderByCategory={handleOrderByCategory}
-          />
-        </article>
-      </section>
-      <hr className="border-5" />
-      <section className={styles.list_abm}>
-        <Row className={`g-0 ${styles.flexRow}`}>
-          {!isLoading ? (
-            data.encuestas.map((encuesta) => (
-              <ABMCard key={encuesta._id} encuesta={encuesta} />
-            ))
-          ) : (
-            <LoadingSpinner />
-          )}
-        </Row>
-      </section>
+        <div className="col-12 col-lg-10 order-lg-2 min-vh-100">
+          <section className="header-abm">
+            <div className="d-flex justify-content-evenly mt-5 gap-5">
+              <button className="btn btn-primary p-3">
+                Crear nueva encuesta
+              </button>
+              <button className="btn btn-primary p-3">
+                Crear nueva categoria
+              </button>
+            </div>
+          </section>
+          <hr className="border-5" />
+          <section className={styles.list_abm}>
+            <Row className={`g-0 ${styles.flexRow}`}>
+              {!isLoading ? (
+                data.encuestas.map((encuesta) => (
+                  <ABMCard key={encuesta._id} encuesta={encuesta} />
+                ))
+              ) : (
+                <LoadingSpinner />
+              )}
+            </Row>
+          </section>
+        </div>
+      </div>
       <ABMPagination
         page={page}
         handlePageChange={handlePageChange}
