@@ -18,6 +18,8 @@ import { messages } from "../../utils/message.js";
 import "animate.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const FormRegister = () => {
@@ -34,6 +36,19 @@ export const FormRegister = () => {
   const togglePasswordVisibilityConfirm = () => {
     setPasswordVisibleConfirm(!passwordVisibleConfirm);
   };
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+
 
   const onSubmit = async (data) => {
     try {
@@ -62,8 +77,16 @@ export const FormRegister = () => {
 
         if (response.status === 400) {
           return alertcustom('', messages.emailRegister, "error");
+          
         } else {
-          alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {window.location.href = "/home"});
+          // alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {});
+          Toast.fire({
+            icon: "success",
+            title: messages.userSuccessful
+          })
+          // .then(() => {
+          //   window.location.href = "/home"
+          // })
         }
       } 
       catch (error) {
