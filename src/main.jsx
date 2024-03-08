@@ -10,6 +10,7 @@ import HomeV1 from "./components/home/HomeV1";
 import Banners from "./components/banners/Banners";
 import Login from "./pages/Login";
 import { ABMPage } from "./pages/ABMPage";
+import { Footer } from "./components/footer/Footer";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="*" element={<h1>Error</h1>} />
 
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </>
   </React.StrictMode>
