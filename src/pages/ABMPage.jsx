@@ -6,6 +6,7 @@ import { Row } from "react-bootstrap";
 import styles from "./ABMPage.module.css";
 import { Select } from "../components/ui/select/Select";
 import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
+import { SelectCategorias } from "../components/abm/categorias/SelectCategorias";
 
 export const ABMPage = () => {
   const [page, setPage] = useState(1);
@@ -20,6 +21,8 @@ export const ABMPage = () => {
   const { data, isLoading } = useFetch(
     `http://localhost:3000/api/encuestas?page=${page}&order=${orderByDate}&categoria=${orderByCategory}`
   );
+
+  console.log(data);
 
   const [userName, setUserName] = useState("Admin"); //! Placeholder
 
@@ -62,7 +65,7 @@ export const ABMPage = () => {
           </Select>
           <p className="text-center mt-4">Filtrar por:</p>
 
-          <Select
+          {/*     <Select
             name="category"
             id="category"
             value={orderByCategory}
@@ -74,7 +77,12 @@ export const ABMPage = () => {
             <option value="Default">Por defecto</option>
             <option value="Deportes">Deportes</option>
             <option value="Animales">Animales</option>
-          </Select>
+          </Select> */}
+
+          <SelectCategorias
+            orderByCategory={orderByCategory}
+            handleOrderByCategory={handleOrderByCategory}
+          />
         </article>
       </section>
       <hr className="border-5" />
