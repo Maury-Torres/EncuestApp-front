@@ -10,6 +10,7 @@ import Banners from "./components/banners/Banners";
 import Login from "./pages/Login";
 import { ABMPage } from "./pages/ABMPage";
 import { EncuestasProvider } from "./context/EncuestaContext";
+import { Footer } from "./components/footer/Footer";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -32,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </Route>
           <Route path="*" element={<h1>Error</h1>} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   </React.StrictMode>
