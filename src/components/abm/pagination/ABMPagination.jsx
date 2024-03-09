@@ -3,6 +3,8 @@ import propTypes from "prop-types";
 
 // eslint-disable-next-line react/prop-types
 export const ABMPagination = ({ page, handlePageChange, data }) => {
+  // eslint-disable-next-line react/prop-types
+  const { totalPages, currentPage } = data;
   return (
     <>
       <Pagination className="mt-5 justify-content-center">
@@ -10,11 +12,11 @@ export const ABMPagination = ({ page, handlePageChange, data }) => {
           onClick={() => handlePageChange(page - 1)}
           disabled={page === 1}
         />
-        <Pagination.Item active>{page}</Pagination.Item>
+        <Pagination.Item active>{currentPage}</Pagination.Item>
         <Pagination.Next
           onClick={() => handlePageChange(page + 1)}
           // eslint-disable-next-line react/prop-types
-          disabled={page === (data ? data.totalPages : 1)}
+          disabled={page === totalPages || totalPages === 0 ? true : false}
         />
       </Pagination>
     </>
