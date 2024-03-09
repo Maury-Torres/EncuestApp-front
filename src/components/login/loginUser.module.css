@@ -1,16 +1,25 @@
 
 #container{
     width: 100%;
-    max-width: 400px;
-    margin: 0 auto 100px auto;
+    max-width: 500px;
+    margin: 165px auto;
     padding: 20px;
     border-radius: 10px;
     background-color: #E4E5E7;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#inputFieldName{
-    width: 100%;
+#input1{
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+#input2{
+    width: 80%;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -19,35 +28,7 @@
     font-size: 16px;
 }
 
-#inputField{
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-#inputField2{
-    width: 50%;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-#inputField3{
-    width: 50%;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
-
-#inputField:focus {
+#input:focus {
     outline: none;
     border-color: #007bff; 
   }
@@ -66,21 +47,6 @@
 #submitBtn:hover {
     background-color: #0056b3;
   }
-
-#hiddenButton{
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 70%;
-    background-color: white;
-}
-
-#hiddenButtonConfirm{
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    height: 70%;
-    background-color: white;
-}
-
 
   @media (max-width: 911px){
     #container{
