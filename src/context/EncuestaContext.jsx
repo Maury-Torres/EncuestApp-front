@@ -127,10 +127,10 @@ export const EncuestasProvider = ({ children }) => {
     <EncuestasContext.Provider
       value={{
         encuestas,
-        getEncuestas,
         isLoading,
         data,
         errors,
+        getEncuestas,
         createEncuesta,
         updateEncuesta,
         deleteEncuesta,

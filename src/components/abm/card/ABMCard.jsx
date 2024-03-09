@@ -24,12 +24,16 @@ export const ABMCard = ({ encuesta, updateEncuesta }) => {
             {encuesta.categoria.nombre}
           </Card.Subtitle>
           <Card.Text>{encuesta.descripcion}</Card.Text>
+          <Card.Text>
+            Estado: {encuesta.available ? "Disponible" : "No disponible"}
+          </Card.Text>
+
           <Button variant="primary">Ver detalles</Button>
           <Form.Check
             type="checkbox"
             checked={encuesta.available}
             id={encuesta._id}
-            label="Check this custom checkbox"
+            label={encuesta.available ? "Deshabilitar" : "Habilitar"}
             onChange={handleCheckbox}
           />
         </Card.Body>
