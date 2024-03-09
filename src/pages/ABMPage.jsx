@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ABMFiltros } from "../components/abm/filtros/ABMFiltros";
 import { useEncuestas } from "../context/EncuestaContext";
-import { useSearchParams, useLocation } from "react-router-dom";
+import { useSearchParams, useLocation, Link } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import { ABMCard } from "../components/abm/card/ABMCard";
 import { ABMPagination } from "../components/abm/pagination/ABMPagination";
@@ -11,7 +11,6 @@ import { TbCategoryPlus } from "react-icons/tb";
 
 export const ABMPage = () => {
   //! Refactorizar el codigo.
-  //TODO agregar boton para resetear los filtros
 
   const {
     encuestas,
@@ -91,9 +90,13 @@ export const ABMPage = () => {
                 <button className="btn btn-warning p-3 shadow-lg">
                   Nueva encuesta <RiSurveyFill />
                 </button>
-                <button className="btn btn-light p-3 shadow-lg">
+
+                <Link
+                  to="/crear-categoria"
+                  className="btn btn-light p-3 shadow-lg"
+                >
                   Nueva categoria <TbCategoryPlus />
-                </button>
+                </Link>
               </div>
               <ABMFiltros
                 orderByDate={orderByDate}
