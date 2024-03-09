@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Container, Col, Form, Button } from "react-bootstrap";
-import { container, input1, input2, submitBtn } from "../login/LoginUser.module.css";
+import { container, input1, input2, submitBtn } from "../login/LoginUser1.module.css";
 import { alertcustom } from '../../utils/alertCustom';
 
 const BASE_URL= import.meta.env.VITE_BASE_URL;
