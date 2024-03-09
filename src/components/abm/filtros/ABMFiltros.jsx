@@ -7,6 +7,7 @@ export const ABMFiltros = ({
   handleOrderByDate,
   orderByCategory,
   handleOrderByCategory,
+  clearFilters,
 }) => {
   return (
     <>
@@ -18,6 +19,9 @@ export const ABMFiltros = ({
           placeholder="Buscar..."
           className="form-control mt-3 mb-3 text-center bg-white bg-opacity-75 border-secondary text-black"
         /> */}
+        <button className="btn btn-danger mt-4" onClick={clearFilters}>
+          Limpiar filtros
+        </button>
         <div>
           <p className="text-center">Ordenar por:</p>
           <Select

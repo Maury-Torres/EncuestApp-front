@@ -67,6 +67,16 @@ export const ABMPage = () => {
     setUpdateCheckbox(updateCheckbox + 1);
   };
 
+  const clearFilters = () => {
+    setOrderByDate("");
+    setOrderByCategory("");
+    setPage(1);
+    searchParams.delete("order");
+    searchParams.delete("categoria");
+    searchParams.set("page", 1);
+    setSearchParams(searchParams);
+  };
+
   useEffect(() => {
     getEncuestas(paramsString);
   }, [page, orderByDate, orderByCategory, updateCheckbox]);
@@ -90,6 +100,7 @@ export const ABMPage = () => {
                 handleOrderByDate={handleOrderByDate}
                 orderByCategory={orderByCategory}
                 handleOrderByCategory={handleOrderByCategory}
+                clearFilters={clearFilters}
               />
             </div>
           </section>
