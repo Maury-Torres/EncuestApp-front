@@ -1,94 +1,102 @@
-import { useState } from "react";
-import { useFetch } from "../hooks/useFetch";
+import { useEffect, useState } from "react";
+import { ABMFiltros } from "../components/abm/filtros/ABMFiltros";
+import { Row } from "react-bootstrap";
 import { ABMCard } from "../components/abm/card/ABMCard";
 import { ABMPagination } from "../components/abm/pagination/ABMPagination";
-import { Row } from "react-bootstrap";
-import styles from "./ABMPage.module.css";
-import { Select } from "../components/ui/select/Select";
 import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
+import { useEncuestas } from "../context/EncuestaContext";
+import { useSearchParams } from "react-router-dom";
 
 export const ABMPage = () => {
+  const {
+    encuestas,
+    getEncuestas,
+    isLoading,
+    data,
+    errors,
+    createEncuesta,
+    updateEncuesta,
+  } = useEncuestas();
   const [page, setPage] = useState(1);
   const [orderByDate, setOrderByDate] = useState("");
   const [orderByCategory, setOrderByCategory] = useState("");
+  const [searchParams] = useSearchParams();
 
-  //TODO 1. el metodo de react-router-dom para traer los queries y crear una variable para ir agregando las queries.
-  //TODO 2. ordenar correctamente los estilos de la pagina.
-  //TODO 3. Separar en otro componente a los selects.
-  //TODO 4. Agregar las funcionalidades de los botones Crear encuesta y categoria.
-  //TODO 5. Debo crear una tabla categorias y hacer un fetch en el select.
-  const { data, isLoading } = useFetch(
-    `http://localhost:3000/api/encuestas?page=${page}&order=${orderByDate}&categoria=${orderByCategory}`
-  );
+  /* const buildUrl = () => {
+    const params = new URLSearchParams();
+    if (page) params.append("page", page);
+    if (orderByDate) params.append("order", orderByDate);
+    if (orderByCategory) params.append("categoria", orderByCategory);
 
-  const [userName, setUserName] = useState("Admin"); //! Placeholder
+    return `http://localhost:3000/api/encuestas?${params.toString()}`;
+  }; */
 
+  /*   const { data } = useFetch(buildUrl());
+   */
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
+    searchParams.set("page", pageNumber);
   };
 
   const handleOrderByDate = (date) => {
     setOrderByDate(date);
+    searchParams.set("order", date);
   };
 
   const handleOrderByCategory = (category) => {
     setOrderByCategory(category);
   };
 
-  return (
-    <div className="d-flex flex-column align-items-center">
-      <section className="header-abm">
-        <h1 className="h1 text-center">Bienvenido, {userName}!</h1>
-        <div className="d-flex justify-content-between mt-5 gap-5">
-          <button className="btn btn-primary p-3">Crear nueva encuesta</button>
-          <button className="btn btn-primary p-3">Crear nueva categoria</button>
-        </div>
-      </section>
-      <hr className="border-5" />
-      <section>
-        <article className="">
-          <p className="text-center">Ordenar por:</p>
-          <Select
-            name="order"
-            id="order"
-            value={orderByDate}
-            onChange={(e) => handleOrderByDate(e.target.value)}
-          >
-            <option disabled value="">
-              Fecha de creación
-            </option>
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
-          </Select>
-          <p className="text-center mt-4">Filtrar por:</p>
+  useEffect(() => {
+    getEncuestas();
+  }, [encuestas]);
 
-          <Select
-            name="category"
-            id="category"
-            value={orderByCategory}
-            onChange={(e) => handleOrderByCategory(e.target.value)}
-          >
-            <option disabled value="">
-              Categorias
-            </option>
-            <option value="Default">Por defecto</option>
-            <option value="Deportes">Deportes</option>
-            <option value="Animales">Animales</option>
-          </Select>
-        </article>
-      </section>
-      <hr className="border-5" />
-      <section className={styles.list_abm}>
-        <Row className={`g-0 ${styles.flexRow}`}>
-          {!isLoading ? (
-            data.encuestas.map((encuesta) => (
-              <ABMCard key={encuesta._id} encuesta={encuesta} />
-            ))
-          ) : (
-            <LoadingSpinner />
-          )}
-        </Row>
-      </section>
+  return (
+    <div className="container-fluid">
+      <div className="row align-items-center">
+        <ABMFiltros
+          orderByDate={orderByDate}
+          handleOrderByDate={handleOrderByDate}
+          orderByCategory={orderByCategory}
+          handleOrderByCategory={handleOrderByCategory}
+        />
+        <div className="col-12 col-lg-10 order-lg-2 min-vh-100">
+          <section className="header-abm">
+            <div className="d-flex justify-content-evenly mt-5 gap-5">
+              <button className="btn btn-primary p-3">
+                Crear nueva encuesta
+              </button>
+              <button className="btn btn-primary p-3">
+                Crear nueva categoria
+              </button>
+            </div>
+          </section>
+          <hr className="border-5" />
+          <section>
+            <Row className={`g-0`}>
+              {!isLoading ? (
+                encuestas.length > 0 ? (
+                  encuestas.map((encuesta, index) => (
+                    <ABMCard
+                      key={index + encuesta._id}
+                      encuesta={encuesta}
+                      updateEncuesta={updateEncuesta}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center">
+                    No hay encuestas para mostrar.
+                  </div>
+                )
+              ) : (
+                <div className="d-flex justify-content-center mt-5">
+                  <LoadingSpinner />
+                </div>
+              )}
+            </Row>
+          </section>
+        </div>
+      </div>
       <ABMPagination
         page={page}
         handlePageChange={handlePageChange}
