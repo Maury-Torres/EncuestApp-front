@@ -6,7 +6,7 @@ import styles from "./ABMCard.module.css";
 export const ABMCard = ({ encuesta, handleCheckboxChange }) => {
   return (
     <Col xs={12} md={encuesta.length < 2 ? 12 : 6}>
-      <Card className={`${styles.cardMargin}`}>
+      <Card className={`${styles.cardMargin} ${styles.cardBackground}`}>
         <Card.Body>
           <Card.Title>
             <strong>{encuesta.nombre}</strong>

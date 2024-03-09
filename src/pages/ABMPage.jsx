@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { ABMFiltros } from "../components/abm/filtros/ABMFiltros";
+import { useEncuestas } from "../context/EncuestaContext";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import { ABMCard } from "../components/abm/card/ABMCard";
 import { ABMPagination } from "../components/abm/pagination/ABMPagination";
 import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
-import { useEncuestas } from "../context/EncuestaContext";
-import { useSearchParams, useLocation } from "react-router-dom";
 import { RiSurveyFill } from "react-icons/ri";
 import { TbCategoryPlus } from "react-icons/tb";
 
 export const ABMPage = () => {
   //! Refactorizar el codigo.
+  //TODO agregar boton para resetear los filtros
 
   const {
     encuestas,
@@ -75,12 +76,12 @@ export const ABMPage = () => {
       <div className="row align-items-center">
         <div className="col-12">
           <section className="header-abm">
-            <div className="d-flex justify-content-between align-items-center mt-5 gap-5">
-              <div className="d-flex align-items-center gap-3">
-                <button className="btn btn-primary p-3">
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 gap-5">
+              <div className="d-flex align-items-center gap-3 mt-3 mt-md-0">
+                <button className="btn btn-warning p-3 shadow-lg">
                   Nueva encuesta <RiSurveyFill />
                 </button>
-                <button className="btn btn-primary p-3">
+                <button className="btn btn-light p-3 shadow-lg">
                   Nueva categoria <TbCategoryPlus />
                 </button>
               </div>
