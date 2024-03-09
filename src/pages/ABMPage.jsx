@@ -1,33 +1,55 @@
-import { useState } from "react";
-import { useFetch } from "../hooks/useFetch";
+import { useEffect, useState } from "react";
 import { ABMFiltros } from "../components/abm/filtros/ABMFiltros";
 import { Row } from "react-bootstrap";
 import { ABMCard } from "../components/abm/card/ABMCard";
 import { ABMPagination } from "../components/abm/pagination/ABMPagination";
 import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
+import { useEncuestas } from "../context/EncuestaContext";
+import { useSearchParams } from "react-router-dom";
 
 export const ABMPage = () => {
+  const {
+    encuestas,
+    getEncuestas,
+    isLoading,
+    data,
+    errors,
+    createEncuesta,
+    updateEncuesta,
+  } = useEncuestas();
   const [page, setPage] = useState(1);
   const [orderByDate, setOrderByDate] = useState("");
   const [orderByCategory, setOrderByCategory] = useState("");
+  const [searchParams] = useSearchParams();
 
-  //TODO 1. el metodo de react-router-dom para traer los queries y crear una variable para ir agregando las queries.
-  //TODO 4. Agregar las funcionalidades de los botones Crear encuesta y categoria.
-  const { data, isLoading } = useFetch(
-    `http://localhost:3000/api/encuestas?page=${page}&order=${orderByDate}&categoria=${orderByCategory}`
-  );
+  /* const buildUrl = () => {
+    const params = new URLSearchParams();
+    if (page) params.append("page", page);
+    if (orderByDate) params.append("order", orderByDate);
+    if (orderByCategory) params.append("categoria", orderByCategory);
 
+    return `http://localhost:3000/api/encuestas?${params.toString()}`;
+  }; */
+
+  /*   const { data } = useFetch(buildUrl());
+   */
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
+    searchParams.set("page", pageNumber);
   };
 
   const handleOrderByDate = (date) => {
     setOrderByDate(date);
+    searchParams.set("order", date);
   };
 
   const handleOrderByCategory = (category) => {
     setOrderByCategory(category);
   };
+
+  useEffect(() => {
+    getEncuestas();
+  }, [encuestas]);
 
   return (
     <div className="container-fluid">
@@ -53,11 +75,23 @@ export const ABMPage = () => {
           <section>
             <Row className={`g-0`}>
               {!isLoading ? (
-                data.encuestas.map((encuesta) => (
-                  <ABMCard key={encuesta._id} encuesta={encuesta} />
-                ))
+                encuestas.length > 0 ? (
+                  encuestas.map((encuesta, index) => (
+                    <ABMCard
+                      key={index + encuesta._id}
+                      encuesta={encuesta}
+                      updateEncuesta={updateEncuesta}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center">
+                    No hay encuestas para mostrar.
+                  </div>
+                )
               ) : (
-                <LoadingSpinner />
+                <div className="d-flex justify-content-center mt-5">
+                  <LoadingSpinner />
+                </div>
               )}
             </Row>
           </section>
