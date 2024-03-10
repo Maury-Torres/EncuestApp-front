@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { ABMFiltros } from "../components/abm/filtros/ABMFiltros";
+import { useEncuestas } from "../context/EncuestaContext";
+import { useSearchParams, useLocation, Link } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import { ABMCard } from "../components/abm/card/ABMCard";
 import { ABMPagination } from "../components/abm/pagination/ABMPagination";
 import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
-import { useEncuestas } from "../context/EncuestaContext";
-import { useSearchParams } from "react-router-dom";
+import { RiSurveyFill } from "react-icons/ri";
+import { TbCategoryPlus } from "react-icons/tb";
 
 export const ABMPage = () => {
+  //! Refactorizar el codigo.
+
   const {
     encuestas,
     getEncuestas,
@@ -20,60 +24,93 @@ export const ABMPage = () => {
   const [page, setPage] = useState(1);
   const [orderByDate, setOrderByDate] = useState("");
   const [orderByCategory, setOrderByCategory] = useState("");
-  const [searchParams] = useSearchParams();
 
-  /* const buildUrl = () => {
-    const params = new URLSearchParams();
-    if (page) params.append("page", page);
-    if (orderByDate) params.append("order", orderByDate);
-    if (orderByCategory) params.append("categoria", orderByCategory);
+  //* Permite que el componente se vuelva a renderizar cuando se hace click en el checkbox
+  const [updateCheckbox, setUpdateCheckbox] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-    return `http://localhost:3000/api/encuestas?${params.toString()}`;
-  }; */
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const params = {};
 
-  /*   const { data } = useFetch(buildUrl());
-   */
+  for (let [key, value] of query.entries()) {
+    params[key] = value;
+  }
+
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
     searchParams.set("page", pageNumber);
+    setSearchParams(searchParams);
   };
 
   const handleOrderByDate = (date) => {
     setOrderByDate(date);
     searchParams.set("order", date);
+    setSearchParams(searchParams);
   };
 
   const handleOrderByCategory = (category) => {
     setOrderByCategory(category);
+    setPage(1);
+    searchParams.set("page", 1);
+    searchParams.set("categoria", category);
+    setSearchParams(searchParams);
+  };
+  const paramsString = new URLSearchParams(params).toString();
+
+  const handleCheckboxChange = async (e) => {
+    await updateEncuesta({
+      _id: e.target.id,
+      available: e.target.checked,
+    });
+    setUpdateCheckbox(updateCheckbox + 1);
+  };
+
+  const clearFilters = () => {
+    setOrderByDate("");
+    setOrderByCategory("");
+    setPage(1);
+    searchParams.delete("order");
+    searchParams.delete("categoria");
+    searchParams.set("page", 1);
+    setSearchParams(searchParams);
   };
 
   useEffect(() => {
-    getEncuestas();
-  }, [encuestas]);
+    getEncuestas(paramsString);
+  }, [page, orderByDate, orderByCategory, updateCheckbox]);
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="row align-items-center">
-        <ABMFiltros
-          orderByDate={orderByDate}
-          handleOrderByDate={handleOrderByDate}
-          orderByCategory={orderByCategory}
-          handleOrderByCategory={handleOrderByCategory}
-        />
-        <div className="col-12 col-lg-10 order-lg-2 min-vh-100">
+        <div className="col-12">
           <section className="header-abm">
-            <div className="d-flex justify-content-evenly mt-5 gap-5">
-              <button className="btn btn-primary p-3">
-                Crear nueva encuesta
-              </button>
-              <button className="btn btn-primary p-3">
-                Crear nueva categoria
-              </button>
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 gap-5">
+              <div className="d-flex align-items-center gap-3 mt-3 mt-md-0">
+                <button className="btn btn-warning p-3 shadow-lg">
+                  Nueva encuesta <RiSurveyFill />
+                </button>
+
+                <Link
+                  to="/crear-categoria"
+                  className="btn btn-light p-3 shadow-lg"
+                >
+                  Nueva categoria <TbCategoryPlus />
+                </Link>
+              </div>
+              <ABMFiltros
+                orderByDate={orderByDate}
+                handleOrderByDate={handleOrderByDate}
+                orderByCategory={orderByCategory}
+                handleOrderByCategory={handleOrderByCategory}
+                clearFilters={clearFilters}
+              />
             </div>
           </section>
           <hr className="border-5" />
+
           <section>
-            <Row className={`g-0`}>
+            <Row /* className="g-0" */>
               {!isLoading ? (
                 encuestas.length > 0 ? (
                   encuestas.map((encuesta, index) => (
@@ -81,6 +118,7 @@ export const ABMPage = () => {
                       key={index + encuesta._id}
                       encuesta={encuesta}
                       updateEncuesta={updateEncuesta}
+                      handleCheckboxChange={handleCheckboxChange}
                     />
                   ))
                 ) : (

@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from "react";
+import propTypes from "prop-types";
 
 const EncuestasContext = createContext();
 
@@ -18,9 +19,11 @@ export const EncuestasProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState(null);
 
-  const getEncuestas = async () => {
+  const getEncuestas = async (params) => {
     try {
-      const response = await fetch("http://localhost:3000/api/encuestas");
+      const response = await fetch(
+        `http://localhost:3000/api/encuestas${params ? `?${params}` : ""}`
+      );
 
       if (!response.ok) {
         setErrors({
@@ -72,7 +75,7 @@ export const EncuestasProvider = ({ children }) => {
       const response = await fetch(
         `http://localhost:3000/api/encuestas/${encuesta._id}`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -90,8 +93,11 @@ export const EncuestasProvider = ({ children }) => {
       }
 
       const data = await response.json();
+      const index = encuestas.findIndex((e) => e._id === data._id);
+      const newEncuestas = [...encuestas];
+      newEncuestas[index] = data;
       setIsLoading(false);
-      setEncuestas([...encuestas, data]);
+      setEncuestas(newEncuestas);
     } catch (error) {
       console.log(error);
     }
@@ -139,4 +145,8 @@ export const EncuestasProvider = ({ children }) => {
       {children}
     </EncuestasContext.Provider>
   );
+};
+
+EncuestasProvider.propTypes = {
+  children: propTypes.node.isRequired,
 };
