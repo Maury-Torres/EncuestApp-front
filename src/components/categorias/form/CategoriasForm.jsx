@@ -3,6 +3,8 @@ import { useForm } from "../../../hooks/useForm";
 import { useState } from "react";
 import { alertcustom } from "../../../utils/alertCustom";
 import { FormCard } from "../../ui/formcard/FormCard";
+import { CategoriasModal } from "../modal/CategoriasModal";
+import { CiImageOn } from "react-icons/ci";
 import "./CategoriasForm.css";
 
 export const CategoriasForm = () => {
@@ -12,6 +14,10 @@ export const CategoriasForm = () => {
     imagen: "",
   });
   const [errors, setErrors] = useState(null);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleSubmit = async (e) => {
     try {
@@ -91,23 +97,32 @@ export const CategoriasForm = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Imagen</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Ingrese la URL de la imagen"
-            value={imagen}
-            name="imagen"
-            onChange={handleOnChange}
-            isInvalid={hasError("imagen")}
-            className={hasError("imagen") ? "error-input" : ""}
-          />
-          {hasError("imagen") && (
-            <Form.Control.Feedback type="invalid">
-              {errors.find((error) => error.path === "imagen").msg}
-            </Form.Control.Feedback>
-          )}
+          <Form.Label className="me-3">Imagen</Form.Label>
+          <div className="d-flex align-items-center">
+            <Form.Control
+              type="text"
+              placeholder="Ingrese la URL de la imagen"
+              value={imagen}
+              name="imagen"
+              onChange={handleOnChange}
+              isInvalid={hasError("imagen")}
+              className={`me-3 ${hasError("imagen") ? "error-input" : ""}`}
+            />
+            {hasError("imagen") && (
+              <Form.Control.Feedback type="invalid">
+                {errors.find((error) => error.path === "imagen").msg}
+              </Form.Control.Feedback>
+            )}
+            <Button variant="info" onClick={handleShow}>
+              <CiImageOn />
+            </Button>
+          </div>
         </Form.Group>
-
+        <CategoriasModal
+          show={show}
+          handleClose={handleClose}
+          imagen={imagen}
+        />
         <Button variant="primary" type="submit">
           Crear Categoría
         </Button>
