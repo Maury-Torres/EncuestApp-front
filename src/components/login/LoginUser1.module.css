@@ -10,7 +10,7 @@
 }
 
 #input1{
-    width: 80%;
+    width: 100%;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -47,6 +47,14 @@
 #submitBtn:hover {
     background-color: #0056b3;
   }
+
+  #hiddenButton{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 70%;
+    background-color: white;
+}
+
 
   @media (max-width: 911px){
     #container{

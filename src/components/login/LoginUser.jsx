@@ -1,9 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Container, Col, Form, Button } from "react-bootstrap";
-import { container, input1, input2, submitBtn } from "../login/LoginUser1.module.css";
+import { Container, Col, Form, Button, InputGroup } from "react-bootstrap";
+import { container, input1, input2, submitBtn, hiddenButton } from "../login/LoginUser1.module.css";
 import { alertcustom } from '../../utils/alertCustom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-const BASE_URL= import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const LoginUser = () => {
   const formDataRef = useRef({
@@ -42,8 +44,14 @@ const LoginUser = () => {
     }
   };
 
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
-    <Col id={container} className="vh-50 w-100 d-flex"  >
+    <Col id={container} className="d-flex"  >
       <Container>
         <div className="d-flex justify-content-center aling-items-center my-3 pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-center">
@@ -53,7 +61,6 @@ const LoginUser = () => {
 
 
         <Form onSubmit={handleSubmit}>
-
           <Form.Group>
             <Form.Label className='fw-bold text-black'>Email address</Form.Label>
             <Form.Control
@@ -75,29 +82,40 @@ const LoginUser = () => {
 
           <Form.Group>
             <Form.Label className="fw-bold text-black">password</Form.Label>
+            <InputGroup>
             <Form.Control
               id={input2}
-              type="password"
+              type={passwordVisible ? "text" : "password"}
+              aria-describedby="passwordHelpBlock"
               placeholder="Password"
               name='password'
               defaultValue={formDataRef.current.password}
               onChange={handleChange}
               isValid={formDataRef.current.password && !errors.password}
               isInvalid={!!errors.password}
-            />
-             <Form.Check
-              type="checkbox"
-              label ="Show password"
-            />
+              />
+            <div className="input-group-append">
+              <button
+                id={hiddenButton}
+                type="button"
+                className="toggle-password-visibility"
+                onClick={togglePasswordVisibility}
+                
+              >
+                 <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
+              </button>
+            </div></InputGroup>
+
             <Form.Control.Feedback type='invalid'>
               {errors.password}
-            </Form.Control.Feedback>
+            </Form.Control.Feedback>          
             <Form.Control.Feedback type='valid'>
             </Form.Control.Feedback>
+
           </Form.Group>
 
           <div className="fw-bold text-black">¿Todavía no te registraste?
-            <a className="m-1" href="/register">Suscríbete ahora</a>
+            <a className="m-1" href="/register">Regístrate ahora</a>
           </div>
 
           <Button
