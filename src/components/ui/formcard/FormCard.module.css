@@ -1,9 +1,10 @@
 .formCard {
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.45);
-  color: white;
-  padding: 1rem;
-  border-radius: 0.25rem;
   max-width: 600px;
   margin: auto;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0.25rem;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.45);
 }
