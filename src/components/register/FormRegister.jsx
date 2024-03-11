@@ -84,9 +84,9 @@ export const FormRegister = () => {
             icon: "success",
             title: messages.userSuccessful
           })
-          // .then(() => {
-          //   window.location.href = "/home"
-          // })
+          .then(() => {
+            window.location.href = "/banners"
+          })
         }
       } 
       catch (error) {
