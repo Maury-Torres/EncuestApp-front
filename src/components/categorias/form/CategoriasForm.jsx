@@ -1,11 +1,15 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "../../../hooks/useForm";
+import { useState } from "react";
+import { alertcustom } from "../../../utils/alertCustom";
 
 export const CategoriasForm = () => {
-  const { nombre, descripcion, handleOnChange, setFormData } = useForm({
+  const { nombre, descripcion, imagen, handleOnChange, setFormData } = useForm({
     nombre: "",
     descripcion: "",
+    imagen: "",
   });
+  const [errors, setErrors] = useState(null);
 
   const handleSubmit = async (e) => {
     try {
@@ -15,16 +19,27 @@ export const CategoriasForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nombre, descripcion }),
+        body: JSON.stringify({ nombre, descripcion, imagen }),
       });
 
-      if (!response.ok) {
+      const data = await response.json();
+
+      console.log(data.errors);
+
+      if (data?.errors) {
+        setErrors(data.errors);
         throw new Error("Error en la petición");
       }
 
-      const data = await response.json();
-      setFormData({ nombre: "", descripcion: "" });
-      console.log(data);
+      alertcustom(
+        "Categoría creada correctamente",
+        "Categoría",
+        "success",
+        () => {
+          setFormData({ nombre: "", descripcion: "", imagen: "" });
+          setErrors(null);
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +55,11 @@ export const CategoriasForm = () => {
           value={nombre}
           onChange={handleOnChange}
         />
+        {errors && errors.find((err) => err.path === "nombre") && (
+          <Form.Text className="text-danger">
+            {errors.find((error) => error.path === "nombre").msg}
+          </Form.Text>
+        )}
       </Form.Group>
 
       <Form.Group className="mb-3">
@@ -52,6 +72,27 @@ export const CategoriasForm = () => {
           name="descripcion"
           onChange={handleOnChange}
         />
+        {errors && errors.find((err) => err.path === "descripcion") && (
+          <Form.Text className="text-danger">
+            {errors.find((error) => error.path === "descripcion").msg}
+          </Form.Text>
+        )}
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label>Imagen</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Ingrese la URL de la imagen"
+          value={imagen}
+          name="imagen"
+          onChange={handleOnChange}
+        />
+        {errors && errors.find((err) => err.path === "imagen") && (
+          <Form.Text className="text-danger">
+            {errors.find((error) => error.path === "imagen").msg}
+          </Form.Text>
+        )}
       </Form.Group>
 
       <Button variant="primary" type="submit">
