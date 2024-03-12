@@ -40,14 +40,6 @@ export const NavbarTest = () => {
                 <FontAwesomeIcon icon={faRightFromBracket} />
               </Navbar.Text>
             </Button>
-            
-
-              
-            
-              
-              
-            
-            
           </Nav>
         </Navbar.Collapse>
       </Container>
