@@ -92,7 +92,7 @@ export const ABMPage = () => {
                 </button>
 
                 <Link
-                  to="/crear-categoria"
+                  to="/administrar-categoria"
                   className="btn btn-light p-3 shadow-lg"
                 >
                   Nueva categoria <TbCategoryPlus />
