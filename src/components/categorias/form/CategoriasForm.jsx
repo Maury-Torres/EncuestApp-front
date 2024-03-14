@@ -1,6 +1,7 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "../../../hooks/useForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { alertcustom } from "../../../utils/alertCustom";
 import { FormCard } from "../../ui/formcard/FormCard";
 import { CategoriasModal } from "../modal/CategoriasModal";
@@ -8,11 +9,17 @@ import { CiImageOn } from "react-icons/ci";
 import "./CategoriasForm.css";
 
 export const CategoriasForm = () => {
+  //! Refactorizar
+
   const { nombre, descripcion, imagen, handleOnChange, setFormData } = useForm({
     nombre: "",
     descripcion: "",
     imagen: "",
   });
+
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [errors, setErrors] = useState(null);
 
   const [show, setShow] = useState(false);
@@ -22,6 +29,38 @@ export const CategoriasForm = () => {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
+
+      if (id) {
+        const response = await fetch(
+          `http://localhost:3000/api/categorias/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ nombre, descripcion, imagen }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (data?.errors) {
+          setErrors(data.errors);
+          throw new Error("Error en la petición");
+        }
+
+        alertcustom(
+          "Categoría editada correctamente",
+          "Categoría",
+          "info",
+          () => {
+            setErrors(null);
+            setFormData({ nombre: "", descripcion: "", imagen: "" });
+            navigate("/categorias");
+          }
+        );
+      }
+
       const response = await fetch("http://localhost:3000/api/categorias", {
         method: "POST",
         headers: {
@@ -55,9 +94,33 @@ export const CategoriasForm = () => {
   const hasError = (path) =>
     errors && !!errors.find((err) => err.path === path);
 
+  const getCategoriaById = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/categorias/${id}`
+      );
+      const categoriaData = await response.json();
+      setFormData({
+        nombre: categoriaData.nombre,
+        descripcion: categoriaData.descripcion,
+        imagen: categoriaData.imagen,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      getCategoriaById();
+    }
+  }, []);
+
   return (
     <FormCard>
-      <h2 className="text-center">Nueva Categoria</h2>
+      <h2 className="text-center">
+        {id ? "Editar Categoria" : "Nueva Categoria"}
+      </h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Nombre</Form.Label>
@@ -108,15 +171,15 @@ export const CategoriasForm = () => {
               isInvalid={hasError("imagen")}
               className={`me-3 ${hasError("imagen") ? "error-input" : ""}`}
             />
-            {hasError("imagen") && (
-              <Form.Control.Feedback type="invalid">
-                {errors.find((error) => error.path === "imagen").msg}
-              </Form.Control.Feedback>
-            )}
             <Button variant="info" onClick={handleShow}>
               <CiImageOn />
             </Button>
           </div>
+          {hasError("imagen") && (
+            <div className="invalid-feedback d-block">
+              {errors.find((error) => error.path === "imagen").msg}
+            </div>
+          )}
         </Form.Group>
         <CategoriasModal
           show={show}
@@ -124,7 +187,7 @@ export const CategoriasForm = () => {
           imagen={imagen}
         />
         <Button variant="primary" type="submit">
-          Crear Categoría
+          {id ? "Editar categoria" : "Crear categoria"}
         </Button>
       </Form>
     </FormCard>
