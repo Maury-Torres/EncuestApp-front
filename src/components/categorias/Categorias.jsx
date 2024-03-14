@@ -11,7 +11,7 @@ import { useState } from "react";
 export const Categorias = () => {
   //! refactorizar codigo(crear provider?)
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const { data, isLoading, setState } = useFetch(

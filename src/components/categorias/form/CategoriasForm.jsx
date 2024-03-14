@@ -85,6 +85,7 @@ export const CategoriasForm = () => {
         () => {
           setFormData({ nombre: "", descripcion: "", imagen: "" });
           setErrors(null);
+          navigate("/categorias");
         }
       );
     } catch (error) {

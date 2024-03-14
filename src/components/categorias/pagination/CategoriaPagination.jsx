@@ -2,8 +2,7 @@ import { Pagination } from "react-bootstrap";
 import propTypes from "prop-types";
 
 export const CategoriaPagination = ({ page, handlePageChange, data }) => {
-  /*   const { totalPages, currentPage } = data;
-   */ return (
+  return (
     <>
       <Pagination className="mt-5 justify-content-center">
         <Pagination.Prev
@@ -26,4 +25,5 @@ export const CategoriaPagination = ({ page, handlePageChange, data }) => {
 CategoriaPagination.propTypes = {
   page: propTypes.number.isRequired,
   handlePageChange: propTypes.func.isRequired,
+  data: propTypes.object,
 };
