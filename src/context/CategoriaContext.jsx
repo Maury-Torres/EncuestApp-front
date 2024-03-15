@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react";
 import propTypes from "prop-types";
+import { alertcustom } from "../utils/alertCustom";
 
 const CategoriasContext = createContext();
 
@@ -69,6 +70,7 @@ export const CategoriasProvider = ({ children }) => {
         categorias: data.categorias.filter((categoria) => categoria._id !== id),
       });
       setIsLoading(false);
+      alertcustom("Categoría eliminada correctamente", "Categoría", "success");
     } catch (error) {
       console.log(error);
     }
