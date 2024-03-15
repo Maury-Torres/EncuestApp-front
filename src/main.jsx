@@ -13,6 +13,7 @@ import { EncuestasProvider } from "./context/EncuestaContext";
 import { Footer } from "./components/footer/Footer";
 import { Categorias } from "./components/categorias/Categorias";
 import { CategoriasForm } from "./components/categorias/form/CategoriasForm";
+import Errors from "./components/error/errors";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -40,7 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           />
 
           <Route path="categorias" element={<Categorias />} />
-          <Route path="*" element={<h1>Error</h1>} />
+          <Route path="*" element={<Errors />} />
         </Routes>
         <Footer />
       </BrowserRouter>
