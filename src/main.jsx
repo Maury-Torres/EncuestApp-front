@@ -33,7 +33,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           >
             <Route path="/abm" element={<ABMPage />} />
           </Route>
-          <Route path="crear-categoria" element={<CategoriasForm />} />
+          <Route path="/administrar-categoria" element={<CategoriasForm />} />
+          <Route
+            path="/administrar-categoria/:id"
+            element={<CategoriasForm />}
+          />
+
           <Route path="categorias" element={<Categorias />} />
           <Route path="*" element={<h1>Error</h1>} />
         </Routes>

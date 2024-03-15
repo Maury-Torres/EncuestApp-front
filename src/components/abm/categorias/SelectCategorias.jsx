@@ -6,6 +6,7 @@ export const SelectCategorias = ({
   handleOrderByCategory,
 }) => {
   const { data, isLoading } = useFetch("http://localhost:3000/api/categorias");
+
   return (
     <Select
       name="categoria"
@@ -19,8 +20,8 @@ export const SelectCategorias = ({
       </option>
       <option value="Default">Por defecto</option>
       {isLoading && <option value="">Loading...</option>}
-      {data &&
-        data.map((categoria) => (
+      {data?.categorias &&
+        data?.categorias.map((categoria) => (
           <option key={categoria._id} value={categoria._id}>
             {categoria.nombre}
           </option>

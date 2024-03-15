@@ -35,6 +35,7 @@ export const EncuestasProvider = ({ children }) => {
       }
 
       const data = await response.json();
+      console.log(data.encuestas);
       setIsLoading(false);
       setEncuestas(data.encuestas);
       setData(data);
