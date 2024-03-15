@@ -8,6 +8,7 @@ import { messages } from "../../utils/message.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from 'react-hook-form';
+import Swal from "sweetalert2";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -15,6 +16,19 @@ export const LoginUser = () => {
   const form = useForm();
   const [errors] = useState({})
   const { register} = form;
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +60,7 @@ export const LoginUser = () => {
         }),
       });
 
-      if (response.status === 400) {
+      if (!response.status === 400) {
         return alertcustom('Logueado', messages.congratulations, "success");
       } else {
           // alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {});
@@ -86,9 +100,10 @@ export const LoginUser = () => {
               id={inputField}
               type="email"
               placeholder="Enter email"
+              tabIndex={0} 
               className={errors.email?.message ? "is-invalid" : ""}
               {...register("email", {
-                require: {
+                required: {
                   value: true,
                   message: "Ingrese un email",
                 },
@@ -99,7 +114,6 @@ export const LoginUser = () => {
               })}
             />
             <Form.Control.Feedback type='invalid'>
-              {errors.email?.message}
             </Form.Control.Feedback>
             <Form.Control.Feedback type='valid'>
             </Form.Control.Feedback>
@@ -138,7 +152,6 @@ export const LoginUser = () => {
                 </button>
               </div>
               <Form.Control.Feedback type="invalid">
-              {errors.password?.message}
             </Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
