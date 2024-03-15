@@ -1,19 +1,18 @@
-import { useState } from "react";
-import { useFetch } from "../../hooks/useFetch";
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { CategoriaPagination } from "./pagination/CategoriaPagination";
 import Swal from "sweetalert2";
 import { LoadingSpinner } from "../ui/spinner/LoadingSpinner";
 import { CategoriasCard } from "./card/CategoriasCard";
+import { useCategorias } from "../../context/CategoriaContext";
 
 export const Categorias = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, setState } = useFetch(
-    `http://localhost:3000/api/categorias?${searchParams.toString()}`
-  );
+  const { categorias, isLoading, data, getCategorias, deleteCategoria } =
+    useCategorias();
 
   const [page, setPage] = useState(1);
 
@@ -29,36 +28,7 @@ export const Categorias = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/api/categorias/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then(() => {
-            setState((prevState) => ({
-              ...prevState,
-              data: {
-                ...prevState.data,
-                categorias: prevState.data.categorias.filter(
-                  (categoria) => categoria._id !== id
-                ),
-              },
-            }));
-            Swal.fire(
-              "Eliminado!",
-              "La categoría ha sido eliminada.",
-              "success"
-            );
-          })
-          .catch((error) => {
-            console.error(error);
-            Swal.fire(
-              "Error!",
-              "Hubo un error al eliminar la categoría.",
-              "error"
-            );
-          });
+        deleteCategoria(id);
       }
     });
   };
@@ -69,6 +39,10 @@ export const Categorias = () => {
     navigate(`?${searchParams.toString()}`);
   };
 
+  useEffect(() => {
+    getCategorias();
+  }, []);
+
   return (
     <>
       <Container>
@@ -78,12 +52,12 @@ export const Categorias = () => {
             <div className="d-flex justify-content-center w-100 mt-5">
               <LoadingSpinner />
             </div>
-          ) : data.categorias.length < 1 ? (
+          ) : categorias.length < 1 ? (
             <p className="text-center w-100 mt-5">
               No hay categorias para mostrar.
             </p>
           ) : (
-            data.categorias.map((categoria) => (
+            categorias.map((categoria) => (
               <Col key={categoria._id}>
                 <CategoriasCard
                   categoria={categoria}
