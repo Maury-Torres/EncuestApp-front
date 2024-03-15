@@ -88,7 +88,7 @@ export const LoginUser = () => {
               placeholder="Enter email"
               className={errors.email?.message ? "is-invalid" : ""}
               {...register("email", {
-                required: {
+                require: {
                   value: true,
                   message: "Ingrese un email",
                 },
