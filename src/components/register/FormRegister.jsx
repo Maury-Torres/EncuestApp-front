@@ -67,7 +67,8 @@ export const FormRegister = () => {
               username: data.userName,
               email: data.email,
               password: data.password,
-              confirmPassword: data.confirmPassword
+              confirmPassword: data.confirmPassword,
+              roles:  "65ebd641dd3a06d834479e63"
               }),
             headers: {
               "Content-Type": "application/json",
@@ -83,9 +84,9 @@ export const FormRegister = () => {
             icon: "success",
             title: messages.userSuccessful
           })
-          // .then(() => {
-          //   window.location.href = "/home"
-          // })
+          .then(() => {
+            window.location.href = "/banners"
+          })
         }
       } 
       catch (error) {
@@ -123,7 +124,7 @@ export const FormRegister = () => {
             })}
           />
           <Form.Control.Feedback type="invalid">
-            {errors.name?.message}
+            {errors.userName?.message}
           </Form.Control.Feedback>
         </Form.Group>
 

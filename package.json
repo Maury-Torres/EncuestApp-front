@@ -22,7 +22,12 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-hook-form": "^7.51.0",
+=======
+    "react-hook-form": "^7.50.1",
+    "react-icons": "^5.0.1",
+>>>>>>> d31d74d824e5d798851ac86c848b6730c8c06203
     "react-router-dom": "^6.22.1",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.10.5"

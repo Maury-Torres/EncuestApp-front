@@ -131,7 +131,7 @@ export const LoginUser = () => {
                 className={errors.password?.message ? "is-invalid" : ""}
                 {...register("password", {
                   required: {
-                    value: false,
+                    value: true,
                     message: "La contraseña es requerida",
                   },
                   pattern: {
