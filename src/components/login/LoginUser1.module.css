@@ -9,7 +9,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#input1{
+#inputField{
     width: 100%;
     margin-bottom: 20px;
     padding: 10px;
@@ -18,7 +18,7 @@
     box-sizing: border-box;
     font-size: 16px;
 }
-#input2{
+#inputField2{
     width: 80%;
     margin-bottom: 20px;
     padding: 10px;

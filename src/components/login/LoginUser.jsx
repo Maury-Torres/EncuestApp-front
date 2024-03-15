@@ -1,46 +1,66 @@
-import React, { useState, useRef } from 'react';
-import { Container, Col, Form, Button, InputGroup } from "react-bootstrap";
-import { container, input1, input2, submitBtn, hiddenButton } from "../login/LoginUser1.module.css";
+import React, { useState } from 'react';
+import { Container, Col, Form, Button, InputGroup, } from "react-bootstrap";
+import { container, submitBtn, hiddenButton, inputField, inputField2 } from "../login/LoginUser1.module.css";
+import { passwordRegex } from "../../utils/passwordRegex.js";
+import { emailRegex } from "../../utils/emailRegex.js";
 import { alertcustom } from '../../utils/alertCustom';
+import { messages } from "../../utils/message.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useForm } from 'react-hook-form';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-const LoginUser = () => {
-  const formDataRef = useRef({
-    email: '',
-    password: '',
-  });
+export const LoginUser = () => {
+  const form = useForm();
+  const [errors] = useState('')
+  const { register} = form;
 
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    formDataRef.current = {
-      ...formDataRef.current,
-      [name]: value
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      if (!emailRegex.test(e.email)) {
+        return alertcustom(
+          "ingrese un email valido"
+        )
+      }
 
-    const newErrors = {};
+      if (!passwordRegex.test(e.password)) {
+        return alertcustom(
+          "La contraseña debe tener: una mayuscula, una minuscula, un numero, un caracter, min 8 caracteres",
+          "Error",
+          "warning"
+        );
+      }
 
-    if (!formDataRef.current.email) {
-      newErrors.email = 'Ingrese su email';
-    }
+      const response = await fetch(`${BASE_URL}/api/signin`, {
+        method: 'POST',
+        credentials: "include",
+        headers: {
+          'Content-Type': 'application/json',
+          "acces-Control-Allow-Credentials": true,
+        },
+        body: JSON.stringify({
+          email: e.email,
+          password: e.password
+        }),
+      });
 
-    if (!formDataRef.current.password) {
-      newErrors.password = 'Ingrese su contrseña';
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log(formDataRef);
-      alertcustom("logueado", "Felicidades", "successfull")
+      if (response.status === 400) {
+        return alertcustom('Logueado', messages.congratulations, "success");
+      } else {
+          // alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {});
+          Toast.fire({
+            icon: "success",
+            title: messages.userSuccessful
+          })
+      }
+      // Procesar la respuesta del backend según corresponda
+    } catch (error) {
+      console.log(error);
+      if (error.code == "ERR_NETWORK") {
+        alertcustom('Error de red', 'Error', 'warning')
+      }
     }
   };
 
@@ -59,22 +79,27 @@ const LoginUser = () => {
           </div>
         </div>
 
-
-        <Form onSubmit={handleSubmit}>
+        <Form noValidate onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label className='fw-bold text-black'>Email address</Form.Label>
             <Form.Control
-              id={input1}
+              id={inputField}
               type="email"
               placeholder="Enter email"
-              name='email'
-              defaultValue={formDataRef.current.email}
-              onChange={handleChange}
-              isValid={formDataRef.current.email && !errors.email}
-              isInvalid={!!errors.email}
+              className={errors.email?.message ? "is-invalid" : ""}
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Ingrese un email",
+                },
+                pattern: {
+                  value: emailRegex,
+                  message: "Ingrese un email valido",
+                },
+              })}
             />
             <Form.Control.Feedback type='invalid'>
-              {errors.email}
+              {errors.email?.message}
             </Form.Control.Feedback>
             <Form.Control.Feedback type='valid'>
             </Form.Control.Feedback>
@@ -83,51 +108,56 @@ const LoginUser = () => {
           <Form.Group>
             <Form.Label className="fw-bold text-black">password</Form.Label>
             <InputGroup>
-            <Form.Control
-              id={input2}
-              type={passwordVisible ? "text" : "password"}
-              aria-describedby="passwordHelpBlock"
-              placeholder="Password"
-              name='password'
-              defaultValue={formDataRef.current.password}
-              onChange={handleChange}
-              isValid={formDataRef.current.password && !errors.password}
-              isInvalid={!!errors.password}
+              <Form.Control
+                id={inputField2}
+                type={passwordVisible ? "text" : "password"}
+                aria-describedby="passwordHelpBlock"
+                placeholder="Password"
+                name='password'
+                className={errors.password?.message ? "is-invalid" : ""}
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "La contraseña es requerida",
+                  },
+                  pattern: {
+                    value: passwordRegex,
+                    message:
+                      "Su contraseña debe contener como minimo 8 caracteres, una letra mayúscula, una minúscula, un numero, un caracter especial",
+                  },
+                })}
               />
-            <div className="input-group-append">
-              <button
-                id={hiddenButton}
-                type="button"
-                className="toggle-password-visibility"
-                onClick={togglePasswordVisibility}
-                
-              >
-                 <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
-              </button>
-            </div></InputGroup>
-
-            <Form.Control.Feedback type='invalid'>
-              {errors.password}
-            </Form.Control.Feedback>          
-            <Form.Control.Feedback type='valid'>
+              <div className="input-group-append">
+                <button
+                  id={hiddenButton}
+                  type="button"
+                  className="toggle-password-visibility"
+                  onClick={togglePasswordVisibility}
+                >
+                  <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
+                </button>
+              </div>
+              <Form.Control.Feedback type="invalid">
+              {errors.password?.message}
             </Form.Control.Feedback>
-
+            </InputGroup>
           </Form.Group>
 
           <div className="fw-bold text-black">¿Todavía no te registraste?
-            <a className="m-1" href="/register">Regístrate ahora</a>
+            <a className="m-1" href="/register">Suscríbete ahora</a>
           </div>
 
           <Button
             id={submitBtn}
-            className="my-3"
+            className='my-3'
             variant="primary"
-            type="submit">Login
+            type="submit">
+            Iniciar sesión
           </Button>
         </Form>
       </Container>
     </Col>
-  )
+  );
 };
 
 export default LoginUser;
