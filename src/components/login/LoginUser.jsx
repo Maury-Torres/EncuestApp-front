@@ -71,7 +71,7 @@ export const LoginUser = () => {
   };
 
   return (
-    <Col id={container} className="d-flex"  >
+    <Col id={container} className="d-flex justify-content-center animate__animated animate__backInDown"  >
       <Container>
         <div className="d-flex justify-content-center aling-items-center my-3 pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-center">
