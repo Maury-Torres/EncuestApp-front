@@ -43,6 +43,37 @@ export const CategoriasProvider = ({ children }) => {
     }
   };
 
+  const deleteCategoria = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/categorias/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        setErrors({
+          code: response.status,
+          message: response.statusText,
+        });
+        return;
+      }
+
+      setCategorias(categorias.filter((categoria) => categoria._id !== id));
+      setData({
+        ...data,
+        categorias: data.categorias.filter((categoria) => categoria._id !== id),
+      });
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <CategoriasContext.Provider
       value={{
@@ -51,6 +82,7 @@ export const CategoriasProvider = ({ children }) => {
         data,
         errors,
         getCategorias,
+        deleteCategoria,
       }}
     >
       {children}
