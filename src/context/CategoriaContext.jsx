@@ -44,6 +44,80 @@ export const CategoriasProvider = ({ children }) => {
     }
   };
 
+  const createCategoria = async (categoria) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/categorias", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(categoria),
+      });
+
+      const categoriasData = await response.json();
+
+      if (categoriasData.errors) {
+        setErrors(categoriasData.errors);
+        setIsLoading(false);
+        return;
+      }
+
+      setErrors(null);
+      setCategorias([...categorias, categoriasData]);
+      setData({
+        ...data,
+        categorias: [...categorias, categoriasData],
+      });
+      setIsLoading(false);
+
+      return categoriasData;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateCategoria = async (id, categoria) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/categorias/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(categoria),
+        }
+      );
+
+      const categoriasData = await response.json();
+
+      if (categoriasData.errors) {
+        setErrors(categoriasData.errors);
+        setIsLoading(false);
+        return;
+      }
+
+      setErrors(null);
+      setCategorias(
+        categorias.map((categoria) =>
+          categoria._id === categoriasData._id ? categoriasData : categoria
+        )
+      );
+
+      setData({
+        ...data,
+        categorias: data.categorias.map((categoria) =>
+          categoria._id === categoriasData._id ? categoriasData : categoria
+        ),
+      });
+      setIsLoading(false);
+
+      return categoriasData;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const deleteCategoria = async (id) => {
     try {
       const response = await fetch(
@@ -84,6 +158,8 @@ export const CategoriasProvider = ({ children }) => {
         data,
         errors,
         getCategorias,
+        createCategoria,
+        updateCategoria,
         deleteCategoria,
       }}
     >
