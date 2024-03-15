@@ -13,7 +13,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const LoginUser = () => {
   const form = useForm();
-  const [errors] = useState('')
+  const [errors] = useState({})
   const { register} = form;
 
   const handleSubmit = async (e) => {
