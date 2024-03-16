@@ -11,7 +11,11 @@ import Login from "./pages/Login";
 import { ABMPage } from "./pages/ABMPage";
 import { EncuestasProvider } from "./context/EncuestaContext";
 import { Footer } from "./components/footer/Footer";
-import FormEncuesta from "./components/formulario/FormEncuesta";
+
+import { Categorias } from "./components/categorias/Categorias";
+import { CategoriasForm } from "./components/categorias/form/CategoriasForm";
+import { CategoriasProvider } from "./context/CategoriaContext";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -32,7 +36,26 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           >
             <Route path="/abm" element={<ABMPage />} />
           </Route>
-          <Route path="/formulario" element={<FormEncuesta/>} />
+
+
+          <Route
+            element={
+              <CategoriasProvider>
+                <Outlet />
+              </CategoriasProvider>
+            }
+          >
+            <Route path="/administrar-categoria" element={<CategoriasForm />} />
+            <Route
+              path="/administrar-categoria/:id"
+              element={<CategoriasForm />}
+            />
+
+            <Route path="categorias" element={<Categorias />} />
+          </Route>
+
+          <Route path="*" element={<h1>Error</h1>} />
+
         </Routes>
         <Footer />
       </BrowserRouter>

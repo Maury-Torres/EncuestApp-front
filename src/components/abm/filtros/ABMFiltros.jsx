@@ -7,6 +7,7 @@ export const ABMFiltros = ({
   handleOrderByDate,
   orderByCategory,
   handleOrderByCategory,
+  clearFilters,
 }) => {
   return (
     <>
@@ -18,6 +19,12 @@ export const ABMFiltros = ({
           placeholder="Buscar..."
           className="form-control mt-3 mb-3 text-center bg-white bg-opacity-75 border-secondary text-black"
         /> */}
+        <button
+          className="btn btn-danger mt-4 fs-6 fs-md-4"
+          onClick={clearFilters}
+        >
+          Limp. Filtros
+        </button>
         <div>
           <p className="text-center">Ordenar por:</p>
           <Select
@@ -52,4 +59,5 @@ ABMFiltros.propTypes = {
   handleOrderByDate: propTypes.func.isRequired,
   orderByCategory: propTypes.string.isRequired,
   handleOrderByCategory: propTypes.func.isRequired,
+  clearFilters: propTypes.func.isRequired,
 };
