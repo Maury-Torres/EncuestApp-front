@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Pagination } from "react-bootstrap";
 import propTypes from "prop-types";
 
@@ -25,5 +26,4 @@ export const CategoriaPagination = ({ page, handlePageChange, data }) => {
 CategoriaPagination.propTypes = {
   page: propTypes.number.isRequired,
   handlePageChange: propTypes.func.isRequired,
-  data: propTypes.object,
 };

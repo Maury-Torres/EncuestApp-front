@@ -1,28 +1,28 @@
-import { Form, Button } from "react-bootstrap";
-import { useForm } from "../../../hooks/useForm";
 import { useEffect, useState } from "react";
+import { useCategorias } from "../../../context/CategoriaContext";
+import { useForm } from "../../../hooks/useForm";
 import { useNavigate, useParams } from "react-router-dom";
-import { alertcustom } from "../../../utils/alertCustom";
 import { FormCard } from "../../ui/formcard/FormCard";
+import { Form, Button } from "react-bootstrap";
 import { CategoriasModal } from "../modal/CategoriasModal";
-import { CiImageOn } from "react-icons/ci";
 import "./CategoriasForm.css";
+import { alertcustom } from "../../../utils/alertCustom";
+import { CiImageOn } from "react-icons/ci";
 
 export const CategoriasForm = () => {
-  //! Refactorizar
-
   const { nombre, descripcion, imagen, handleOnChange, setFormData } = useForm({
     nombre: "",
     descripcion: "",
     imagen: "",
   });
 
+  const { createCategoria, updateCategoria, errors, setErrors } =
+    useCategorias();
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [errors, setErrors] = useState(null);
-
   const [show, setShow] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -30,29 +30,42 @@ export const CategoriasForm = () => {
     try {
       e.preventDefault();
 
+      //* Editar categoria
       if (id) {
-        const response = await fetch(
-          `http://localhost:3000/api/categorias/${id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ nombre, descripcion, imagen }),
-          }
-        );
+        const categoriaData = await updateCategoria(id, {
+          nombre,
+          descripcion,
+          imagen,
+        });
 
-        const data = await response.json();
-
-        if (data?.errors) {
-          setErrors(data.errors);
-          throw new Error("Error en la petición");
+        if (categoriaData) {
+          alertcustom(
+            "Categoría actualizada correctamente",
+            "Categoría",
+            "success",
+            () => {
+              setErrors(null);
+              setFormData({ nombre: "", descripcion: "", imagen: "" });
+              navigate("/categorias");
+            }
+          );
         }
 
+        return;
+      }
+
+      //* Crear categoria
+      const categoriaData = await createCategoria({
+        nombre,
+        descripcion,
+        imagen,
+      });
+
+      if (categoriaData) {
         alertcustom(
-          "Categoría editada correctamente",
+          "Categoría creada correctamente",
           "Categoría",
-          "info",
+          "success",
           () => {
             setErrors(null);
             setFormData({ nombre: "", descripcion: "", imagen: "" });
@@ -60,34 +73,6 @@ export const CategoriasForm = () => {
           }
         );
       }
-
-      const response = await fetch("http://localhost:3000/api/categorias", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ nombre, descripcion, imagen }),
-      });
-
-      const data = await response.json();
-
-      console.log(data.errors);
-
-      if (data?.errors) {
-        setErrors(data.errors);
-        throw new Error("Error en la petición");
-      }
-
-      alertcustom(
-        "Categoría creada correctamente",
-        "Categoría",
-        "success",
-        () => {
-          setFormData({ nombre: "", descripcion: "", imagen: "" });
-          setErrors(null);
-          navigate("/categorias");
-        }
-      );
     } catch (error) {
       console.log(error);
     }

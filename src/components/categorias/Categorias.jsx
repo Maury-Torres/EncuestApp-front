@@ -1,24 +1,24 @@
-import { useFetch } from "../../hooks/useFetch";
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import Swal from "sweetalert2";
-import styles from "./Categorias.module.css";
-import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
-import { LoadingSpinner } from "../ui/spinner/LoadingSpinner";
+import { Container, Row, Col } from "react-bootstrap";
 import { CategoriaPagination } from "./pagination/CategoriaPagination";
-import { useState } from "react";
+import Swal from "sweetalert2";
+import { LoadingSpinner } from "../ui/spinner/LoadingSpinner";
+import { CategoriasCard } from "./card/CategoriasCard";
+import { useCategorias } from "../../context/CategoriaContext";
 
 export const Categorias = () => {
-  //! refactorizar codigo(crear provider?)
-
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, setState } = useFetch(
-    `http://localhost:3000/api/categorias?${searchParams.toString()}`
-  );
-
-  console.log(data);
+  const {
+    categorias,
+    isLoading,
+    setIsLoading,
+    data,
+    getCategorias,
+    deleteCategoria,
+  } = useCategorias();
 
   const [page, setPage] = useState(1);
 
@@ -34,44 +34,24 @@ export const Categorias = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/api/categorias/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then(() => {
-            setState((prevState) => ({
-              ...prevState,
-              data: {
-                ...prevState.data,
-                categorias: prevState.data.categorias.filter(
-                  (categoria) => categoria._id !== id
-                ),
-              },
-            }));
-            Swal.fire(
-              "Eliminado!",
-              "La categoría ha sido eliminada.",
-              "success"
-            );
-          })
-          .catch((error) => {
-            console.error(error);
-            Swal.fire(
-              "Error!",
-              "Hubo un error al eliminar la categoría.",
-              "error"
-            );
-          });
+        deleteCategoria(id);
       }
     });
   };
+
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
     searchParams.set("page", pageNumber);
     navigate(`?${searchParams.toString()}`);
   };
+
+  useEffect(() => {
+    getCategorias(searchParams.toString());
+
+    return () => {
+      setIsLoading(true);
+    };
+  }, [page]);
 
   return (
     <>
@@ -82,53 +62,17 @@ export const Categorias = () => {
             <div className="d-flex justify-content-center w-100 mt-5">
               <LoadingSpinner />
             </div>
-          ) : data.categorias.length < 1 ? (
+          ) : categorias.length < 1 ? (
             <p className="text-center w-100 mt-5">
               No hay categorias para mostrar.
             </p>
           ) : (
-            data.categorias.map((el) => (
-              <Col key={el._id}>
-                <Card
-                  className={`bg-dark text position-relative ${styles.card}`}
-                >
-                  <div className={styles.imageWrapper}>
-                    <Card.Img
-                      src={el.imagen}
-                      alt={`Imagen de la categoria ${el.nombre}`}
-                      className={`${styles.cardImage}`}
-                    />
-                    <div className={styles.filter} />
-                  </div>
-                  <div
-                    className={`${styles.textOverlay} d-flex justify-content-center align-items-center`}
-                  >
-                    <Card.Title className="text-white text-center mt-3 fs-3 fs-sm-2 fs-md-1">
-                      {el.nombre}
-                    </Card.Title>
-                    {/*  <Card.Text className="text-white fs-6 fs-sm-5 fs-md-4">
-                        {el.descripcion}
-                      </Card.Text> */}
-                  </div>
-                  <Card.Footer className={`${styles.adminFooter}`}>
-                    <div className="d-flex w-100 justify-content-evenly">
-                      <Button
-                        variant="success"
-                        onClick={() =>
-                          navigate(`/administrar-categoria/${el._id}`)
-                        }
-                      >
-                        Editar <FaPencilAlt />
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => handleOnBorrarCategoria(el._id)}
-                      >
-                        Eliminar <FaTrashAlt />
-                      </Button>
-                    </div>
-                  </Card.Footer>
-                </Card>
+            categorias.map((categoria) => (
+              <Col key={categoria._id}>
+                <CategoriasCard
+                  categoria={categoria}
+                  handleOnBorrarCategoria={handleOnBorrarCategoria}
+                />
               </Col>
             ))
           )}
