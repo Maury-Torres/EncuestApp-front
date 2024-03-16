@@ -35,10 +35,37 @@ export const EncuestasProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      console.log(data.encuestas);
       setIsLoading(false);
       setEncuestas(data.encuestas);
       setData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getEncuestasByCategoria = async (categoria, params) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/encuestas/categoria/${categoria}${
+          params ? `?${params}` : ""
+        }`
+      );
+
+      if (!response.ok) {
+        setErrors({
+          code: response.status,
+          message: response.statusText,
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      const encuestasData = await response.json();
+      setIsLoading(false);
+      setEncuestas(encuestasData.encuestas);
+      setData(encuestasData);
+
+      return encuestasData;
     } catch (error) {
       console.log(error);
     }
@@ -135,9 +162,11 @@ export const EncuestasProvider = ({ children }) => {
       value={{
         encuestas,
         isLoading,
+        setIsLoading,
         data,
         errors,
         getEncuestas,
+        getEncuestasByCategoria,
         createEncuesta,
         updateEncuesta,
         deleteEncuesta,
