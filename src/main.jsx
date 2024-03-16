@@ -41,7 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           />
 
           <Route path="categorias" element={<Categorias />} />
-          <Route path="*" element={<Errors />} />
+          <Route path="*" element={<Errors/>} />
         </Routes>
         <Footer />
       </BrowserRouter>
