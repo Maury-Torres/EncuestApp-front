@@ -15,6 +15,8 @@ import { Categorias } from "./components/categorias/Categorias";
 import { CategoriasForm } from "./components/categorias/form/CategoriasForm";
 import Errors from "./components/error/errors";
 import { CategoriasProvider } from "./context/CategoriaContext";
+import { EncuestasPage } from "./pages/EncuestasPage";
+import { Encuestas } from "./components/encuestas/Encuestas";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -34,11 +36,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             }
           >
             <Route path="/abm" element={<ABMPage />} />
+            <Route path="/encuestas" element={<EncuestasPage />} />
+            <Route path="/encuestas/categoria/:id" element={<Encuestas />} />
           </Route>
 
-
-          <Route path="*" element={<Errors/>} />
-
+          <Route path="*" element={<Errors />} />
 
           <Route
             element={
@@ -52,10 +54,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               path="/administrar-categoria/:id"
               element={<CategoriasForm />}
             />
-
             <Route path="/categorias" element={<Categorias />} />
           </Route>
-
         </Routes>
         <Footer />
       </BrowserRouter>
