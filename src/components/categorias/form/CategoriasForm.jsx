@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCategorias } from "../../../context/CategoriaContext";
 import { useForm } from "../../../hooks/useForm";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
@@ -7,7 +8,6 @@ import { CategoriasModal } from "../modal/CategoriasModal";
 import "./CategoriasForm.css";
 import { alertcustom } from "../../../utils/alertCustom";
 import { CiImageOn } from "react-icons/ci";
-import { useCategorias } from "../../../context/CategoriaContext";
 
 export const CategoriasForm = () => {
   const { nombre, descripcion, imagen, handleOnChange, setFormData } = useForm({
@@ -16,12 +16,11 @@ export const CategoriasForm = () => {
     imagen: "",
   });
 
-  const { createCategoria, updateCategoria, errors } = useCategorias();
+  const { createCategoria, updateCategoria, errors, setErrors } =
+    useCategorias();
   const { id } = useParams();
   const navigate = useNavigate();
 
-  /*   const [errors, setErrors] = useState(null);
-   */
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -45,11 +44,14 @@ export const CategoriasForm = () => {
             "Categoría",
             "success",
             () => {
+              setErrors(null);
               setFormData({ nombre: "", descripcion: "", imagen: "" });
               navigate("/categorias");
             }
           );
         }
+
+        return;
       }
 
       //* Crear categoria
@@ -65,6 +67,7 @@ export const CategoriasForm = () => {
           "Categoría",
           "success",
           () => {
+            setErrors(null);
             setFormData({ nombre: "", descripcion: "", imagen: "" });
             navigate("/categorias");
           }
