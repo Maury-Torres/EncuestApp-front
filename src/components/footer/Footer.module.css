@@ -26,3 +26,16 @@
   color: #c69393;
   text-decoration: underline;
 }
+
+.logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.logo:hover {
+  background-color: #ebb5b5;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
