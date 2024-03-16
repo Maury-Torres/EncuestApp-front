@@ -11,8 +11,14 @@ export const Categorias = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const { categorias, isLoading, data, getCategorias, deleteCategoria } =
-    useCategorias();
+  const {
+    categorias,
+    isLoading,
+    setIsLoading,
+    data,
+    getCategorias,
+    deleteCategoria,
+  } = useCategorias();
 
   const [page, setPage] = useState(1);
 
@@ -40,8 +46,12 @@ export const Categorias = () => {
   };
 
   useEffect(() => {
-    getCategorias();
-  }, []);
+    getCategorias(searchParams.toString());
+
+    return () => {
+      setIsLoading(true);
+    };
+  }, [page]);
 
   return (
     <>
