@@ -155,6 +155,7 @@ export const CategoriasProvider = ({ children }) => {
       value={{
         categorias,
         isLoading,
+        setIsLoading,
         data,
         errors,
         getCategorias,
