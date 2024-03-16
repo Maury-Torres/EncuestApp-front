@@ -6,6 +6,7 @@ import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 
 export const CategoriasCard = ({ categoria, handleOnBorrarCategoria }) => {
   const navigate = useNavigate();
+
   return (
     <Card className={`bg-dark text position-relative ${styles.card}`}>
       <div className={styles.imageWrapper}>
