@@ -145,6 +145,7 @@ export const CategoriasProvider = ({ children }) => {
       });
       setIsLoading(false);
       alertcustom("Categoría eliminada correctamente", "Categoría", "success");
+      await getCategorias();
     } catch (error) {
       console.log(error);
     }
@@ -158,6 +159,7 @@ export const CategoriasProvider = ({ children }) => {
         setIsLoading,
         data,
         errors,
+        setErrors,
         getCategorias,
         createCategoria,
         updateCategoria,
