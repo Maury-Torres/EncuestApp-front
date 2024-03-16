@@ -14,7 +14,7 @@ const Banners = () => {
     <Row>
       {categorias.map(category => (
         <Col>
-        <Link to='/*'>
+        <Link to='/formulario'>
             <Card key={category.id} id='cardStyle'>
               <Card.Img src={category.imagen} alt={category.name} className='category-img' />
               <Card.Body >
