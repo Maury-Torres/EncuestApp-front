@@ -20,7 +20,9 @@ import { Encuestas } from "./components/encuestas/Encuestas";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <BrowserRouter>
         <NavbarTest />
         <Routes>
@@ -59,6 +61,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
+    </div>
   </React.StrictMode>
 );
