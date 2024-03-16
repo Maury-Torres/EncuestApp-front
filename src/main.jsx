@@ -47,7 +47,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               element={<CategoriasForm />}
             />
 
-            <Route path="categorias" element={<Categorias />} />
+            <Route path="/categorias" element={<Categorias />} />
           </Route>
 
           <Route path="*" element={<h1>Error</h1>} />
