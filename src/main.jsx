@@ -17,6 +17,7 @@ import Errors from "./components/error/errors";
 import { CategoriasProvider } from "./context/CategoriaContext";
 import { EncuestasPage } from "./pages/EncuestasPage";
 import { Encuestas } from "./components/encuestas/Encuestas";
+import { AuthProvider } from "./context/AuthContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -24,42 +25,47 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
       <BrowserRouter>
-        <NavbarTest />
-        <Routes>
-          <Route path="/" element={<HomeV1 />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/banners" element={<Banners />} />
-          <Route
-            element={
-              <EncuestasProvider>
-                <Outlet />
-              </EncuestasProvider>
-            }
-          >
-            <Route path="/abm" element={<ABMPage />} />
-            <Route path="/encuestas" element={<EncuestasPage />} />
-            <Route path="/encuestas/categoria/:id" element={<Encuestas />} />
-          </Route>
-
-          <Route path="*" element={<Errors />} />
-
-          <Route
-            element={
-              <CategoriasProvider>
-                <Outlet />
-              </CategoriasProvider>
-            }
-          >
-            <Route path="/administrar-categoria" element={<CategoriasForm />} />
+        <AuthProvider>
+          <NavbarTest />
+          <Routes>
+            <Route path="/" element={<HomeV1 />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/banners" element={<Banners />} />
             <Route
-              path="/administrar-categoria/:id"
-              element={<CategoriasForm />}
-            />
-            <Route path="/categorias" element={<Categorias />} />
-          </Route>
-        </Routes>
-        <Footer />
+              element={
+                <EncuestasProvider>
+                  <Outlet />
+                </EncuestasProvider>
+              }
+            >
+              <Route path="/abm" element={<ABMPage />} />
+              <Route path="/encuestas" element={<EncuestasPage />} />
+              <Route path="/encuestas/categoria/:id" element={<Encuestas />} />
+            </Route>
+
+            <Route path="*" element={<Errors />} />
+
+            <Route
+              element={
+                <CategoriasProvider>
+                  <Outlet />
+                </CategoriasProvider>
+              }
+            >
+              <Route
+                path="/administrar-categoria"
+                element={<CategoriasForm />}
+              />
+              <Route
+                path="/administrar-categoria/:id"
+                element={<CategoriasForm />}
+              />
+              <Route path="/categorias" element={<Categorias />} />
+            </Route>
+          </Routes>
+          <Footer />
+        </AuthProvider>
       </BrowserRouter>
     </div>
   </React.StrictMode>
