@@ -3,11 +3,12 @@ import { FormCard } from "../../ui/formcard/FormCard";
 import { useEncuestas } from "../../../context/EncuestaContext";
 import { Form, Button, Card } from "react-bootstrap";
 import { alertcustom } from "../../../utils/alertCustom.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const EncuestasForm = () => {
-  const { createEncuesta, errors, setErrors } = useEncuestas();
+  const { createEncuesta, updateEncuesta, errors, setErrors } = useEncuestas();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [formData, setFormData] = useState([]);
   const [nombre, setNombre] = useState("");
@@ -16,7 +17,6 @@ export const EncuestasForm = () => {
   const [categoriasData, setCategoriasData] = useState([]);
 
   // TODO Agregar validaciones para las preguntas y respuestas
-  // TODO Agregar para editar la encuesta
   //! Refactorizar el código
 
   const handleOnClickNewFormData = () => {
@@ -95,6 +95,26 @@ export const EncuestasForm = () => {
     e.preventDefault();
 
     try {
+      if (id) {
+        const response = await updateEncuesta(id, {
+          nombre,
+          descripcion,
+          categoria: categorias,
+        });
+
+        if (response) {
+          alertcustom("", "Encuesta editada correctamente", "success", () => {
+            setErrors(null);
+            setNombre("");
+            setDescripcion("");
+            setFormData([]);
+            navigate(`/encuestas/categoria/${categorias}`);
+            setCategorias("");
+          });
+        }
+        return;
+      }
+
       const response = await createEncuesta({
         nombre,
         descripcion,
@@ -138,12 +158,39 @@ export const EncuestasForm = () => {
     getCategorias();
   }, []);
 
+  useEffect(() => {
+    if (id) {
+      const getEncuesta = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/encuestas/${id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          const data = await response.json();
+
+          setNombre(data.nombre);
+          setDescripcion(data.descripcion);
+          setCategorias(data.categoria._id);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getEncuesta();
+    }
+  }, [id]);
+
   const hasError = (path) =>
     errors && !!errors.find((err) => err.path === path);
 
   return (
     <FormCard>
-      <h1>Nueva encuesta</h1>
+      <h1>{id ? "Editar" : "Crear"} encuesta</h1>
       <Card.Body className="d-flex flex-column align-items-center gap-5">
         <Form onSubmit={handleOnSubmit}>
           <Form.Group className="mb-3">
@@ -199,12 +246,14 @@ export const EncuestasForm = () => {
             )}
           </Form.Group>
 
-          <Button
-            variant="warning w-100 mb-2"
-            onClick={handleOnClickNewFormData}
-          >
-            Agregar pregunta
-          </Button>
+          {!id && (
+            <Button
+              variant="warning w-100 mb-2"
+              onClick={handleOnClickNewFormData}
+            >
+              Agregar pregunta
+            </Button>
+          )}
 
           {formData.map((data) => (
             <div key={data.id}>
@@ -242,7 +291,7 @@ export const EncuestasForm = () => {
           ))}
 
           <Button variant="primary" type="submit">
-            Crear encuesta
+            {id ? "Editar" : "Crear"} encuesta
           </Button>
         </Form>
       </Card.Body>
