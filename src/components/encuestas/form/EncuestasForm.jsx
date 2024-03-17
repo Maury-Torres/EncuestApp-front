@@ -1,24 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormCard } from "../../ui/formcard/FormCard";
 import { useEncuestas } from "../../../context/EncuestaContext";
-import { useAuth } from "../../../context/AuthContext";
-/* import { useCategorias } from "../../../context/CategoriaContext";
- */
+import { Form, Button, Card } from "react-bootstrap";
 
 export const EncuestasForm = () => {
   const { createEncuesta } = useEncuestas();
-  /*   const { user } = useAuth();
-   */ const [formData, setFormData] = useState([]);
+  const [formData, setFormData] = useState([]);
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [categorias, setCategorias] = useState("");
+  const [categoriasData, setCategoriasData] = useState([]);
 
-  //TODO Agregar select para seleccionar la categoria
-  // TODO Modificar estilos y agregar validaciones
+  // TODO Agregar validaciones
   // TODO Agregar para editar la encuesta
   //! Refactorizar el código
 
-  /*   const { getCategorias, categorias } = useCategorias();
-   */
   const handleOnClickNewFormData = () => {
     setFormData((prevState) => [
       ...prevState,
@@ -99,7 +95,7 @@ export const EncuestasForm = () => {
         nombre,
         descripcion,
         preguntas: formData,
-        categoria: "65f5a31f9d1c80c679159c30",
+        categoria: categorias,
         available: true,
       });
 
@@ -109,68 +105,109 @@ export const EncuestasForm = () => {
     }
   };
 
+  useEffect(() => {
+    const getCategorias = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/categorias", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
+
+        setCategoriasData(data.categorias);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCategorias();
+  }, []);
+
   return (
     <FormCard>
-      <div className="justify-content-center d-flex flex-column gap-5 align-items-center">
-        <form onSubmit={handleOnSubmit}>
-          <input
-            type="text"
-            placeholder="Nombre"
-            className="form-control mb-3"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Descripción"
-            className="form-control mb-3"
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-          />
-          <button
-            className="btn btn-lg btn-warning"
+      <h1>Nueva encuesta</h1>
+      <Card.Body className="d-flex flex-column align-items-center gap-5">
+        <Form onSubmit={handleOnSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Descripción"
+              value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Select
+              value={categorias}
+              onChange={(e) => setCategorias(e.target.value)}
+            >
+              <option>Selecciona una categoría</option>
+              {categoriasData.map((categoria) => (
+                <option key={categoria._id} value={categoria._id}>
+                  {categoria.nombre}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+
+          <Button
+            variant="warning w-100 mb-2"
             onClick={handleOnClickNewFormData}
           >
             Agregar pregunta
-          </button>
+          </Button>
+
           {formData.map((data) => (
             <div key={data.id}>
-              <div className="d-flex mb-3">
-                <input
+              <Form.Group className="d-flex mb-3">
+                <Form.Control
                   type="text"
                   placeholder="Ingresa la pregunta"
-                  className="form-control"
                   id={data.id}
                   name={data.pregunta}
                   onChange={handleOnChangePreguntas}
                 />
-                <button
-                  type="button"
-                  className="btn btn-info fs-3 mx-2"
+                <Button
+                  variant="info"
+                  className="fs-3 mx-2"
                   onClick={() => handleOnClickRespuestas(data.id)}
                 >
                   +
-                </button>
-              </div>
+                </Button>
+              </Form.Group>
+
               {data.respuestas.map((respuesta) => (
-                <input
-                  type="text"
-                  key={respuesta.id}
-                  className="form-control mb-3"
-                  id={respuesta.id}
-                  value={respuesta.respuesta}
-                  onChange={handleOnChangeRespuesta}
-                  placeholder="Ingresa tu respuesta"
-                />
+                <Form.Group className="mb-3" key={respuesta.id}>
+                  <Form.Control
+                    type="text"
+                    key={respuesta.id}
+                    id={respuesta.id}
+                    value={respuesta.respuesta}
+                    onChange={handleOnChangeRespuesta}
+                    placeholder="Ingresa tu respuesta"
+                  />
+                </Form.Group>
               ))}
             </div>
           ))}
 
-          <button className="btn btn-primary" type="submit">
-            Enviar
-          </button>
-        </form>
-      </div>
+          <Button variant="primary" type="submit">
+            Crear encuesta
+          </Button>
+        </Form>
+      </Card.Body>
     </FormCard>
   );
 };
