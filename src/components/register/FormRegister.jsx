@@ -19,6 +19,8 @@ import "animate.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
+
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -28,6 +30,7 @@ export const FormRegister = () => {
   const { errors } = formState;
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [passwordVisibleConfirm, setPasswordVisibleConfirm] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -79,13 +82,12 @@ export const FormRegister = () => {
         if (response.status === 400) {
           return alertcustom('', messages.emailRegister, "error");
         } else {
-          // alertcustom(messages.userSuccessful, messages.congratulations, "success", ()=> {});
           Toast.fire({
             icon: "success",
             title: messages.userSuccessful
           })
           .then(() => {
-            window.location.href = "/banners"
+            navigate("/");
           })
         }
       } 

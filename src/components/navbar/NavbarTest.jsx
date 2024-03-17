@@ -70,11 +70,15 @@ export const NavbarTest = () => {
             : ''
             }
 
+            { isAuth ?
             <Button onClick={signout} id={button3} size="sm">
               <Navbar.Text>
                 <FontAwesomeIcon icon={faRightFromBracket} />
               </Navbar.Text>
             </Button>
+            : ''
+            } 
+
           </Nav>
         </Navbar.Collapse>
       </Container>
