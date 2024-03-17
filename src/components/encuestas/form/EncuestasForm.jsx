@@ -4,12 +4,14 @@ import { useEncuestas } from "../../../context/EncuestaContext";
 import { Form, Button, Card } from "react-bootstrap";
 
 export const EncuestasForm = () => {
-  const { createEncuesta } = useEncuestas();
+  const { createEncuesta, errors } = useEncuestas();
   const [formData, setFormData] = useState([]);
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [categorias, setCategorias] = useState("");
   const [categoriasData, setCategoriasData] = useState([]);
+
+  console.log(errors, "Errors");
 
   // TODO Agregar validaciones
   // TODO Agregar para editar la encuesta
@@ -98,8 +100,6 @@ export const EncuestasForm = () => {
         categoria: categorias,
         available: true,
       });
-
-      console.log(response, "Response");
     } catch (error) {
       console.log();
     }
@@ -125,6 +125,9 @@ export const EncuestasForm = () => {
     getCategorias();
   }, []);
 
+  const hasError = (path) =>
+    errors && !!errors.find((err) => err.path === path);
+
   return (
     <FormCard>
       <h1>Nueva encuesta</h1>
@@ -136,7 +139,14 @@ export const EncuestasForm = () => {
               placeholder="Nombre"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
+              isInvalid={hasError("nombre")}
+              className={hasError("nombre") ? "error-input" : ""}
             />
+            {hasError("nombre") && (
+              <Form.Control.Feedback type="invalid">
+                {errors.find((error) => error.path === "nombre").msg}
+              </Form.Control.Feedback>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -145,13 +155,22 @@ export const EncuestasForm = () => {
               placeholder="Descripción"
               value={descripcion}
               onChange={(e) => setDescripcion(e.target.value)}
+              isInvalid={hasError("descripcion")}
+              className={hasError("descripcion") ? "error-input" : ""}
             />
+            {hasError("descripcion") && (
+              <Form.Control.Feedback type="invalid">
+                {errors.find((error) => error.path === "descripcion").msg}
+              </Form.Control.Feedback>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Select
               value={categorias}
               onChange={(e) => setCategorias(e.target.value)}
+              isInvalid={hasError("categoria")}
+              className={hasError("categoria") ? "error-input" : ""}
             >
               <option>Selecciona una categoría</option>
               {categoriasData.map((categoria) => (
@@ -160,6 +179,11 @@ export const EncuestasForm = () => {
                 </option>
               ))}
             </Form.Select>
+            {hasError("categoria") && (
+              <Form.Control.Feedback type="invalid">
+                {errors.find((error) => error.path === "categoria").msg}
+              </Form.Control.Feedback>
+            )}
           </Form.Group>
 
           <Button
@@ -179,6 +203,7 @@ export const EncuestasForm = () => {
                   name={data.pregunta}
                   onChange={handleOnChangePreguntas}
                 />
+
                 <Button
                   variant="info"
                   className="fs-3 mx-2"

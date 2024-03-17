@@ -83,18 +83,18 @@ export const EncuestasProvider = ({ children }) => {
         body: JSON.stringify(encuesta),
       });
 
-      if (!response.ok) {
-        setErrors({
-          code: response.status,
-          message: response.statusText,
-        });
+      const encuestaData = await response.json();
+
+      if (encuestaData.errors) {
+        setErrors(encuestaData.errors);
         setIsLoading(false);
         return;
       }
 
-      const data = await response.json();
       setIsLoading(false);
-      setEncuestas([...encuestas, data]);
+      setEncuestas([...encuestas, encuestaData]);
+
+      return encuestaData;
     } catch (error) {
       console.log(error);
     }
@@ -167,6 +167,7 @@ export const EncuestasProvider = ({ children }) => {
         setIsLoading,
         data,
         errors,
+        setErrors,
         getEncuestas,
         getEncuestasByCategoria,
         createEncuesta,
