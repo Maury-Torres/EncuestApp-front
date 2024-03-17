@@ -87,9 +87,12 @@ export const ABMPage = () => {
           <section className="header-abm">
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 gap-5">
               <div className="d-flex align-items-center gap-3 mt-3 mt-md-0">
-                <button className="btn btn-warning p-3 shadow-lg">
+                <Link
+                  to="/administrar-encuesta"
+                  className="btn btn-warning p-3 shadow-lg"
+                >
                   Nueva encuesta <RiSurveyFill />
-                </button>
+                </Link>
 
                 <Link
                   to="/administrar-categoria"

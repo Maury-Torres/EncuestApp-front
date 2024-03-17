@@ -11,6 +11,7 @@ import { CategoriasProvider } from "../context/CategoriaContext";
 import { EncuestasPage } from "./EncuestasPage";
 import { Encuestas } from "../components/encuestas/Encuestas";
 import { AuthProvider } from "../context/AuthContext";
+import { EncuestasForm } from "../components/encuestas/form/EncuestasForm";
 
 export {
   HomeV1,
@@ -26,4 +27,5 @@ export {
   EncuestasPage,
   Encuestas,
   AuthProvider,
+  EncuestasForm,
 };

@@ -18,6 +18,7 @@ import {
   Footer,
   HomeV1,
   Login,
+  EncuestasForm,
 } from "./pages/index.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -42,6 +43,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="/abm" element={<ABMPage />} />
               <Route path="/encuestas" element={<EncuestasPage />} />
               <Route path="/encuestas/categoria/:id" element={<Encuestas />} />
+              <Route path="/administrar-encuesta" element={<EncuestasForm />} />
             </Route>
 
             <Route path="*" element={<Errors />} />

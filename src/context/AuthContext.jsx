@@ -41,7 +41,6 @@ export function AuthProvider({ children }) {
       setErrors(null);
       setUser(userData);
       setIsAuth(true);
-      localStorage.setItem("user", JSON.stringify(userData));
       setIsLoading(false);
 
       return userData;
