@@ -8,6 +8,7 @@ import { ABMPagination } from "../components/abm/pagination/ABMPagination";
 import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
 import { RiSurveyFill } from "react-icons/ri";
 import { TbCategoryPlus } from "react-icons/tb";
+import Swal from "sweetalert2";
 
 export const ABMPage = () => {
   //! Refactorizar el codigo.
@@ -28,6 +29,7 @@ export const ABMPage = () => {
   //* Permite que el componente se vuelva a renderizar cuando se hace click en el checkbox
   const [updateCheckbox, setUpdateCheckbox] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { deleteEncuesta } = useEncuestas();
 
   const location = useLocation();
   const query = new URLSearchParams(location.search);
@@ -76,6 +78,23 @@ export const ABMPage = () => {
     setSearchParams(searchParams);
   };
 
+  const handleOnBorrarEncuesta = async (id) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteEncuesta(id);
+      }
+    });
+  };
+
   useEffect(() => {
     getEncuestas(paramsString);
   }, [page, orderByDate, orderByCategory, updateCheckbox]);
@@ -122,6 +141,7 @@ export const ABMPage = () => {
                       encuesta={encuesta}
                       updateEncuesta={updateEncuesta}
                       handleCheckboxChange={handleCheckboxChange}
+                      handleOnBorrarEncuesta={handleOnBorrarEncuesta}
                     />
                   ))
                 ) : (
