@@ -44,6 +44,28 @@ export const EncuestasProvider = ({ children }) => {
     }
   };
 
+  const getEncuesta = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/encuestas/${id}`);
+
+      if (!response.ok) {
+        setErrors({
+          code: response.status,
+          message: response.statusText,
+        });
+
+        setIsLoading(false);
+        return;
+      }
+
+      const encuestaData = await response.json();
+      setIsLoading(false);
+      return encuestaData;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getEncuestasByCategoria = async (categoria, params) => {
     try {
       const response = await fetch(
@@ -179,6 +201,7 @@ export const EncuestasProvider = ({ children }) => {
         errors,
         setErrors,
         getEncuestas,
+        getEncuesta,
         getEncuestasByCategoria,
         createEncuesta,
         updateEncuesta,
