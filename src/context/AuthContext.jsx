@@ -66,6 +66,7 @@ export function AuthProvider({ children }) {
         isAuth,
         isLoading,
         errors,
+        setErrors,
         signin,
       }}
     >
