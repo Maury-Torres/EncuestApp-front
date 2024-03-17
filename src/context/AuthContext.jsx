@@ -53,9 +53,30 @@ export function AuthProvider({ children }) {
     setIsLoading(true);
 
     if (Cookies.get("token")) {
-      setIsAuth(true);
-    }
+      fetch(`http://localhost:3000/api/user`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Credentials": true,
+        },
+      })
+        .then((response) => response.json())
+        .then((userData) => {
+          if (userData.errors) {
+            setIsLoading(false);
+            return;
+          }
 
+          setUser(userData);
+          setIsAuth(true);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsAuth(false);
+          setUser(null);
+        });
+    }
     setIsLoading(false);
   }, []);
 
