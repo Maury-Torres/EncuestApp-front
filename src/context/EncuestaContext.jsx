@@ -99,10 +99,10 @@ export const EncuestasProvider = ({ children }) => {
     }
   };
 
-  const updateEncuesta = async (encuesta) => {
+  const updateEncuesta = async (id, encuesta) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/encuestas/${encuesta._id}`,
+        `http://localhost:3000/api/encuestas/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -112,21 +112,21 @@ export const EncuestasProvider = ({ children }) => {
         }
       );
 
-      if (!response.ok) {
-        setErrors({
-          code: response.status,
-          message: response.statusText,
-        });
+      const encuestaData = await response.json();
+
+      if (encuestaData.errors) {
+        setErrors(encuestaData.errors);
         setIsLoading(false);
         return;
       }
 
-      const data = await response.json();
-      const index = encuestas.findIndex((e) => e._id === data._id);
+      const index = encuestas.findIndex((e) => e._id === encuestaData._id);
       const newEncuestas = [...encuestas];
-      newEncuestas[index] = data;
+      newEncuestas[index] = encuestaData;
       setIsLoading(false);
       setEncuestas(newEncuestas);
+
+      return encuestaData;
     } catch (error) {
       console.log(error);
     }
