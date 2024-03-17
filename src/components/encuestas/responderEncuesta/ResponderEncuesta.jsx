@@ -14,6 +14,8 @@ export const ResponderEncuesta = () => {
   const [formData, setFormData] = useState([]);
   const [formValid, setFormValid] = useState(false);
 
+  console.log(encuestaData);
+
   useEffect(() => {
     getEncuesta(id).then((data) => {
       setEncuestaData(data);
@@ -68,7 +70,7 @@ export const ResponderEncuesta = () => {
 
       if (response.ok) {
         alertcustom("", "Encuesta enviada correctamente", "success", () => {
-          navigate(`/encuestas/categoria/${encuestaData.categoria_id}`);
+          navigate(`/encuestas/categoria/${encuestaData.categoria._id}`);
           setFormData([]);
           setFormValid(false);
         });
