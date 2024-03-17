@@ -2,18 +2,20 @@ import { useEffect, useState } from "react";
 import { FormCard } from "../../ui/formcard/FormCard";
 import { useEncuestas } from "../../../context/EncuestaContext";
 import { Form, Button, Card } from "react-bootstrap";
+import { alertcustom } from "../../../utils/alertCustom.js";
+import { useNavigate } from "react-router-dom";
 
 export const EncuestasForm = () => {
-  const { createEncuesta, errors } = useEncuestas();
+  const { createEncuesta, errors, setErrors } = useEncuestas();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState([]);
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [categorias, setCategorias] = useState("");
   const [categoriasData, setCategoriasData] = useState([]);
 
-  console.log(errors, "Errors");
-
-  // TODO Agregar validaciones
+  // TODO Agregar validaciones para las preguntas y respuestas
   // TODO Agregar para editar la encuesta
   //! Refactorizar el código
 
@@ -100,6 +102,17 @@ export const EncuestasForm = () => {
         categoria: categorias,
         available: true,
       });
+
+      if (response) {
+        alertcustom("", "Encuesta creada correctamente", "success", () => {
+          setErrors(null);
+          setNombre("");
+          setDescripcion("");
+          setFormData([]);
+          navigate(`/encuestas/categoria/${categorias}`);
+          setCategorias("");
+        });
+      }
     } catch (error) {
       console.log();
     }

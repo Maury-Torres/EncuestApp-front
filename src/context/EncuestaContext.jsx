@@ -93,7 +93,6 @@ export const EncuestasProvider = ({ children }) => {
 
       setIsLoading(false);
       setEncuestas([...encuestas, encuestaData]);
-
       return encuestaData;
     } catch (error) {
       console.log(error);
