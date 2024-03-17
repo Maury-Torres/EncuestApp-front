@@ -16,6 +16,7 @@
     "animate.css": "^4.1.1",
     "axios": "^1.6.7",
     "bootstrap": "^5.3.3",
+    "js-cookie": "^3.0.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "mongodb": "^6.3.0",
