@@ -7,11 +7,15 @@ import { useAuth } from "../../../context/AuthContext";
 
 export const EncuestasForm = () => {
   const { createEncuesta } = useEncuestas();
-  const { user } = useAuth();
-  const [formData, setFormData] = useState([]);
+  /*   const { user } = useAuth();
+   */ const [formData, setFormData] = useState([]);
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  console.log(user, "User");
+
+  //TODO Agregar select para seleccionar la categoria
+  // TODO Modificar estilos y agregar validaciones
+  // TODO Agregar para editar la encuesta
+  //! Refactorizar el código
 
   /*   const { getCategorias, categorias } = useCategorias();
    */
@@ -91,18 +95,6 @@ export const EncuestasForm = () => {
     e.preventDefault();
 
     try {
-      console.log(
-        {
-          nombre,
-          descripcion,
-          preguntas: formData,
-          categoria: "65f5a31f9d1c80c679159c30",
-          user: "65f36e6c27c768389f5cf283",
-          available: true,
-        },
-        "Submit"
-      );
-
       const response = await createEncuesta({
         nombre,
         descripcion,
@@ -120,12 +112,6 @@ export const EncuestasForm = () => {
   return (
     <FormCard>
       <div className="justify-content-center d-flex flex-column gap-5 align-items-center">
-        <button
-          className="btn btn-lg btn-warning"
-          onClick={handleOnClickNewFormData}
-        >
-          Agregar respuesta
-        </button>
         <form onSubmit={handleOnSubmit}>
           <input
             type="text"
@@ -141,7 +127,12 @@ export const EncuestasForm = () => {
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
           />
-
+          <button
+            className="btn btn-lg btn-warning"
+            onClick={handleOnClickNewFormData}
+          >
+            Agregar pregunta
+          </button>
           {formData.map((data) => (
             <div key={data.id}>
               <div className="d-flex mb-3">
