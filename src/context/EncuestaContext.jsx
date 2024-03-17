@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react";
 import propTypes from "prop-types";
+import { alertcustom } from "../utils/alertCustom";
 
 const EncuestasContext = createContext();
 
@@ -132,11 +133,16 @@ export const EncuestasProvider = ({ children }) => {
     }
   };
 
-  const deleteEncuesta = async (encuesta) => {
+  const deleteEncuesta = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/encuestas/${encuesta._id}`,
+        `http://localhost:3000/api/encuestas/${id}`,
         {
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Credentials": true,
+          },
           method: "DELETE",
         }
       );
@@ -150,9 +156,14 @@ export const EncuestasProvider = ({ children }) => {
         return;
       }
 
-      const data = await response.json();
+      setEncuestas(encuestas.filter((encuesta) => encuesta._id !== id));
+      setData({
+        ...data,
+        encuestas: data.encuestas.filter((encuesta) => encuesta._id !== id),
+      });
       setIsLoading(false);
-      setEncuestas([...encuestas, data]);
+      alertcustom("Encuesta eliminada correctamente", "Encuesta", "success");
+      await getEncuestas();
     } catch (error) {
       console.log(error);
     }
