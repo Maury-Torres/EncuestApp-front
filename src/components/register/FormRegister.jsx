@@ -54,15 +54,16 @@ export const FormRegister = () => {
 
 
   const onSubmit = async (data) => {
-    try {
-        if (!passwordRegex.test(data.password)) {
-          return alertcustom(
-            "La contraseña debe tener: una mayuscula, una minuscula, un numero, un caracter, min 8 caracteres",
-            "Error",
-            "warning"
-          );
-        }
 
+      if (!passwordRegex.test(data.password)) {
+        return alertcustom(
+          "La contraseña debe tener: una mayuscula, una minuscula, un numero, un caracter, min 8 caracteres",
+          "Error",
+          "warning"
+        );
+      }
+
+    try {
         const response = await fetch(`${BASE_URL}/api/signup`, {
             method: "POST",
             credentials: "include",
@@ -79,18 +80,18 @@ export const FormRegister = () => {
             },
             });
 
-        if (response.status === 400) {
-          return alertcustom('', messages.emailRegister, "error");
-        } else {
-          Toast.fire({
-            icon: "success",
-            title: messages.userSuccessful
-          })
-          .then(() => {
-            navigate("/");
-          })
-        }
-      } 
+            if (response.status === 400) {
+              return alertcustom('', messages.emailRegister, "error");
+            } else {
+              Toast.fire({
+                icon: "success",
+                title: messages.userSuccessful
+              })
+              .then(() => {
+                navigate("/");
+              })
+            }
+          } 
       catch (error) {
         console.log(error);
         if (error.code == "ERR_NETWORK") {

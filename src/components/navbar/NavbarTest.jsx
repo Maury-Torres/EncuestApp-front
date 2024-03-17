@@ -3,16 +3,17 @@ import { Container, Nav, Navbar, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { container, button, button2, button3, btnHamburguesa, containerNav, title, navCollapse } from "./NavbarTest.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import estilos from "./NavbarTest.module.css";
 import logo from '/src/assets/logo.png'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from "react-router";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 
 
 export const NavbarTest = () => {
 
+  const navigate = useNavigate();
   const { user, isAuth } = useAuth();
   console.log(user, isAuth);
 
@@ -27,8 +28,7 @@ export const NavbarTest = () => {
       if (response.ok) {
         // Limpiar la cookie de token en el cliente
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        // Redireccionar a la página de inicio de sesión u otra página
-        window.location.href = '/login'; // Cambia '/login' a la ruta de tu página de inicio de sesión
+        navigate("/login"); 
       } else {
         throw new Error('Error al cerrar sesión');
       }
