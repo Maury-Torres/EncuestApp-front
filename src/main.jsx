@@ -5,19 +5,21 @@ import "animate.css";
 import { Register } from "./pages/Register";
 import { NavbarTest } from "./components/navbar/NavbarTest";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import HomeV1 from "./components/home/HomeV1";
-import Banners from "./components/banners/Banners";
-import Login from "./pages/Login";
-import { ABMPage } from "./pages/ABMPage";
-import { EncuestasProvider } from "./context/EncuestaContext";
-import { Footer } from "./components/footer/Footer";
-import { Categorias } from "./components/categorias/Categorias";
-import { CategoriasForm } from "./components/categorias/form/CategoriasForm";
-import Errors from "./components/error/errors";
-import { CategoriasProvider } from "./context/CategoriaContext";
-import { EncuestasPage } from "./pages/EncuestasPage";
-import { Encuestas } from "./components/encuestas/Encuestas";
-import { AuthProvider } from "./context/AuthContext";
+import {
+  ABMPage,
+  AuthProvider,
+  Banners,
+  Categorias,
+  CategoriasForm,
+  CategoriasProvider,
+  Encuestas,
+  EncuestasPage,
+  EncuestasProvider,
+  Errors,
+  Footer,
+  HomeV1,
+  Login,
+} from "./pages/index.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
