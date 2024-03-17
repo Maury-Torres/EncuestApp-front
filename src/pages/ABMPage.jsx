@@ -17,6 +17,7 @@ export const ABMPage = () => {
     encuestas,
     getEncuestas,
     isLoading,
+    setIsLoading,
     data,
     errors,
     createEncuesta,
@@ -97,6 +98,10 @@ export const ABMPage = () => {
 
   useEffect(() => {
     getEncuestas(paramsString);
+
+    return () => {
+      setIsLoading(true);
+    };
   }, [page, orderByDate, orderByCategory, updateCheckbox]);
 
   return (
