@@ -93,7 +93,7 @@ export const EncuestasProvider = ({ children }) => {
       }
 
       setIsLoading(false);
-      setEncuestas([...encuestas, encuestaData]);
+      setEncuestas((prevState) => [encuestaData, ...prevState]);
       return encuestaData;
     } catch (error) {
       console.log(error);

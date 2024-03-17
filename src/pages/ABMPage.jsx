@@ -19,8 +19,6 @@ export const ABMPage = () => {
     isLoading,
     setIsLoading,
     data,
-    errors,
-    createEncuesta,
     updateEncuesta,
   } = useEncuestas();
   const [page, setPage] = useState(1);
