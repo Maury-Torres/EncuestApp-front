@@ -3,9 +3,24 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import styles from "./EncuestasCard.module.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
+import { useEffect, useState } from "react";
 
 export const EncuestasCard = ({ encuesta }) => {
+  const { user } = useAuth();
+  const [encuestasRealizadas, setEncuestasRealizadas] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      setEncuestasRealizadas(user.encuestasRealizadas);
+    }
+  }, [user]);
+
+  const encuestaRespondida = encuestasRealizadas.some(
+    (encuestaRealizada) => encuestaRealizada.encuesta === encuesta._id
+  );
+
   return (
     <Card className={`${styles.cardMargin} ${styles.cardBackground}`}>
       <Card.Body>
@@ -16,14 +31,21 @@ export const EncuestasCard = ({ encuesta }) => {
       </Card.Body>
       <Card.Footer>
         <div className="d-flex w-100 justify-content-between align-items-center">
-          <small className="text-muted">Autor: {encuesta.user.username}</small>
-          <Button
-            variant="primary"
-            className={styles.button}
-            onClick={() => navigate(`/responder-encuesta/${encuesta._id}`)}
-          >
-            Realizar encuesta
-          </Button>
+          <small className="text-muted">
+            Autor: {encuesta?.user?.username}
+          </small>
+          {encuestaRespondida ? (
+            <Button variant="primary" onClick={() => navigate(`/#`)}>
+              Ver encuesta
+            </Button>
+          ) : (
+            <Button
+              variant="primary"
+              onClick={() => navigate(`/responder-encuesta/${encuesta._id}`)}
+            >
+              Responder encuesta
+            </Button>
+          )}
         </div>
       </Card.Footer>
     </Card>

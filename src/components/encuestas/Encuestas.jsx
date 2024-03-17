@@ -29,7 +29,6 @@ export const Encuestas = () => {
     };
   }, [page, id]);
 
-  console.log(encuestas);
   return (
     <>
       <Container>
