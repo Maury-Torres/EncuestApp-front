@@ -8,7 +8,6 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import {
   ABMPage,
   AuthProvider,
-  Banners,
   Categorias,
   CategoriasForm,
   CategoriasProvider,
@@ -33,7 +32,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/" element={<HomeV1 />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/banners" element={<Banners />} />
             <Route
               element={
                 <EncuestasProvider>
