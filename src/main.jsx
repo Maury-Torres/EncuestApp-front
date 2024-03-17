@@ -12,7 +12,6 @@ import {
   CategoriasForm,
   CategoriasProvider,
   Encuestas,
-  EncuestasPage,
   EncuestasProvider,
   Errors,
   Footer,
@@ -41,7 +40,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               }
             >
               <Route path="/abm" element={<ABMPage />} />
-              <Route path="/encuestas" element={<EncuestasPage />} />
               <Route path="/encuestas/categoria/:id" element={<Encuestas />} />
               <Route path="/administrar-encuesta" element={<EncuestasForm />} />
             </Route>

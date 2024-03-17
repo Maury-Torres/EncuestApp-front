@@ -8,7 +8,6 @@ import { Categorias } from "../components/categorias/Categorias";
 import { CategoriasForm } from "../components/categorias/form/CategoriasForm";
 import Errors from "../components/error/errors";
 import { CategoriasProvider } from "../context/CategoriaContext";
-import { EncuestasPage } from "./EncuestasPage";
 import { Encuestas } from "../components/encuestas/Encuestas";
 import { AuthProvider } from "../context/AuthContext";
 import { EncuestasForm } from "../components/encuestas/form/EncuestasForm";
@@ -24,7 +23,6 @@ export {
   CategoriasForm,
   Errors,
   CategoriasProvider,
-  EncuestasPage,
   Encuestas,
   AuthProvider,
   EncuestasForm,
