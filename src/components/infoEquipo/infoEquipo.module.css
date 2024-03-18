@@ -1,6 +1,3 @@
-body {
-    margin-top: 10%;
-} 
 
 #containerCards{
 flex-wrap: wrap;
@@ -57,15 +54,4 @@ justify-content: center;
 
 h3{
     margin-bottom: 10px;
-}
-
-@media (max-width: 911px){
-    body {
-        margin-top: 15%;
-    }
-}
-@media (max-width: 525px){
-    body {
-        margin-top: 25%;
-    }
 }

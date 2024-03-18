@@ -3,10 +3,12 @@ import { Container, Nav, Navbar, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { container, button, button2, button3, btnHamburguesa, containerNav, title, navCollapse } from "./NavbarTest.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from '/src/assets/logo.png'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from "react-router";
+import logo from "../../assets/logo-no-fondo.png";
+import styles from "../footer/Footer.module.css";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 
@@ -39,9 +41,11 @@ export const NavbarTest = () => {
 
 
   return (
-    <Navbar expand="lg"  id={container} fixed='top'>
+    <Navbar expand="lg"  id={container} >
       <Container>
-        <Navbar.Brand className='fw-bold text-white' id={title}>EncuestApp</Navbar.Brand>
+        <Navbar.Brand className='fw-bold text-white' id={title}> <a href="/">
+              <img src={logo} alt="Logo" className={styles.logo} />
+            </a></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav text-white" id={btnHamburguesa}/>
         <Navbar.Collapse id="basic-navbar-nav" className={navCollapse}>
           <Nav className="gap-3" id={containerNav}>
