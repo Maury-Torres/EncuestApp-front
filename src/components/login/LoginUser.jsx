@@ -1,115 +1,145 @@
-import React, { useState, useRef } from 'react';
-import { Container, Col, Form, Button } from "react-bootstrap";
-import { container, input1, input2, submitBtn } from "../login/LoginUser1.module.css";
-import { alertcustom } from '../../utils/alertCustom';
+import { useState } from "react";
+import { useAuth } from "../../context/AuthContext.jsx";
+import { useForm } from "../../hooks/useForm.js";
+import { Link, useNavigate } from "react-router-dom";
+import { Container, Col, Form, Button, InputGroup } from "react-bootstrap";
+import {
+  container,
+  submitBtn,
+  hiddenButton,
+} from "../login/LoginUser1.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { alertcustom } from "../../utils/alertCustom.js";
 
-const BASE_URL= import.meta.env.VITE_BASE_URL;
+/* const BASE_URL = import.meta.env.VITE_BASE_URL; */
 
-const LoginUser = () => {
-  const formDataRef = useRef({
-    email: '',
-    password: '',
+export const LoginUser = () => {
+  const { signin, errors, setErrors } = useAuth();
+  const { email, password, handleOnChange, setFormData } = useForm({
+    email: "",
+    password: "",
   });
+  const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    formDataRef.current = {
-      ...formDataRef.current,
-      [name]: value
-    }
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await signin({
+        email,
+        password,
+      });
 
-    const newErrors = {};
+      if (response?.message) {
+        alertcustom(response.message, "Error", "error");
+        return;
+      }
 
-    if (!formDataRef.current.email) {
-      newErrors.email = 'Ingrese su email';
-    }
-
-    if (!formDataRef.current.password) {
-      newErrors.password = 'Ingrese su contrseña';
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      console.log(formDataRef);
-      alertcustom("logueado", "Felicidades", "successfull")
+      if (response) {
+        alertcustom(
+          "Inicio de sesión exitoso",
+          "Inicio de sesión",
+          "success",
+          () => {
+            setErrors(null);
+            setFormData({ email: "", password: "" });
+            navigate("/");
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
+
+  const hasError = (path) =>
+    errors && !!errors.find((err) => err.path === path);
 
   return (
-    <Col id={container} className="vh-50 w-100 d-flex"  >
+    <Col
+      id={container}
+      className="d-flex justify-content-center animate__animated animate__backInLeft"
+    >
       <Container>
-        <div className="d-flex justify-content-center aling-items-center my-3 pb-3 border border-light border-0 border-bottom">
+        <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-center">
             <h1 className="display-5 fw-semibold text-black"> Login</h1>
           </div>
         </div>
 
-
         <Form onSubmit={handleSubmit}>
-
           <Form.Group>
-            <Form.Label className='fw-bold text-black'>Email address</Form.Label>
+            <Form.Label className="fw-bold text-black">
+              Correo electrónico
+            </Form.Label>
             <Form.Control
-              id={input1}
               type="email"
-              placeholder="Enter email"
-              name='email'
-              defaultValue={formDataRef.current.email}
-              onChange={handleChange}
-              isValid={formDataRef.current.email && !errors.email}
-              isInvalid={!!errors.email}
+              name="email"
+              placeholder="Ingrese su correo electrónico"
+              value={email}
+              onChange={handleOnChange}
+              isInvalid={hasError("email")}
             />
-            <Form.Control.Feedback type='invalid'>
-              {errors.email}
-            </Form.Control.Feedback>
-            <Form.Control.Feedback type='valid'>
-            </Form.Control.Feedback>
+            {hasError("email") && (
+              <Form.Control.Feedback type="invalid">
+                {errors.find((error) => error.path === "email").msg}
+              </Form.Control.Feedback>
+            )}
           </Form.Group>
 
           <Form.Group>
-            <Form.Label className="fw-bold text-black">password</Form.Label>
-            <Form.Control
-              id={input2}
-              type="password"
-              placeholder="Password"
-              name='password'
-              defaultValue={formDataRef.current.password}
-              onChange={handleChange}
-              isValid={formDataRef.current.password && !errors.password}
-              isInvalid={!!errors.password}
-            />
-             <Form.Check
-              type="checkbox"
-              label ="Show password"
-            />
-            <Form.Control.Feedback type='invalid'>
-              {errors.password}
-            </Form.Control.Feedback>
-            <Form.Control.Feedback type='valid'>
-            </Form.Control.Feedback>
+            <Form.Label className="fw-bold text-black">Contraseña</Form.Label>
+            <InputGroup className="d-flex">
+              <Form.Control
+                placeholder="Ingrese su contraseña"
+                name="password"
+                type={passwordVisible ? "text" : "password"}
+                value={password}
+                onChange={handleOnChange}
+                isInvalid={hasError("password")}
+              />
+              {hasError("password") && (
+                <Form.Control.Feedback type="invalid">
+                  {errors.find((error) => error.path === "password").msg}
+                </Form.Control.Feedback>
+              )}
+              <InputGroup.Text
+                className="h-100"
+                id={hiddenButton}
+                onClick={togglePasswordVisibility}
+              >
+                <FontAwesomeIcon
+                  icon={passwordVisible ? faEyeSlash : faEye}
+                  className="text-dark"
+                />
+              </InputGroup.Text>
+            </InputGroup>
           </Form.Group>
 
-          <div className="fw-bold text-black">¿Todavía no te registraste?
-            <a className="m-1" href="/register">Suscríbete ahora</a>
+          <div className="fw-bold text-black mt-3">
+            ¿Todavía no te registraste?
+            <Link to="/register" className="fw-bold text-decoration-none">
+              <span> Registrarse</span>
+            </Link>
           </div>
 
           <Button
             id={submitBtn}
-            className="my-3"
+            className="my-3 w-100 fw-bold text-white"
             variant="primary"
-            type="submit">Login
+            type="submit"
+          >
+            Iniciar sesión
           </Button>
         </Form>
       </Container>
     </Col>
-  )
+  );
 };
 
 export default LoginUser;

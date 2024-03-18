@@ -5,60 +5,77 @@ import "animate.css";
 import { Register } from "./pages/Register";
 import { NavbarTest } from "./components/navbar/NavbarTest";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import HomeV1 from "./components/home/HomeV1";
-import Banners from "./components/banners/Banners";
-import Login from "./pages/Login";
-import { ABMPage } from "./pages/ABMPage";
-import { EncuestasProvider } from "./context/EncuestaContext";
-import { Footer } from "./components/footer/Footer";
-
-import { Categorias } from "./components/categorias/Categorias";
-import { CategoriasForm } from "./components/categorias/form/CategoriasForm";
-import { CategoriasProvider } from "./context/CategoriaContext";
-
+import {
+  ABMPage,
+  AuthProvider,
+  Categorias,
+  CategoriasForm,
+  CategoriasProvider,
+  Encuestas,
+  EncuestasProvider,
+  Errors,
+  Footer,
+  HomeV1,
+  Login,
+  EncuestasForm,
+} from "./pages/index.js";
+import { ResponderEncuesta } from "./components/encuestas/responderEncuesta/ResponderEncuesta.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <BrowserRouter>
-        <NavbarTest />
-        <Routes>
-          <Route path="/" element={<HomeV1 />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/banners" element={<Banners />} />
-          <Route
-            element={
-              <EncuestasProvider>
-                <Outlet />
-              </EncuestasProvider>
-            }
-          >
-            <Route path="/abm" element={<ABMPage />} />
-          </Route>
-
-
-          <Route
-            element={
-              <CategoriasProvider>
-                <Outlet />
-              </CategoriasProvider>
-            }
-          >
-            <Route path="/administrar-categoria" element={<CategoriasForm />} />
+        <AuthProvider>
+          <NavbarTest />
+          <Routes>
+            <Route path="/" element={<HomeV1 />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
             <Route
-              path="/administrar-categoria/:id"
-              element={<CategoriasForm />}
-            />
+              element={
+                <EncuestasProvider>
+                  <Outlet />
+                </EncuestasProvider>
+              }
+            >
+              <Route path="/abm" element={<ABMPage />} />
+              <Route path="/encuestas/categoria/:id" element={<Encuestas />} />
+              <Route path="/administrar-encuesta" element={<EncuestasForm />} />
+              <Route
+                path="/administrar-encuesta/:id"
+                element={<EncuestasForm />}
+              />
+              <Route
+                path="/responder-encuesta/:id"
+                element={<ResponderEncuesta />}
+              />
+            </Route>
 
-            <Route path="categorias" element={<Categorias />} />
-          </Route>
+            <Route path="*" element={<Errors />} />
 
-          <Route path="*" element={<h1>Error</h1>} />
-
-        </Routes>
-        <Footer />
+            <Route
+              element={
+                <CategoriasProvider>
+                  <Outlet />
+                </CategoriasProvider>
+              }
+            >
+              <Route
+                path="/administrar-categoria"
+                element={<CategoriasForm />}
+              />
+              <Route
+                path="/administrar-categoria/:id"
+                element={<CategoriasForm />}
+              />
+              <Route path="/categorias" element={<Categorias />} />
+            </Route>
+          </Routes>
+          <Footer />
+        </AuthProvider>
       </BrowserRouter>
-    </>
+    </div>
   </React.StrictMode>
 );
