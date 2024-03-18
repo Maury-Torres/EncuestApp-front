@@ -2,7 +2,7 @@
 #container{
     width: 100%;
     max-width: 450px;
-    margin: 165px auto;
+    margin: 50px auto;
     padding: 20px;
     border-radius: 10px;
     background-color: #E4E5E7;
@@ -18,8 +18,9 @@
     box-sizing: border-box;
     font-size: 16px;
 }
+
 #inputField2{
-    width: 80%;
+    width: 70%;
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -28,7 +29,7 @@
     font-size: 16px;
 }
 
-#input:focus {
+#inputField:focus {
     outline: none;
     border-color: #007bff; 
   }
@@ -48,13 +49,12 @@
     background-color: #0056b3;
   }
 
-  #hiddenButton{
+#hiddenButton{
     border: 1px solid #ccc;
     border-radius: 5px;
-    height: 70%;
+    height: 45px;
     background-color: white;
 }
-
 
   @media (max-width: 911px){
     #container{

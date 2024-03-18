@@ -7,6 +7,8 @@ import {
   container,
   submitBtn,
   hiddenButton,
+  inputField,
+  inputField2
 } from "../login/LoginUser1.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -43,7 +45,7 @@ export const LoginUser = () => {
       if (response) {
         alertcustom(
           "Inicio de sesión exitoso",
-          "Inicio de sesión",
+          "Logueado",
           "success",
           () => {
             setErrors(null);
@@ -61,7 +63,7 @@ export const LoginUser = () => {
     errors && !!errors.find((err) => err.path === path);
 
   return (
-    <Col
+    <Col class="_formCard_7jj89_1 card"
       id={container}
       className="d-flex justify-content-center animate__animated animate__backInLeft"
     >
@@ -78,6 +80,7 @@ export const LoginUser = () => {
               Correo electrónico
             </Form.Label>
             <Form.Control
+              id={inputField}
               type="email"
               name="email"
               placeholder="Ingrese su correo electrónico"
@@ -96,6 +99,7 @@ export const LoginUser = () => {
             <Form.Label className="fw-bold text-black">Contraseña</Form.Label>
             <InputGroup className="d-flex">
               <Form.Control
+                id={inputField2}
                 placeholder="Ingrese su contraseña"
                 name="password"
                 type={passwordVisible ? "text" : "password"}
@@ -103,25 +107,25 @@ export const LoginUser = () => {
                 onChange={handleOnChange}
                 isInvalid={hasError("password")}
               />
-              {hasError("password") && (
-                <Form.Control.Feedback type="invalid">
-                  {errors.find((error) => error.path === "password").msg}
-                </Form.Control.Feedback>
-              )}
               <InputGroup.Text
-                className="h-100"
                 id={hiddenButton}
                 onClick={togglePasswordVisibility}
               >
                 <FontAwesomeIcon
                   icon={passwordVisible ? faEyeSlash : faEye}
-                  className="text-dark"
+                  className="d-flex justify-content-center text-dark"
                 />
               </InputGroup.Text>
+
+              {hasError("password") && (
+                <Form.Control.Feedback type="invalid">
+                  {errors.find((error) => error.path === "password").msg}
+                </Form.Control.Feedback>
+              )}
             </InputGroup>
           </Form.Group>
 
-          <div className="fw-bold text-black mt-3">
+          <div className="fw-bold text-black mt-3 d-flex text-end">
             ¿Todavía no te registraste?
             <Link to="/register" className="fw-bold text-decoration-none">
               <span> Registrarse</span>
