@@ -39,7 +39,7 @@ export const EncuestApp = () => {
 
           <Route
             element={
-              <ProtectedRoute isAllowed={isAuth} redirectTo="/error">
+              <ProtectedRoute isAllowed={isAuth} /* redirectTo="/error" */>
                 <EncuestasProvider>
                   <Outlet />
                 </EncuestasProvider>
@@ -50,8 +50,8 @@ export const EncuestApp = () => {
               element={
                 <ProtectedRoute
                   isAllowed={isAuth}
-                  redirectTo="/error"
-                  /* allowedRoles={["Admin"]} */
+                  /*                   redirectTo="/error"
+                   */ /* allowedRoles={["Admin"]} */
                   userRole={user && user.roles[0]}
                 />
               }
