@@ -5,18 +5,10 @@ import styles from "./EncuestasCard.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { useEffect, useState } from "react";
-import { ResultadosModal } from "../resultados/modal/ResultadosModal";
 
 export const EncuestasCard = ({ encuesta }) => {
   const { user } = useAuth();
   const [encuestasRealizadas, setEncuestasRealizadas] = useState([]);
-
-  //! Cuando respondo a una encuesta y soy enviado otra vez a la pagina de encuestas, no se actualiza el boton de responder encuesta
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const navigate = useNavigate();
 
@@ -44,7 +36,19 @@ export const EncuestasCard = ({ encuesta }) => {
             Autor: {encuesta?.user?.username}
           </small>
           {encuestaRespondida ? (
-            <Button variant="success" onClick={handleShow}>
+            <Button
+              variant="success"
+              onClick={() =>
+                navigate(
+                  `/ver-resultados/${
+                    encuestasRealizadas.find(
+                      (encuestaRealizada) =>
+                        encuestaRealizada.encuesta === encuesta._id
+                    )._id
+                  }`
+                )
+              }
+            >
               Ver resultados
             </Button>
           ) : (
@@ -57,13 +61,6 @@ export const EncuestasCard = ({ encuesta }) => {
           )}
         </div>
       </Card.Footer>
-      <ResultadosModal
-        show={show}
-        handleClose={handleClose}
-        encuesta={encuesta}
-        encuestasRealizadas={encuestasRealizadas}
-        encuestaRespondida={encuestaRespondida}
-      />
     </Card>
   );
 };
