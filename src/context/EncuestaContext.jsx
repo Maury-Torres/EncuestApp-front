@@ -161,8 +161,10 @@ export const EncuestasProvider = ({ children }) => {
         `http://localhost:3000/api/encuestas/${id}`,
         {
           method: "PATCH",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Credentials": true,
           },
           body: JSON.stringify(encuesta),
         }
