@@ -16,8 +16,6 @@ export const ResponderEncuesta = () => {
   const [formData, setFormData] = useState([]);
   const [formValid, setFormValid] = useState(false);
 
-  console.log(encuestaData);
-
   useEffect(() => {
     getEncuesta(id).then((data) => {
       setEncuestaData(data);

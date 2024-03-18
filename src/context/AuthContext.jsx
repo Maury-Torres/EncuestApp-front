@@ -41,6 +41,7 @@ export function AuthProvider({ children }) {
       setErrors(null);
       setUser(userData);
       setIsAuth(true);
+      localStorage.setItem("user", JSON.stringify(userData));
       setIsLoading(false);
 
       return userData;
@@ -70,11 +71,13 @@ export function AuthProvider({ children }) {
 
           setUser(userData);
           setIsAuth(true);
+          localStorage.setItem("user", JSON.stringify(userData));
         })
         .catch((error) => {
           console.log(error);
           setIsAuth(false);
           setUser(null);
+          localStorage.removeItem("user");
         });
     }
     setIsLoading(false);

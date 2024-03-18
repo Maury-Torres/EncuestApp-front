@@ -17,6 +17,7 @@ export const useEncuestas = () => {
 export const EncuestasProvider = ({ children }) => {
   const [encuestas, setEncuestas] = useState([]);
   const [encuestaRealizada, setEncuestaRealizada] = useState([]);
+  const [misEncuestas, setMisEncuestas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState(null);
@@ -88,6 +89,36 @@ export const EncuestasProvider = ({ children }) => {
       setIsLoading(false);
       setEncuestas(encuestasData.encuestas);
       setData(encuestasData);
+
+      return encuestasData;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getEncuestasPorUsuarioId = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/mis-encuestas`, {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Credentials": true,
+        },
+      });
+
+      if (!response.ok) {
+        setErrors({
+          code: response.status,
+          message: response.statusText,
+        });
+
+        setIsLoading(false);
+        return;
+      }
+
+      const encuestasData = await response.json();
+      setIsLoading(false);
+      setMisEncuestas(encuestasData.encuestas);
 
       return encuestasData;
     } catch (error) {
@@ -230,6 +261,7 @@ export const EncuestasProvider = ({ children }) => {
     <EncuestasContext.Provider
       value={{
         encuestas,
+        misEncuestas,
         isLoading,
         setIsLoading,
         encuestaRealizada,
@@ -239,6 +271,7 @@ export const EncuestasProvider = ({ children }) => {
         getEncuestas,
         getEncuesta,
         getEncuestasByCategoria,
+        getEncuestasPorUsuarioId,
         getEncuestaRealizada,
         createEncuesta,
         updateEncuesta,
