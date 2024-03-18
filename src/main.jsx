@@ -18,6 +18,7 @@ import {
   HomeV1,
   Login,
   EncuestasForm,
+  InfoEquipo,
 } from "./pages/index.js";
 import { ResponderEncuesta } from "./components/encuestas/responderEncuesta/ResponderEncuesta.jsx";
 
@@ -72,6 +73,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               />
               <Route path="/categorias" element={<Categorias />} />
             </Route>
+            <Route path="/infoEquipo" element={<InfoEquipo />} />
           </Routes>
           <Footer />
         </AuthProvider>
