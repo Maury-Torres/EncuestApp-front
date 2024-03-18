@@ -18,10 +18,10 @@ import { ResponderEncuesta } from "./components/encuestas/responderEncuesta/Resp
 import { VerResultados } from "./components/encuestas/verResultados/VerResultados.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { useAuth } from "./context/AuthContext.jsx";
+import { ABMUsuarios } from "./components/abm/usuarios/ABMUsuarios.jsx";
 
 export const EncuestApp = () => {
   const { user, isAuth } = useAuth();
-  console.log(user);
   return (
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
@@ -72,6 +72,7 @@ export const EncuestApp = () => {
               path="/ver-resultados/:encuestarealizadaid"
               element={<VerResultados />}
             />
+            <Route path="/mis-encuestas" element={<ABMUsuarios />} />
           </Route>
           <Route
             element={
