@@ -16,6 +16,7 @@ export const useEncuestas = () => {
 
 export const EncuestasProvider = ({ children }) => {
   const [encuestas, setEncuestas] = useState([]);
+  const [encuestaRealizada, setEncuestaRealizada] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState(null);
@@ -89,6 +90,38 @@ export const EncuestasProvider = ({ children }) => {
       setData(encuestasData);
 
       return encuestasData;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getEncuestaRealizada = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/encuestas/realizadas/${id}`,
+        {
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Credentials": true,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        setErrors({
+          code: response.status,
+          message: response.statusText,
+        });
+
+        setIsLoading(false);
+        return;
+      }
+
+      const encuestaRealizadaData = await response.json();
+      setEncuestaRealizada(encuestaRealizadaData);
+      setIsLoading(false);
+      return encuestaRealizadaData;
     } catch (error) {
       console.log(error);
     }
@@ -197,12 +230,14 @@ export const EncuestasProvider = ({ children }) => {
         encuestas,
         isLoading,
         setIsLoading,
+        encuestaRealizada,
         data,
         errors,
         setErrors,
         getEncuestas,
         getEncuesta,
         getEncuestasByCategoria,
+        getEncuestaRealizada,
         createEncuesta,
         updateEncuesta,
         deleteEncuesta,
