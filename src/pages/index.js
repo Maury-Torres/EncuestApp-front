@@ -1,5 +1,4 @@
 import HomeV1 from "../components/home/HomeV1";
-import Banners from "../components/banners/Banners";
 import Login from "./Login";
 import { ABMPage } from "./ABMPage";
 import { EncuestasProvider } from "../context/EncuestaContext";
@@ -11,10 +10,11 @@ import { CategoriasProvider } from "../context/CategoriaContext";
 import { Encuestas } from "../components/encuestas/Encuestas";
 import { AuthProvider } from "../context/AuthContext";
 import { EncuestasForm } from "../components/encuestas/form/EncuestasForm";
+import { NavbarTest } from "../components/navbar/NavbarTest";
+import { Register } from "./Register";
 
 export {
   HomeV1,
-  Banners,
   Login,
   ABMPage,
   EncuestasProvider,
@@ -26,4 +26,6 @@ export {
   Encuestas,
   AuthProvider,
   EncuestasForm,
+  NavbarTest,
+  Register,
 };
