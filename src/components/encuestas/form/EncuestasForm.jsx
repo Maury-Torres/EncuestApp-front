@@ -16,9 +16,6 @@ export const EncuestasForm = () => {
   const [categorias, setCategorias] = useState("");
   const [categoriasData, setCategoriasData] = useState([]);
 
-  // TODO Agregar validaciones para las preguntas y respuestas
-  //! Refactorizar el código
-
   const handleOnClickNewFormData = () => {
     setFormData((prevState) => [
       ...prevState,
