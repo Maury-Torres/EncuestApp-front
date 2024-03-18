@@ -28,7 +28,7 @@ export const NavbarTest = () => {
       if (response.ok) {
         // Limpiar la cookie de token en el cliente
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        navigate("/login"); 
+        window.location.href = '/login'; 
       } else {
         throw new Error('Error al cerrar sesión');
       }
@@ -51,7 +51,7 @@ export const NavbarTest = () => {
               </Navbar.Text>
             </Button >
 
-            { isAuth == true ? ""
+            { !!isAuth ? ""
             : <>
                 <Button id={button2} size="sm">
                   <Navbar.Text>
@@ -60,7 +60,7 @@ export const NavbarTest = () => {
                 </Button>
               </>
             }
-            { isAuth && user.roles[0].nombre == 'admin' 
+            { !!isAuth && user.roles[0].nombre == 'admin' 
             ? 
                 <Button id={button3} size="sm">
                   <Navbar.Text>
