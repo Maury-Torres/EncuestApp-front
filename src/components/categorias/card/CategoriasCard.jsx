@@ -8,7 +8,6 @@ import { useAuth } from "../../../context/AuthContext";
 export const CategoriasCard = ({ categoria, handleOnBorrarCategoria }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  console.log(user);
 
   return (
     <Card className={`bg-dark text position-relative ${styles.card}`}>

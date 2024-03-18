@@ -13,7 +13,6 @@ export const ABMCard = ({
   const navigate = useNavigate();
   const { user } = useAuth();
   const { roles } = user;
-  console.log(encuesta._id, "ABMCARD");
 
   return (
     <Col xs={12} md={encuesta.length < 2 ? 12 : 6}>

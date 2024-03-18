@@ -12,8 +12,6 @@ import Swal from "sweetalert2";
 import { useAuth } from "../context/AuthContext";
 
 export const ABMPage = () => {
-  //! Refactorizar el codigo.
-
   const {
     encuestas,
     getEncuestas,
@@ -63,7 +61,6 @@ export const ABMPage = () => {
   const paramsString = new URLSearchParams(params).toString();
 
   const handleCheckboxChange = async (e) => {
-    console.log(e.target.checked, e.target.id);
     await updateEncuesta(e.target.id, {
       available: e.target.checked,
     });

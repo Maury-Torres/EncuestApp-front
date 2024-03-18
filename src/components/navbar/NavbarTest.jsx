@@ -97,8 +97,23 @@ export const NavbarTest = () => {
                 </Button>
                 <Button id={button3} size="sm">
                   <Navbar.Text>
+                    <Link
+                      to="/mis-encuestas"
+                      className="fw-bold text-decoration-none"
+                    >
+                      Mis Encuestas
+                    </Link>
+                  </Navbar.Text>
+                </Button>
+              </>
+            )}
+
+            {isAuth && user.roles[0].nombre == "Administrador" && (
+              <>
+                <Button id={button3} size="sm">
+                  <Navbar.Text>
                     <Link to="/abm" className="fw-bold text-decoration-none">
-                      Administrar Encuestas
+                      Administración
                     </Link>
                   </Navbar.Text>
                 </Button>

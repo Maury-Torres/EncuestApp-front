@@ -69,7 +69,7 @@ export const FormRegister = () => {
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword,
-          roles: "65ebd641dd3a06d834479e63",
+          roles: "65ea60db14c087455af1e55c",
         }),
         headers: {
           "Content-Type": "application/json",
