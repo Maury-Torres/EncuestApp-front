@@ -20,6 +20,7 @@ import {
   EncuestasForm,
 } from "./pages/index.js";
 import { ResponderEncuesta } from "./components/encuestas/responderEncuesta/ResponderEncuesta.jsx";
+import { VerResultados } from "./components/encuestas/verResultados/VerResultados.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -50,6 +51,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route
                 path="/responder-encuesta/:id"
                 element={<ResponderEncuesta />}
+              />
+              <Route
+                path="/ver-resultados/:encuestarealizadaid"
+                element={<VerResultados />}
               />
             </Route>
 
