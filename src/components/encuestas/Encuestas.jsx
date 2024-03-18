@@ -5,10 +5,14 @@ import { Container, Row, Col } from "react-bootstrap";
 import { ABMPagination } from "../abm/pagination/ABMPagination";
 import { EncuestasCard } from "./card/EncuestasCard";
 import { LoadingSpinner } from "../ui/spinner/LoadingSpinner";
+import { useAuth } from "../../context/AuthContext";
 
 export const Encuestas = () => {
   const { getEncuestasByCategoria, encuestas, data, isLoading, setIsLoading } =
     useEncuestas();
+
+  const { user } = useAuth();
+  const { roles } = user;
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -46,14 +50,16 @@ export const Encuestas = () => {
             </div>
           ) : encuestas.length < 1 ? (
             <p className="text-center w-100 mt-5">
-              No hay categorias para mostrar.
+              No hay encuestas para mostrar.
             </p>
           ) : (
-            encuestas.map((encuesta) => (
-              <Col key={encuesta._id}>
-                <EncuestasCard encuesta={encuesta} />
-              </Col>
-            ))
+            encuestas.map((encuesta) => {
+              return encuesta.available ? (
+                <Col key={encuesta._id}>
+                  <EncuestasCard encuesta={encuesta} />
+                </Col>
+              ) : null;
+            })
           )}
         </Row>
         <ABMPagination
