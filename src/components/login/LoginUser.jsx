@@ -8,7 +8,7 @@ import {
   submitBtn,
   hiddenButton,
   inputField,
-  inputField2
+  inputField2,
 } from "../login/LoginUser1.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -43,16 +43,11 @@ export const LoginUser = () => {
       }
 
       if (response) {
-        alertcustom(
-          "Inicio de sesión exitoso",
-          "Logueado",
-          "success",
-          () => {
-            setErrors(null);
-            setFormData({ email: "", password: "" });
-            navigate("/");
-          }
-        );
+        alertcustom("Inicio de sesión exitoso", "Logueado", "success", () => {
+          setErrors(null);
+          setFormData({ email: "", password: "" });
+          navigate("/");
+        });
       }
     } catch (error) {
       console.log(error);
@@ -63,9 +58,9 @@ export const LoginUser = () => {
     errors && !!errors.find((err) => err.path === path);
 
   return (
-    <Col class="_formCard_7jj89_1 card"
+    <Col
       id={container}
-      className="d-flex justify-content-center animate__animated animate__backInLeft"
+      className="d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1 card"
     >
       <Container>
         <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
