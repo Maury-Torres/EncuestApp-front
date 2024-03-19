@@ -16,7 +16,6 @@ const InfoEquipo1 = () => {
                     <img className={image} src={integrante.img} alt={integrante.nombre} />
                 </div>
                 <h3>{integrante.nombre}</h3>
-                <h4 className={title}>{integrante.descripción}</h4>
             </div>
         ))}
     </Col>
