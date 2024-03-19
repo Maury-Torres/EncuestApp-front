@@ -21,7 +21,10 @@ import { useAuth } from "./context/AuthContext.jsx";
 import { ABMUsuarios } from "./components/abm/usuarios/ABMUsuarios.jsx";
 
 export const EncuestApp = () => {
-  const { user, isAuth } = useAuth();
+  const { user, isAuth, isAuthLS } = useAuth();
+
+  let isAuthLST = JSON.parse(localStorage.getItem("isAuthLS"));
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
@@ -31,7 +34,7 @@ export const EncuestApp = () => {
         <Routes>
           <Route path="/" element={<HomeV1 />} />
           <Route
-            element={<ProtectedRoute isAllowed={!isAuth} redirectTo="/" />}
+            element={<ProtectedRoute isAllowed={!isAuthLST} redirectTo="/" />}
           >
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
@@ -39,7 +42,7 @@ export const EncuestApp = () => {
 
           <Route
             element={
-              <ProtectedRoute isAllowed={isAuth} redirectTo="/login">
+              <ProtectedRoute isAllowed={isAuthLST} redirectTo="/login">
                 <EncuestasProvider>
                   <Outlet />
                 </EncuestasProvider>
@@ -50,7 +53,7 @@ export const EncuestApp = () => {
               element={
                 <ProtectedRoute
                   isAllowed={
-                    isAuth &&
+                    isAuthLST &&
                     (user?.roles[0].nombre === "Administrador" ||
                       user?.roles[0].nombre === "Moderador")
                   }
@@ -80,7 +83,7 @@ export const EncuestApp = () => {
           </Route>
           <Route
             element={
-              <ProtectedRoute isAllowed={isAuth} redirectTo="/login">
+              <ProtectedRoute isAllowed={isAuthLST} redirectTo="/login">
                 <CategoriasProvider>
                   <Outlet />
                 </CategoriasProvider>
@@ -91,7 +94,7 @@ export const EncuestApp = () => {
               element={
                 <ProtectedRoute
                   isAllowed={
-                    isAuth &&
+                    isAuthLST &&
                     (user?.roles[0].nombre === "Administrador" ||
                       user?.roles[0].nombre === "Moderador")
                   }

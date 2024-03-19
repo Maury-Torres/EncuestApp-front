@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useEncuestas } from "../../context/EncuestaContext";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { ABMPagination } from "../abm/pagination/ABMPagination";
 import { EncuestasCard } from "./card/EncuestasCard";
@@ -13,6 +18,8 @@ export const Encuestas = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
 
   const [page, setPage] = useState(1);
 
