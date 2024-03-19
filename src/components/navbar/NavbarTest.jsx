@@ -15,10 +15,8 @@ import logo from "../../assets/logo-no-fondo.png";
 import styles from "../footer/Footer.module.css";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../context/AuthContext";
-
 export const NavbarTest = () => {
   const { user, isAuth, signout } = useAuth();
-
   return (
     <Navbar expand="lg" id={container} fixed="top">
       <Container>
