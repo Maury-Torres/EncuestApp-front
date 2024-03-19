@@ -76,10 +76,8 @@ export const ResponderEncuesta = () => {
         }));
 
         alertcustom("", "Encuesta enviada correctamente", "success", () => {
-          window.location.reload();
-          window.location.href = `/encuestas/categoria/${encuestaData.categoria._id}`;
-          /*           navigate(`/encuestas/categoria/${encuestaData.categoria._id}`);
-           */ setFormData([]);
+          navigate(`/encuestas/categoria/${encuestaData.categoria._id}`);
+          setFormData([]);
           setFormValid(false);
         });
       }
