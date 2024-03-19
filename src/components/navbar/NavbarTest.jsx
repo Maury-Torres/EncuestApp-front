@@ -5,7 +5,6 @@ import { container, button, button2, button3, btnHamburguesa, containerNav, titl
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate } from "react-router";
 import logo from "../../assets/logo-no-fondo.png";
 import styles from "../footer/Footer.module.css";
 
@@ -15,30 +14,8 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const NavbarTest = () => {
 
-  const navigate = useNavigate();
   const { user, isAuth } = useAuth();
   console.log(user, isAuth);
-
-  const signout = async () => {
-    try {
-      // Realizar una solicitud al backend para cerrar sesión
-      const response = await fetch(`${BASE_URL}/api/signout` , {
-        method: 'POST',
-        credentials: 'same-origin', // Asegura que las cookies se incluyan en la solicitud
-      });
-      
-      if (response.ok) {
-        // Limpiar la cookie de token en el cliente
-        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        window.location.href = '/login'; 
-      } else {
-        throw new Error('Error al cerrar sesión');
-      }
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
-  };
-
 
   return (
     <Navbar expand="lg"  id={container} >
