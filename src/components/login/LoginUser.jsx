@@ -13,7 +13,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { alertcustom } from "../../utils/alertCustom.js";
-import {FormCard} from "../ui/formcard/FormCard.jsx"
+import { FormCard } from "../ui/formcard/FormCard.jsx";
 
 export const LoginUser = () => {
   const { signin, errors, setErrors } = useAuth();
@@ -57,86 +57,84 @@ export const LoginUser = () => {
     errors && !!errors.find((err) => err.path === path);
 
   return (
-    
     <Col
       id={container}
-      className="d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1 card"
+      className="d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1"
     >
-      
       <Container>
         <FormCard>
-        <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
-          <div className="ms-4 text-center">
-            <h1 className="display-5 fw-semibold text-white"> Login</h1>
+          <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
+            <div className="ms-4 text-center">
+              <h1 className="display-5 fw-semibold text-white"> Login</h1>
+            </div>
           </div>
-        </div>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label className="fw-bold text-white">
-              Correo electrónico
-            </Form.Label>
-            <Form.Control
-              id={inputField}
-              type="email"
-              name="email"
-              placeholder="Ingrese su correo electrónico"
-              value={email}
-              onChange={handleOnChange}
-              isInvalid={hasError("email")}
-            />
-            {hasError("email") && (
-              <Form.Control.Feedback type="invalid">
-                {errors.find((error) => error.path === "email").msg}
-              </Form.Control.Feedback>
-            )}
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label className="fw-bold text-white">Contraseña</Form.Label>
-            <InputGroup className="d-flex">
+          <Form onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Label className="fw-bold text-white">
+                Correo electrónico
+              </Form.Label>
               <Form.Control
-                id={inputField2}
-                placeholder="Ingrese su contraseña"
-                name="password"
-                type={passwordVisible ? "text" : "password"}
-                value={password}
+                id={inputField}
+                type="email"
+                name="email"
+                placeholder="Ingrese su correo electrónico"
+                value={email}
                 onChange={handleOnChange}
-                isInvalid={hasError("password")}
+                isInvalid={hasError("email")}
               />
-              <InputGroup.Text
-                id={hiddenButton}
-                onClick={togglePasswordVisibility}
-              >
-                <FontAwesomeIcon
-                  icon={passwordVisible ? faEyeSlash : faEye}
-                  className="d-flex justify-content-center text-dark"
-                />
-              </InputGroup.Text>
-
-              {hasError("password") && (
+              {hasError("email") && (
                 <Form.Control.Feedback type="invalid">
-                  {errors.find((error) => error.path === "password").msg}
+                  {errors.find((error) => error.path === "email").msg}
                 </Form.Control.Feedback>
               )}
-            </InputGroup>
-          </Form.Group>
+            </Form.Group>
 
-          <div className="fw-bold text-white mt-3 d-flex text-end">
-            ¿Todavía no te registraste?
-            <Link to="/register" className="fw-bold text-decoration-none">
-              <span> Registrarse</span>
-            </Link>
-          </div>
+            <Form.Group>
+              <Form.Label className="fw-bold text-white">Contraseña</Form.Label>
+              <InputGroup className="d-flex">
+                <Form.Control
+                  id={inputField2}
+                  placeholder="Ingrese su contraseña"
+                  name="password"
+                  type={passwordVisible ? "text" : "password"}
+                  value={password}
+                  onChange={handleOnChange}
+                  isInvalid={hasError("password")}
+                />
+                <InputGroup.Text
+                  id={hiddenButton}
+                  onClick={togglePasswordVisibility}
+                >
+                  <FontAwesomeIcon
+                    icon={passwordVisible ? faEyeSlash : faEye}
+                    className="d-flex justify-content-center text-dark"
+                  />
+                </InputGroup.Text>
 
-          <Button
-            id={submitBtn}
-            className="my-3 w-100 fw-bold text-white"
-            variant="primary"
-            type="submit"
-          >
-            Iniciar sesión
-          </Button>
-        </Form>
+                {hasError("password") && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.find((error) => error.path === "password").msg}
+                  </Form.Control.Feedback>
+                )}
+              </InputGroup>
+            </Form.Group>
+
+            <div className="fw-bold text-white mt-3 d-flex text-end">
+              ¿Todavía no te registraste?
+              <Link to="/register" className="fw-bold text-decoration-none">
+                <span> Registrarse</span>
+              </Link>
+            </div>
+
+            <Button
+              id={submitBtn}
+              className="my-3 w-100 fw-bold text-white"
+              variant="primary"
+              type="submit"
+            >
+              Iniciar sesión
+            </Button>
+          </Form>
         </FormCard>
       </Container>
     </Col>
