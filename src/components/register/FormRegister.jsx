@@ -85,7 +85,7 @@ export const FormRegister = () => {
           icon: "success",
           title: messages.userSuccessful,
         }).then(() => {
-          navigate("/");
+          navigate("/login");
         });
       }
     } catch (error) {
