@@ -1,11 +1,11 @@
 
 #container{
     width: 100%;
-    max-width: 400px;
-    margin: 0 auto 100px auto;
+    max-width: 450px;
+    margin: 50px auto;
     padding: 20px;
     border-radius: 10px;
-    background-color: #E4E5E7;
+    
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -53,7 +53,7 @@
   }
 
 #submitBtn{
-    width: 50%;
+    width: 100%;
     padding: 10px;
     border: none;
     border-radius: 5px;

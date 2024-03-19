@@ -9,10 +9,9 @@ import { LoadingSpinner } from "../components/ui/spinner/LoadingSpinner";
 import { RiSurveyFill } from "react-icons/ri";
 import { TbCategoryPlus } from "react-icons/tb";
 import Swal from "sweetalert2";
+import { useAuth } from "../context/AuthContext";
 
 export const ABMPage = () => {
-  //! Refactorizar el codigo.
-
   const {
     encuestas,
     getEncuestas,
@@ -29,6 +28,8 @@ export const ABMPage = () => {
   const [updateCheckbox, setUpdateCheckbox] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const { deleteEncuesta } = useEncuestas();
+  const { user } = useAuth();
+  const { roles } = user;
 
   const location = useLocation();
   const query = new URLSearchParams(location.search);
@@ -60,8 +61,7 @@ export const ABMPage = () => {
   const paramsString = new URLSearchParams(params).toString();
 
   const handleCheckboxChange = async (e) => {
-    await updateEncuesta({
-      _id: e.target.id,
+    await updateEncuesta(e.target.id, {
       available: e.target.checked,
     });
     setUpdateCheckbox(updateCheckbox + 1);
@@ -116,12 +116,14 @@ export const ABMPage = () => {
                   Nueva encuesta <RiSurveyFill />
                 </Link>
 
-                <Link
-                  to="/administrar-categoria"
-                  className="btn btn-light p-3 shadow-lg"
-                >
-                  Nueva categoria <TbCategoryPlus />
-                </Link>
+                {user && roles[0].nombre == "Administrador" && (
+                  <Link
+                    to="/administrar-categoria"
+                    className="btn btn-light p-3 shadow-lg"
+                  >
+                    Nueva categoria <TbCategoryPlus />
+                  </Link>
+                )}
               </div>
               <ABMFiltros
                 orderByDate={orderByDate}

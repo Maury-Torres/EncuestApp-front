@@ -20,10 +20,12 @@ export const CategoriasProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState(null);
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const getCategorias = async (params) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/categorias${params ? `?${params}` : ""}`
+        `${BASE_URL}/categorias${params ? `?${params}` : ""}`
       );
 
       if (!response.ok) {
@@ -46,7 +48,7 @@ export const CategoriasProvider = ({ children }) => {
 
   const createCategoria = async (categoria) => {
     try {
-      const response = await fetch("http://localhost:3000/api/categorias", {
+      const response = await fetch(`${BASE_URL}/categorias`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,16 +80,13 @@ export const CategoriasProvider = ({ children }) => {
 
   const updateCategoria = async (id, categoria) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/categorias/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(categoria),
-        }
-      );
+      const response = await fetch(`${BASE_URL}/categorias/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(categoria),
+      });
 
       const categoriasData = await response.json();
 
@@ -120,15 +119,12 @@ export const CategoriasProvider = ({ children }) => {
 
   const deleteCategoria = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/categorias/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/categorias/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         setErrors({

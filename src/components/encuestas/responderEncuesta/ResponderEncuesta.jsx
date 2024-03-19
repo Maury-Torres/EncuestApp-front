@@ -4,17 +4,17 @@ import { useEffect, useState } from "react";
 import { Container, Form, Button, ListGroup } from "react-bootstrap";
 import { FormCard } from "../../../components/ui/formcard/FormCard";
 import { alertcustom } from "../../../utils/alertCustom";
+import { useAuth } from "../../../context/AuthContext";
 
 export const ResponderEncuesta = () => {
   const { getEncuesta } = useEncuestas();
+  const { user, setUser } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [encuestaData, setEncuestaData] = useState([]);
   const [formData, setFormData] = useState([]);
   const [formValid, setFormValid] = useState(false);
-
-  console.log(encuestaData);
 
   useEffect(() => {
     getEncuesta(id).then((data) => {
@@ -69,14 +69,21 @@ export const ResponderEncuesta = () => {
       const data = await response.json();
 
       if (response.ok) {
+        setUser((prevUser) => ({
+          ...prevUser,
+          encuestasRealizadas: [
+            ...prevUser.encuestasRealizadas,
+            { encuesta: id },
+          ],
+        }));
+
         alertcustom("", "Encuesta enviada correctamente", "success", () => {
           navigate(`/encuestas/categoria/${encuestaData.categoria._id}`);
+          window.location.reload();
           setFormData([]);
           setFormValid(false);
         });
       }
-
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
