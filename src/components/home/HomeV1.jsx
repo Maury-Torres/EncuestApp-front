@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { container, containerCol, secctionImg } from "./HomeV1.module.css";
+import logo from "../../assets/encuestas2.png";
 
 const HomeV1 = () => {
   return (
@@ -27,7 +28,7 @@ const HomeV1 = () => {
         </div>
       </section>
       <section className="col-lg-4 mt-lg-0 mt-1" id={secctionImg}>
-        <img src="./src/assets/encuestas2.png" alt="fondo" />
+        <img src={logo} alt="fondo" />
       </section>
     </Col>
   );
