@@ -11,6 +11,7 @@ import {
   hiddenButton,
   hiddenButtonConfirm,
 } from "./FormRegister.module.css";
+
 import { passwordRegex } from "../../utils/passwordRegex.js";
 import { emailRegex } from "../../utils/emailRegex.js";
 import { alertcustom } from "../../utils/alertCustom.js";
@@ -20,6 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import {FormCard} from "../ui/formcard/FormCard.jsx"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const DEFAULT_ROL = import.meta.env.VITE_DEFAULT_ROL;
@@ -97,19 +99,22 @@ export const FormRegister = () => {
   };
 
   return (
+
+  
     <Col
       id={container}
-      className=" d-flex justify-content-center animate__animated animate__backInDown"
-    >
-      <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+      className=" d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1 card">
+        
+      <FormCard>
         <div className="text-center aling-items-center  pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-start">
-            <h1 className="display-5 fw-semibold text-black"> Registro </h1>
+            <h1 className="display-5 fw-semibold text-white"> Register </h1>
           </div>
         </div>
 
-        <Form.Group className="mb-3">
-          <Form.Label className="fw-bold text-black">Username</Form.Label>
+      <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group>
+          <Form.Label className="fw-bold text-white">Username</Form.Label>
           <Form.Control
             id={inputFieldName}
             type="text"
@@ -128,7 +133,7 @@ export const FormRegister = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="fw-bold text-black">
+          <Form.Label className="fw-bold text-white">
             Correo electrónico
           </Form.Label>
           <Form.Control
@@ -153,7 +158,7 @@ export const FormRegister = () => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label className="fw-bold text-black">Contraseña</Form.Label>
+          <Form.Label className="fw-bold text-white">Contraseña</Form.Label>
           <InputGroup className="mb-3">
             <Form.Control
               id={inputField2}
@@ -190,7 +195,7 @@ export const FormRegister = () => {
           </InputGroup>
         </Form.Group>
 
-        <Form.Label className="fw-bold mt-3 text-black">
+        <Form.Label className="fw-bold text-white">
           Confirmar Contraseña
         </Form.Label>
         <InputGroup>
@@ -235,6 +240,7 @@ export const FormRegister = () => {
           Registrarse
         </Button>
       </Form>
+      </FormCard>
     </Col>
   );
 };
