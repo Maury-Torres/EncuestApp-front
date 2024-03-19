@@ -2,15 +2,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEncuestas } from "../../../context/EncuestaContext";
 import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
 export const VerResultados = () => {
   const { encuestarealizadaid } = useParams();
   const { encuestaRealizada, getEncuestaRealizada } = useEncuestas();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     getEncuestaRealizada(encuestarealizadaid);
-  }, [encuestarealizadaid]);
+  }, [encuestarealizadaid, location.pathname]);
 
   return (
     <Container
@@ -45,12 +47,12 @@ export const VerResultados = () => {
           </Row>
         ))}
 
-      <Row>
+      {/* <Row>
         <Col className="text-center">
           <h3>Gráfico de resultados</h3>
           <p>En construcción...</p>
         </Col>
-      </Row>
+      </Row> */}
 
       <Row>
         <Col className="text-center">
