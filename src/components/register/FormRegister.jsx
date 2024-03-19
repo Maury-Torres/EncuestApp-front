@@ -22,6 +22,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+const DEFAULT_ROL = import.meta.env.VITE_DEFAULT_ROL;
 
 export const FormRegister = () => {
   const form = useForm();
@@ -61,7 +62,7 @@ export const FormRegister = () => {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}/api/signup`, {
+      const response = await fetch(`${BASE_URL}/signup`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify({
@@ -69,7 +70,7 @@ export const FormRegister = () => {
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword,
-          roles: "65ea60db14c087455af1e55c",
+          roles: DEFAULT_ROL,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +78,7 @@ export const FormRegister = () => {
         },
       });
 
-      if (response.status === 400) {
+      if (!response.ok) {
         return alertcustom("", messages.emailRegister, "error");
       } else {
         Toast.fire({
