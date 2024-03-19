@@ -20,6 +20,7 @@ export const CategoriasForm = () => {
     useCategorias();
   const { id } = useParams();
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const [show, setShow] = useState(false);
 
@@ -82,9 +83,7 @@ export const CategoriasForm = () => {
 
   const getCategoriaById = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/categorias/${id}`
-      );
+      const response = await fetch(`${BASE_URL}/categorias/${id}`);
       const categoriaData = await response.json();
       setFormData({
         nombre: categoriaData.nombre,
