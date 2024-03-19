@@ -39,7 +39,7 @@ export const EncuestApp = () => {
 
           <Route
             element={
-              <ProtectedRoute isAllowed={isAuth} /* redirectTo="/error" */>
+              <ProtectedRoute isAllowed={isAuth} redirectTo="/login">
                 <EncuestasProvider>
                   <Outlet />
                 </EncuestasProvider>
@@ -49,10 +49,14 @@ export const EncuestApp = () => {
             <Route
               element={
                 <ProtectedRoute
-                  isAllowed={isAuth}
-                  /*                   redirectTo="/error"
-                   */ /* allowedRoles={["Admin"]} */
-                  userRole={user && user.roles[0]}
+                  isAllowed={
+                    isAuth &&
+                    (user?.roles[0].nombre === "Administrador" ||
+                      user?.roles[0].nombre === "Moderador")
+                  }
+                  redirectTo="/error"
+                  allowedRoles={["Administrador", "Moderador"]}
+                  userRole={user && user?.roles[0].nombre}
                 />
               }
             >
@@ -76,18 +80,36 @@ export const EncuestApp = () => {
           </Route>
           <Route
             element={
-              <ProtectedRoute isAllowed={isAuth}>
+              <ProtectedRoute isAllowed={isAuth} redirectTo="/login">
                 <CategoriasProvider>
                   <Outlet />
                 </CategoriasProvider>
               </ProtectedRoute>
             }
           >
-            <Route path="/administrar-categoria" element={<CategoriasForm />} />
             <Route
-              path="/administrar-categoria/:id"
-              element={<CategoriasForm />}
-            />
+              element={
+                <ProtectedRoute
+                  isAllowed={
+                    isAuth &&
+                    (user?.roles[0].nombre === "Administrador" ||
+                      user?.roles[0].nombre === "Moderador")
+                  }
+                  redirectTo="/error"
+                  allowedRoles={["Administrador", "Moderador"]}
+                  userRole={user && user?.roles[0].nombre}
+                />
+              }
+            >
+              <Route
+                path="/administrar-categoria"
+                element={<CategoriasForm />}
+              />
+              <Route
+                path="/administrar-categoria/:id"
+                element={<CategoriasForm />}
+              />
+            </Route>
             <Route path="/categorias" element={<Categorias />} />
           </Route>
 
