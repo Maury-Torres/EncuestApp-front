@@ -42,6 +42,7 @@ export function AuthProvider({ children }) {
       setUser(userData);
       setIsAuth(true);
       localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("isAuthLS", true);
       setIsLoading(false);
 
       return userData;
@@ -65,6 +66,7 @@ export function AuthProvider({ children }) {
         Cookies.remove("token");
         setUser(null);
         setIsAuth(false);
+        localStorage.removeItem("isAuthLS");
         localStorage.removeItem("user");
       }
     } catch (error) {
@@ -94,10 +96,12 @@ export function AuthProvider({ children }) {
           setUser(userData);
           setIsAuth(true);
           localStorage.setItem("user", JSON.stringify(userData));
+          localStorage.setItem("isAuthLS", true);
         })
         .catch((error) => {
           console.log(error);
           setIsAuth(false);
+          localStorage.removeItem("isAuthLS");
           setUser(null);
           localStorage.removeItem("user");
         });
