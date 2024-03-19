@@ -18,9 +18,11 @@ export function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState(null);
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const signin = async (data) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/signin`, {
+      const response = await fetch(`${BASE_URL}/signin`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -30,13 +32,11 @@ export function AuthProvider({ children }) {
         body: JSON.stringify(data),
       });
 
-      const userData = await response.json();
-
-      if (userData.errors) {
-        setErrors(userData.errors);
+      if (!response.ok) {
         setIsLoading(false);
         return;
       }
+      const userData = await response.json();
 
       setErrors(null);
       setUser(userData);
@@ -50,11 +50,33 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const signout = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/signout`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Credentials": true,
+        },
+      });
+
+      if (response.ok) {
+        Cookies.remove("token");
+        setUser(null);
+        setIsAuth(false);
+        localStorage.removeItem("user");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     setIsLoading(true);
 
     if (Cookies.get("token")) {
-      fetch(`http://localhost:3000/api/user`, {
+      fetch(`${BASE_URL}/user`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -93,6 +115,7 @@ export function AuthProvider({ children }) {
         errors,
         setErrors,
         signin,
+        signout,
       }}
     >
       {children}

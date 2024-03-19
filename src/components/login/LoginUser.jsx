@@ -15,8 +15,6 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { alertcustom } from "../../utils/alertCustom.js";
 import {FormCard} from "../ui/formcard/FormCard.jsx"
 
-/* const BASE_URL = import.meta.env.VITE_BASE_URL; */
-
 export const LoginUser = () => {
   const { signin, errors, setErrors } = useAuth();
   const { email, password, handleOnChange, setFormData } = useForm({
@@ -38,18 +36,18 @@ export const LoginUser = () => {
         password,
       });
 
-      if (response?.message) {
-        alertcustom(response.message, "Error", "error");
+      console.log(response);
+
+      if (!response) {
+        alertcustom("", "Credenciales incorrectas", "error");
         return;
       }
 
-      if (response) {
-        alertcustom("Inicio de sesión exitoso", "Logueado", "success", () => {
-          setErrors(null);
-          setFormData({ email: "", password: "" });
-          navigate("/");
-        });
-      }
+      alertcustom("Inicio de sesión exitoso", "Logueado", "success", () => {
+        setErrors(null);
+        setFormData({ email: "", password: "" });
+        navigate("/");
+      });
     } catch (error) {
       console.log(error);
     }
