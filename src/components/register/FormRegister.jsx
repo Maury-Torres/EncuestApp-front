@@ -69,6 +69,10 @@ export const FormRegister = () => {
       const response = await fetch(`${BASE_URL}/signup`, {
         method: "POST",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
         body: JSON.stringify({
           username: data.userName,
           email: data.email,
@@ -76,10 +80,6 @@ export const FormRegister = () => {
           confirmPassword: data.confirmPassword,
           roles: DEFAULT_ROL,
         }),
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
       });
 
       if (!response.ok) {
