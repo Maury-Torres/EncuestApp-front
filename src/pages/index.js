@@ -5,7 +5,7 @@ import { EncuestasProvider } from "../context/EncuestaContext";
 import { Footer } from "../components/footer/Footer";
 import { Categorias } from "../components/categorias/Categorias";
 import { CategoriasForm } from "../components/categorias/form/CategoriasForm";
-import Errors from "../components/error/errors";
+import Errors from "../components/error/Errors";
 import { CategoriasProvider } from "../context/CategoriaContext";
 import { Encuestas } from "../components/encuestas/Encuestas";
 import { AuthProvider } from "../context/AuthContext";
