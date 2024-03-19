@@ -22,10 +22,12 @@ export const EncuestasProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [errors, setErrors] = useState(null);
 
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const getEncuestas = async (params) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/encuestas${params ? `?${params}` : ""}`
+        `${BASE_URL}/encuestas${params ? `?${params}` : ""}`
       );
 
       if (!response.ok) {
@@ -48,7 +50,7 @@ export const EncuestasProvider = ({ children }) => {
 
   const getEncuesta = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/encuestas/${id}`);
+      const response = await fetch(`${BASE_URL}/encuestas/${id}`);
 
       if (!response.ok) {
         setErrors({
@@ -71,7 +73,7 @@ export const EncuestasProvider = ({ children }) => {
   const getEncuestasByCategoria = async (categoria, params) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/encuestas/categoria/${categoria}${
+        `${BASE_URL}/encuestas/categoria/${categoria}${
           params ? `?${params}` : ""
         }`
       );
@@ -98,7 +100,7 @@ export const EncuestasProvider = ({ children }) => {
 
   const getEncuestasPorUsuarioId = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/mis-encuestas`, {
+      const response = await fetch(`${BASE_URL}/mis-encuestas`, {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
@@ -128,16 +130,13 @@ export const EncuestasProvider = ({ children }) => {
 
   const getEncuestaRealizada = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/encuestas/realizadas/${id}`,
-        {
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Credentials": true,
-          },
-        }
-      );
+      const response = await fetch(`${BASE_URL}/encuestas/realizadas/${id}`, {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Credentials": true,
+        },
+      });
 
       if (!response.ok) {
         setErrors({
@@ -160,7 +159,7 @@ export const EncuestasProvider = ({ children }) => {
 
   const createEncuesta = async (encuesta) => {
     try {
-      const response = await fetch("http://localhost:3000/api/encuestas", {
+      const response = await fetch(`${BASE_URL}/encuestas`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -188,18 +187,15 @@ export const EncuestasProvider = ({ children }) => {
 
   const updateEncuesta = async (id, encuesta) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/encuestas/${id}`,
-        {
-          method: "PATCH",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Credentials": true,
-          },
-          body: JSON.stringify(encuesta),
-        }
-      );
+      const response = await fetch(`${BASE_URL}/encuestas/${id}`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Credentials": true,
+        },
+        body: JSON.stringify(encuesta),
+      });
 
       const encuestaData = await response.json();
 
@@ -223,17 +219,14 @@ export const EncuestasProvider = ({ children }) => {
 
   const deleteEncuesta = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/encuestas/${id}`,
-        {
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Credentials": true,
-          },
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${BASE_URL}/encuestas/${id}`, {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Credentials": true,
+        },
+        method: "DELETE",
+      });
 
       if (!response.ok) {
         setErrors({
