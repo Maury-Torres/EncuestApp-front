@@ -1,7 +1,8 @@
 #container {
-    background-image: url(/src/assets/fondo.webp);
-    /*background-color: #0DCAF0;*/
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #0d6dfd80;
+    margin-bottom: 10px;
+    /* background-image: url(/src/assets/fondo.webp); */
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
     border-radius: 15%;
@@ -9,7 +10,7 @@
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-bottom-right-radius: 30px; */
 }
 
 #containerNav {
@@ -104,15 +105,12 @@
 
 @media (max-width: 911px) {
     #container {
-        width: 80%;
         padding-bottom: 5%;
-        margin-bottom: 200px;
     }
 }
 
 @media (max-width: 629px) {
     #container {
-        width: 100%;
         padding-bottom: 5%;
     }
 }

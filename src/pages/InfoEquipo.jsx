@@ -1,13 +1,16 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import { FormRegister } from "../components/register/FormRegister";
+import InfoEquipo1 from "../components/infoEquipo/InfoEquipo1";
 
-export const Register = () => {
+
+const InfoEquipo = () => {
   return (
     <Container>
       <Row>
-        <FormRegister />
+        <InfoEquipo1/>
       </Row>
     </Container>
   );
 };
+
+export default InfoEquipo;

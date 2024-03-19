@@ -2,8 +2,18 @@ import propTypes from "prop-types";
 import { Card, Button, Col, Form } from "react-bootstrap";
 import { FaRegTrashAlt, FaPencilAlt, FaInfo } from "react-icons/fa";
 import styles from "./ABMCard.module.css";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
-export const ABMCard = ({ encuesta, handleCheckboxChange }) => {
+export const ABMCard = ({
+  encuesta,
+  handleCheckboxChange,
+  handleOnBorrarEncuesta,
+}) => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { roles } = user;
+
   return (
     <Col xs={12} md={encuesta.length < 2 ? 12 : 6}>
       <Card className={`${styles.cardMargin} ${styles.cardBackground}`}>
@@ -21,27 +31,39 @@ export const ABMCard = ({ encuesta, handleCheckboxChange }) => {
               {encuesta.available ? "Disponible" : "No disponible"}
             </strong>
           </Card.Text>
-          <Button variant="primary">
-            <FaInfo /> Detalles
-          </Button>
-          <Button variant="danger" className="ms-3">
-            <FaRegTrashAlt /> Eliminar
-          </Button>
-          <Button variant="warning" className="ms-3">
-            <FaPencilAlt /> Editar
-          </Button>
-          <Form.Check
-            type="checkbox"
-            className="mt-3"
-            checked={encuesta.available}
-            id={encuesta._id}
-            label={
-              encuesta.available
-                ? "Deshabilitar Encuesta"
-                : "Habilitar Encuesta"
-            }
-            onChange={handleCheckboxChange}
-          />
+
+          {user && roles[0].nombre == "Administrador" && (
+            <>
+              <Button
+                variant="danger"
+                className="ms-3"
+                onClick={() => handleOnBorrarEncuesta(encuesta._id)}
+              >
+                <FaRegTrashAlt /> Eliminar
+              </Button>
+              <Button
+                variant="warning"
+                className="ms-3"
+                onClick={() =>
+                  navigate(`/administrar-encuesta/${encuesta._id}`)
+                }
+              >
+                <FaPencilAlt /> Editar
+              </Button>
+              <Form.Check
+                type="checkbox"
+                className="mt-3"
+                checked={encuesta.available}
+                id={encuesta._id}
+                label={
+                  encuesta.available
+                    ? "Deshabilitar Encuesta"
+                    : "Habilitar Encuesta"
+                }
+                onChange={handleCheckboxChange}
+              />
+            </>
+          )}
         </Card.Body>
       </Card>
     </Col>
