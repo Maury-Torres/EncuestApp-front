@@ -8,13 +8,12 @@ import {
   submitBtn,
   hiddenButton,
   inputField,
-  inputField2
+  inputField2,
 } from "../login/LoginUser1.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { alertcustom } from "../../utils/alertCustom.js";
-
-/* const BASE_URL = import.meta.env.VITE_BASE_URL; */
+import {FormCard} from "../ui/formcard/FormCard.jsx"
 
 export const LoginUser = () => {
   const { signin, errors, setErrors } = useAuth();
@@ -37,23 +36,18 @@ export const LoginUser = () => {
         password,
       });
 
-      if (response?.message) {
-        alertcustom(response.message, "Error", "error");
+      console.log(response);
+
+      if (!response) {
+        alertcustom("", "Credenciales incorrectas", "error");
         return;
       }
 
-      if (response) {
-        alertcustom(
-          "Inicio de sesión exitoso",
-          "Logueado",
-          "success",
-          () => {
-            setErrors(null);
-            setFormData({ email: "", password: "" });
-            navigate("/");
-          }
-        );
-      }
+      alertcustom("Inicio de sesión exitoso", "Logueado", "success", () => {
+        setErrors(null);
+        setFormData({ email: "", password: "" });
+        navigate("/");
+      });
     } catch (error) {
       console.log(error);
     }
@@ -63,20 +57,22 @@ export const LoginUser = () => {
     errors && !!errors.find((err) => err.path === path);
 
   return (
-    <Col class="_formCard_7jj89_1 card"
+    
+    <Col
       id={container}
-      className="d-flex justify-content-center animate__animated animate__backInLeft"
+      className="d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1 card"
     >
+      
       <Container>
+        <FormCard>
         <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-center">
-            <h1 className="display-5 fw-semibold text-black"> Login</h1>
+            <h1 className="display-5 fw-semibold text-white"> Login</h1>
           </div>
         </div>
-
         <Form onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label className="fw-bold text-black">
+            <Form.Label className="fw-bold text-white">
               Correo electrónico
             </Form.Label>
             <Form.Control
@@ -96,7 +92,7 @@ export const LoginUser = () => {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label className="fw-bold text-black">Contraseña</Form.Label>
+            <Form.Label className="fw-bold text-white">Contraseña</Form.Label>
             <InputGroup className="d-flex">
               <Form.Control
                 id={inputField2}
@@ -125,7 +121,7 @@ export const LoginUser = () => {
             </InputGroup>
           </Form.Group>
 
-          <div className="fw-bold text-black mt-3 d-flex text-end">
+          <div className="fw-bold text-white mt-3 d-flex text-end">
             ¿Todavía no te registraste?
             <Link to="/register" className="fw-bold text-decoration-none">
               <span> Registrarse</span>
@@ -141,6 +137,7 @@ export const LoginUser = () => {
             Iniciar sesión
           </Button>
         </Form>
+        </FormCard>
       </Container>
     </Col>
   );
