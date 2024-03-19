@@ -116,14 +116,19 @@ export const ABMPage = () => {
                   Nueva encuesta <RiSurveyFill />
                 </Link>
 
-                {user && roles[0].nombre == "Administrador" && (
-                  <Link
-                    to="/administrar-categoria"
-                    className="btn btn-light p-3 shadow-lg"
-                  >
-                    Nueva categoria <TbCategoryPlus />
-                  </Link>
-                )}
+                <Link
+                  to="/administrar-categoria"
+                  className="btn btn-light p-3 shadow-lg"
+                >
+                  Nueva categoria <TbCategoryPlus />
+                </Link>
+
+                <Link
+                  to="/administrar-rol"
+                  className="btn btn-light p-3 shadow-lg"
+                >
+                  Administrar Rol <TbCategoryPlus />
+                </Link>
               </div>
               <ABMFiltros
                 orderByDate={orderByDate}
