@@ -18,7 +18,7 @@ import { useAuth } from "../../context/AuthContext";
 export const NavbarTest = () => {
   const { user, isAuth, signout } = useAuth();
   return (
-    <Navbar expand="lg" id={container} fixed="top">
+    <Navbar expand="lg" id={container}>
       <Container>
         <Navbar.Brand className="fw-bold text-white" id={title}>
           <img src={logo} alt="Logo" className={styles.logo} />
@@ -42,16 +42,6 @@ export const NavbarTest = () => {
                   <Navbar.Text>
                     <Link to="/login" className="fw-bold text-decoration-none">
                       Login
-                    </Link>
-                  </Navbar.Text>
-                </Button>
-                <Button id={button3} size="sm">
-                  <Navbar.Text>
-                    <Link
-                      to="/register"
-                      className="fw-bold text-decoration-none"
-                    >
-                      Register
                     </Link>
                   </Navbar.Text>
                 </Button>

@@ -13,6 +13,7 @@ import {
   EncuestasForm,
   Register,
   NavbarTest,
+  InfoEquipo,
 } from "./pages/index.js";
 import { ResponderEncuesta } from "./components/encuestas/responderEncuesta/ResponderEncuesta.jsx";
 import { VerResultados } from "./components/encuestas/verResultados/VerResultados.jsx";
@@ -114,6 +115,7 @@ export const EncuestApp = () => {
           </Route>
 
           <Route path="*" element={<Errors />} />
+          <Route path="/infoequipo" element={<InfoEquipo/>} />
         </Routes>
         <Footer />
       </BrowserRouter>
