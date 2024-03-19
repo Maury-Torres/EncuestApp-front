@@ -10,7 +10,9 @@ import {
   submitBtn,
   hiddenButton,
   hiddenButtonConfirm,
-} from "./FormRegister.module.css";
+} from "./formRegister.module.css";
+
+console.log("Test");
 
 import { passwordRegex } from "../../utils/passwordRegex.js";
 import { emailRegex } from "../../utils/emailRegex.js";
