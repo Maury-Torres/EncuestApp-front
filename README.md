@@ -1,4 +1,4 @@
-# Página de Encuestas
+# EncuestApp
 Este proyecto es una página web para realizar encuestas en línea. Proporciona una interfaz fácil de usar para crear, responder y analizar encuestas.
 
 # Características
