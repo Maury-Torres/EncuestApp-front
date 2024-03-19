@@ -66,17 +66,19 @@ export const ResponderEncuesta = () => {
 
       const data = await response.json();
 
+      console.log(data);
+
       if (response.ok) {
         setUser((prevUser) => ({
           ...prevUser,
           encuestasRealizadas: [
             ...prevUser.encuestasRealizadas,
-            { encuesta: id },
+            { encuesta: id, _id: data._id },
           ],
         }));
 
         alertcustom("", "Encuesta enviada correctamente", "success", () => {
-          navigate(`/encuestas/categoria/${encuestaData.categoria._id}`);
+          navigate(`/ver-resultados/${data.encuestaRealizadaId}`);
           setFormData([]);
           setFormValid(false);
         });

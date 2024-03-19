@@ -22,6 +22,8 @@ export const EncuestasCard = ({ encuesta }) => {
     (encuestaRealizada) => encuestaRealizada.encuesta === encuesta._id
   );
 
+  console.log(encuestasRealizadas, encuestaRespondida);
+
   return (
     <Card className={`${styles.cardMargin} ${styles.cardBackground}`}>
       <Card.Body>
@@ -38,7 +40,7 @@ export const EncuestasCard = ({ encuesta }) => {
           {encuestaRespondida ? (
             <Button
               variant="success"
-              onClick={() =>
+              onClick={() => {
                 navigate(
                   `/ver-resultados/${
                     encuestasRealizadas.find(
@@ -46,8 +48,8 @@ export const EncuestasCard = ({ encuesta }) => {
                         encuestaRealizada.encuesta === encuesta._id
                     )._id
                   }`
-                )
-              }
+                );
+              }}
             >
               Ver resultados
             </Button>
