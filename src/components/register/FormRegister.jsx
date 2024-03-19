@@ -21,7 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
-import {FormCard} from "../ui/formcard/FormCard.jsx"
+import { FormCard } from "../ui/formcard/FormCard.jsx";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const DEFAULT_ROL = import.meta.env.VITE_DEFAULT_ROL;
@@ -99,12 +99,10 @@ export const FormRegister = () => {
   };
 
   return (
-
-  
     <Col
       id={container}
-      className=" d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1 card">
-        
+      className=" d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1"
+    >
       <FormCard>
         <div className="text-center aling-items-center  pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-start">
@@ -112,134 +110,141 @@ export const FormRegister = () => {
           </div>
         </div>
 
-      <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group>
-          <Form.Label className="fw-bold text-white">Username</Form.Label>
-          <Form.Control
-            id={inputFieldName}
-            type="text"
-            placeholder="Ingrese su username"
-            className={errors.userName?.message ? "is-invalid" : ""}
-            {...register("userName", {
-              required: {
-                value: true,
-                message: "Ingrese un username",
-              },
-            })}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.userName?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label className="fw-bold text-white">
-            Correo electrónico
-          </Form.Label>
-          <Form.Control
-            id={inputField}
-            type="email"
-            placeholder="Ingrese su correo electrónico"
-            className={errors.email?.message ? "is-invalid" : ""}
-            {...register("email", {
-              required: {
-                value: true,
-                message: "Ingrese un correo electrónico",
-              },
-              pattern: {
-                value: emailRegex,
-                message: "Ingrese un correo electrónico valido",
-              },
-            })}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.email?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label className="fw-bold text-white">Contraseña</Form.Label>
-          <InputGroup className="mb-3">
+        <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group>
+            <Form.Label className="fw-bold text-white">Username</Form.Label>
             <Form.Control
-              id={inputField2}
-              name="password"
-              type={passwordVisible ? "text" : "password"}
-              aria-describedby="passwordHelpBlock"
-              placeholder="Ingrese su contraseña"
-              className={errors.password?.message ? "is-invalid" : ""}
-              {...register("password", {
+              id={inputFieldName}
+              type="text"
+              placeholder="Ingrese su username"
+              className={errors.userName?.message ? "is-invalid" : ""}
+              {...register("userName", {
                 required: {
                   value: true,
-                  message: "La contraseña es requerida",
-                },
-                pattern: {
-                  value: passwordRegex,
-                  message:
-                    "Su contraseña debe contener como minimo 8 caracteres, una letra mayúscula, una minúscula, un numero, un caracter especial",
+                  message: "Ingrese un username",
                 },
               })}
             />
-            <div className="input-group-append">
+            <Form.Control.Feedback type="invalid">
+              {errors.userName?.message}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label className="fw-bold text-white">
+              Correo electrónico
+            </Form.Label>
+            <Form.Control
+              id={inputField}
+              type="email"
+              placeholder="Ingrese su correo electrónico"
+              className={errors.email?.message ? "is-invalid" : ""}
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Ingrese un correo electrónico",
+                },
+                pattern: {
+                  value: emailRegex,
+                  message: "Ingrese un correo electrónico valido",
+                },
+              })}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.email?.message}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label className="fw-bold text-white">Contraseña</Form.Label>
+            <InputGroup className="mb-3">
+              <Form.Control
+                id={inputField2}
+                name="password"
+                type={passwordVisible ? "text" : "password"}
+                aria-describedby="passwordHelpBlock"
+                placeholder="Ingrese su contraseña"
+                className={errors.password?.message ? "is-invalid" : ""}
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "La contraseña es requerida",
+                  },
+                  pattern: {
+                    value: passwordRegex,
+                    message:
+                      "Su contraseña debe contener como minimo 8 caracteres, una letra mayúscula, una minúscula, un numero, un caracter especial",
+                  },
+                })}
+              />
+              <div className="input-group-append">
+                <button
+                  id={hiddenButton}
+                  type="button"
+                  className="toggle-password-visibility"
+                  onClick={togglePasswordVisibility}
+                >
+                  <FontAwesomeIcon
+                    icon={passwordVisible ? faEye : faEyeSlash}
+                  />
+                </button>
+              </div>
+              <Form.Control.Feedback type="invalid">
+                {errors.password?.message}
+              </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
+
+          <Form.Label className="fw-bold text-white">
+            Confirmar Contraseña
+          </Form.Label>
+          <InputGroup>
+            <Form.Control
+              id={inputField3}
+              name="password"
+              onPaste={(e) => e.preventDefault()}
+              type={passwordVisibleConfirm ? "text" : "password"}
+              placeholder="Ingrese nuevamente su contraseña"
+              className={errors.confirmPassword?.message ? "is-invalid" : ""}
+              {...register("confirmPassword", {
+                required: {
+                  value: true,
+                  message: "Campo requerido",
+                },
+                validate: (value) => {
+                  if (value == watch("password")) {
+                    return true;
+                  }
+                  return "Las contraseñas no coinciden";
+                },
+              })}
+            />
+            <div>
               <button
-                id={hiddenButton}
+                id={hiddenButtonConfirm}
                 type="button"
                 className="toggle-password-visibility"
-                onClick={togglePasswordVisibility}
+                onClick={togglePasswordVisibilityConfirm}
               >
-                <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
+                <FontAwesomeIcon
+                  icon={passwordVisibleConfirm ? faEye : faEyeSlash}
+                />
               </button>
             </div>
             <Form.Control.Feedback type="invalid">
-              {errors.password?.message}
+              {errors.confirmPassword?.message}
             </Form.Control.Feedback>
           </InputGroup>
-        </Form.Group>
 
-        <Form.Label className="fw-bold text-white">
-          Confirmar Contraseña
-        </Form.Label>
-        <InputGroup>
-          <Form.Control
-            id={inputField3}
-            name="password"
-            onPaste={(e) => e.preventDefault()}
-            type={passwordVisibleConfirm ? "text" : "password"}
-            placeholder="Ingrese nuevamente su contraseña"
-            className={errors.confirmPassword?.message ? "is-invalid" : ""}
-            {...register("confirmPassword", {
-              required: {
-                value: true,
-                message: "Campo requerido",
-              },
-              validate: (value) => {
-                if (value == watch("password")) {
-                  return true;
-                }
-                return "Las contraseñas no coinciden";
-              },
-            })}
-          />
-          <div>
-            <button
-              id={hiddenButtonConfirm}
-              type="button"
-              className="toggle-password-visibility"
-              onClick={togglePasswordVisibilityConfirm}
-            >
-              <FontAwesomeIcon
-                icon={passwordVisibleConfirm ? faEye : faEyeSlash}
-              />
-            </button>
-          </div>
-          <Form.Control.Feedback type="invalid">
-            {errors.confirmPassword?.message}
-          </Form.Control.Feedback>
-        </InputGroup>
-
-        <Button id={submitBtn} className="mt-3" variant="primary" type="submit">
-          Registrarse
-        </Button>
-      </Form>
+          <Button
+            id={submitBtn}
+            className="mt-3"
+            variant="primary"
+            type="submit"
+          >
+            Registrarse
+          </Button>
+        </Form>
       </FormCard>
     </Col>
   );
