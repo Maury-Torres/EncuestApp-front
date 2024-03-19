@@ -12,7 +12,7 @@ export const ABMUsuariosCard = ({
   const navigate = useNavigate();
 
   return (
-    <Col xs={12} md={encuesta.length < 2 ? 12 : 6}>
+    <Col xs={12} md={12}>
       <Card className={`${styles.cardMargin} ${styles.cardBackground}`}>
         <Card.Body>
           <Card.Title>

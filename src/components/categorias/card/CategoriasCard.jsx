@@ -31,7 +31,7 @@ export const CategoriasCard = ({ categoria, handleOnBorrarCategoria }) => {
                       </Card.Text> */}
         </div>
       </Link>
-      {user && user?.roles.includes("Admin") && (
+      {user && user?.roles[0].nombre === "Administrador" && (
         <Card.Footer className={`${styles.adminFooter}`}>
           <div className="d-flex w-100 justify-content-evenly">
             <Button

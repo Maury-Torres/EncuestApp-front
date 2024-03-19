@@ -79,7 +79,6 @@ export const ResponderEncuesta = () => {
 
         alertcustom("", "Encuesta enviada correctamente", "success", () => {
           navigate(`/encuestas/categoria/${encuestaData.categoria._id}`);
-          window.location.reload();
           setFormData([]);
           setFormValid(false);
         });

@@ -122,13 +122,6 @@ export const ABMPage = () => {
                 >
                   Nueva categoria <TbCategoryPlus />
                 </Link>
-
-                <Link
-                  to="/administrar-rol"
-                  className="btn btn-light p-3 shadow-lg"
-                >
-                  Administrar Rol <TbCategoryPlus />
-                </Link>
               </div>
               <ABMFiltros
                 orderByDate={orderByDate}
