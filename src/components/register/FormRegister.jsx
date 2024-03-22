@@ -10,7 +10,9 @@ import {
   submitBtn,
   hiddenButton,
   hiddenButtonConfirm,
-} from "./FormRegister.module.css";
+} from "./formRegister.module.css";
+
+console.log("Test");
 
 import { passwordRegex } from "../../utils/passwordRegex.js";
 import { emailRegex } from "../../utils/emailRegex.js";
@@ -67,6 +69,10 @@ export const FormRegister = () => {
       const response = await fetch(`${BASE_URL}/signup`, {
         method: "POST",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
         body: JSON.stringify({
           username: data.userName,
           email: data.email,
@@ -74,10 +80,6 @@ export const FormRegister = () => {
           confirmPassword: data.confirmPassword,
           roles: DEFAULT_ROL,
         }),
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
       });
 
       if (!response.ok) {

@@ -5,7 +5,9 @@ export const SelectCategorias = ({
   orderByCategory,
   handleOrderByCategory,
 }) => {
-  const { data, isLoading } = useFetch("http://localhost:3000/api/categorias");
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+  const { data, isLoading } = useFetch(`${BASE_URL}/categorias`);
 
   return (
     <Select
