@@ -8,7 +8,8 @@ EncuestApp es una plataforma versátil que permite a los usuarios crear y respon
 - Interfaz Intuitiva: La interfaz de usuario es intuitiva y fácil de usar, lo que permite a los usuarios crear y responder encuestas sin complicaciones.
 
 # Test
-![Render]((https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white) (https://encuestas-front-t25n.onrender.com/))
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white) 
+https://encuestas-front-t25n.onrender.com/
 
 # Tecnologias y librerias utilizadas
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
