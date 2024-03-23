@@ -1,6 +1,8 @@
 # EncuestApp
 EncuestApp es una plataforma versátil que permite a los usuarios crear y responder encuestas de manera fácil y eficiente. Los usuarios pueden crear encuestas personalizadas y compartir fácilmente el enlace con su audiencia, mientras que los administradores tienen control total sobre la gestión de las encuestas.
 
+![Logo de EncuestApp](./assets/logo.jpg)
+
 # Características
 - Crear Encuestas: Los usuarios pueden crear encuestas personalizadas con diferentes tipos de preguntas, incluyendo opción múltiple, selección única, respuestas cortas, y más.
 - Responder Encuestas: Los usuarios pueden responder encuestas de forma rápida y sencilla a través de un enlace compartido.
