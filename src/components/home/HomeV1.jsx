@@ -6,7 +6,7 @@ import logo from "../../assets/encuestas2.png";
 
 const HomeV1 = () => {
   return (
-    <Col id={containerCol} lg={6}>
+    <Col id={containerCol} lg={8} >
       <section className=" col-lg-10" id={container}>
         <div>
           <h1>EncuestApp</h1>
