@@ -41,8 +41,6 @@ export function AuthProvider({ children }) {
       setErrors(null);
       setUser(userData);
       setIsAuth(true);
-      localStorage.setItem("user", JSON.stringify(userData));
-      localStorage.setItem("isAuthLS", true);
       setIsLoading(false);
 
       return userData;
@@ -66,7 +64,6 @@ export function AuthProvider({ children }) {
         Cookies.remove("token");
         setUser(null);
         setIsAuth(false);
-        localStorage.removeItem("isAuthLS");
         localStorage.removeItem("user");
       }
     } catch (error) {
@@ -75,8 +72,6 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-
     if (Cookies.get("token")) {
       fetch(`${BASE_URL}/user`, {
         method: "GET",
@@ -95,18 +90,17 @@ export function AuthProvider({ children }) {
 
           setUser(userData);
           setIsAuth(true);
-          localStorage.setItem("user", JSON.stringify(userData));
-          localStorage.setItem("isAuthLS", true);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
           setIsAuth(false);
-          localStorage.removeItem("isAuthLS");
           setUser(null);
-          localStorage.removeItem("user");
+          setIsLoading(false);
         });
+    } else {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, []);
 
   return (

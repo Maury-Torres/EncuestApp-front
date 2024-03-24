@@ -11,6 +11,7 @@ export const ResponderEncuesta = () => {
   const { user, setUser } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const [encuestaData, setEncuestaData] = useState([]);
   const [formData, setFormData] = useState([]);
@@ -53,35 +54,32 @@ export const ResponderEncuesta = () => {
         preguntasRespuestas: formData,
       };
 
-      const response = await fetch(
-        "http://localhost:3000/api/encuestas/realizar",
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true,
-          },
-          body: JSON.stringify(dataForm),
-        }
-      );
+      const response = await fetch(`${BASE_URL}/encuestas/realizar`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+        body: JSON.stringify(dataForm),
+      });
 
       const data = await response.json();
+
+      console.log(data);
 
       if (response.ok) {
         setUser((prevUser) => ({
           ...prevUser,
           encuestasRealizadas: [
             ...prevUser.encuestasRealizadas,
-            { encuesta: id },
+            { encuesta: id, _id: data._id },
           ],
         }));
 
         alertcustom("", "Encuesta enviada correctamente", "success", () => {
-          window.location.reload();
-          window.location.href = `/encuestas/categoria/${encuestaData.categoria._id}`;
-          /*           navigate(`/encuestas/categoria/${encuestaData.categoria._id}`);
-           */ setFormData([]);
+          navigate(`/ver-resultados/${data.encuestaRealizadaId}`);
+          setFormData([]);
           setFormValid(false);
         });
       }

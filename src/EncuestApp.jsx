@@ -22,10 +22,11 @@ import { useAuth } from "./context/AuthContext.jsx";
 import { ABMUsuarios } from "./components/abm/usuarios/ABMUsuarios.jsx";
 
 export const EncuestApp = () => {
-  const { user, isAuth, isAuthLS } = useAuth();
+  const { user, isAuth, isLoading } = useAuth();
 
-  let isAuthLST = JSON.parse(localStorage.getItem("isAuthLS"));
-
+  if (isLoading) {
+    return <div className="d-flex justify-content-center mt-5">Loading...</div>;
+  }
   return (
     <div
       style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
@@ -35,7 +36,7 @@ export const EncuestApp = () => {
         <Routes>
           <Route path="/" element={<HomeV1 />} />
           <Route
-            element={<ProtectedRoute isAllowed={!isAuthLST} redirectTo="/" />}
+            element={<ProtectedRoute isAllowed={!isAuth} redirectTo="/" />}
           >
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
@@ -43,7 +44,7 @@ export const EncuestApp = () => {
 
           <Route
             element={
-              <ProtectedRoute isAllowed={isAuthLST} redirectTo="/login">
+              <ProtectedRoute isAllowed={isAuth} redirectTo="/login">
                 <EncuestasProvider>
                   <Outlet />
                 </EncuestasProvider>
@@ -54,7 +55,7 @@ export const EncuestApp = () => {
               element={
                 <ProtectedRoute
                   isAllowed={
-                    isAuthLST &&
+                    isAuth &&
                     (user?.roles[0].nombre === "Administrador" ||
                       user?.roles[0].nombre === "Moderador")
                   }
@@ -84,7 +85,7 @@ export const EncuestApp = () => {
           </Route>
           <Route
             element={
-              <ProtectedRoute isAllowed={isAuthLST} redirectTo="/login">
+              <ProtectedRoute isAllowed={isAuth} redirectTo="/login">
                 <CategoriasProvider>
                   <Outlet />
                 </CategoriasProvider>
@@ -95,7 +96,7 @@ export const EncuestApp = () => {
               element={
                 <ProtectedRoute
                   isAllowed={
-                    isAuthLST &&
+                    isAuth &&
                     (user?.roles[0].nombre === "Administrador" ||
                       user?.roles[0].nombre === "Moderador")
                   }
@@ -118,7 +119,7 @@ export const EncuestApp = () => {
           </Route>
 
           <Route path="*" element={<Errors />} />
-          <Route path="/infoequipo" element={<InfoEquipo/>} />
+          <Route path="/infoequipo" element={<InfoEquipo />} />
         </Routes>
         <Footer />
       </BrowserRouter>
