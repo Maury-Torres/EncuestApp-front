@@ -1,12 +1,12 @@
-import yo from './yo.jpg';
-import nico from './nico.jpg'
-import dani from './dani.jpg'
-import abel from './abel.jpg'
+import mauri from './img/mauri.jpg';
+import nico from './img/nico.jpg'
+import dani from './img/dani.jpg'
+import abel from './img/abel.jpg'
 
 export const integrantes = [
     {
         nombre: 'Mauricio Torres',
-        img: yo,
+        img: mauri,
         descripción: 'Integrante' 
     },
     {

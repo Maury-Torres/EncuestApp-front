@@ -1,10 +1,6 @@
 import React from 'react'
 import { Col } from 'react-bootstrap'
-import {container, shape, image, title, containerCards} from "./infoEquipo.module.css";
-// import yo from './yo.jpg';
-// import nico from './nico.jpg'
-// import dani from './dani.jpg'
-// import abel from './abel.jpg'
+import {container, shape, image, containerCards} from "./infoEquipo.module.css";
 import {integrantes} from './integrantes.js'
 
 const InfoEquipo1 = () => {
