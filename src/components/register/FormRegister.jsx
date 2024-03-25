@@ -11,9 +11,6 @@ import {
   hiddenButton,
   hiddenButtonConfirm,
 } from "./formRegister.module.css";
-
-console.log("Test");
-
 import { passwordRegex } from "../../utils/passwordRegex.js";
 import { emailRegex } from "../../utils/emailRegex.js";
 import { alertcustom } from "../../utils/alertCustom.js";

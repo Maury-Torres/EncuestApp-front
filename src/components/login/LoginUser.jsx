@@ -36,8 +36,6 @@ export const LoginUser = () => {
         password,
       });
 
-      console.log(response);
-
       if (!response) {
         alertcustom("", "Credenciales incorrectas", "error");
         return;
