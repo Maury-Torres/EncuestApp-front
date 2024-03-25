@@ -57,7 +57,6 @@ export const LoginUser = () => {
 
   return (
     <Col
-    <Col
       id={container}
       className="d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1"
     >
@@ -65,6 +64,7 @@ export const LoginUser = () => {
         <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-center">
             <h1 className="display-5 fw-semibold text-black">Acceso</h1>
+          </div>
           </div>
           <Form onSubmit={handleSubmit}>
             <Form.Group>
