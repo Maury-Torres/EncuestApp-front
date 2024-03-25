@@ -47,7 +47,7 @@ export const NavbarTest = () => {
           <Nav className="gap-3" id={containerNav}>
             <Button id={button} size="sm">
               <Navbar.Text>
-                <Link to='/' className='fw-bold text-decoration-none'>Go to home</Link>
+                <Link to='/' className='fw-bold text-decoration-none'>Inicio</Link>
               </Navbar.Text>
             </Button >
 
@@ -55,7 +55,7 @@ export const NavbarTest = () => {
             : <>
                 <Button id={button2} size="sm">
                   <Navbar.Text>
-                    <Link to='/login' className='fw-bold text-decoration-none'>Login</Link>
+                    <Link to='/login' className='fw-bold text-decoration-none'>Acceso</Link>
                   </Navbar.Text>
                 </Button>
               </>

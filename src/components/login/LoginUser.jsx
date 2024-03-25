@@ -14,8 +14,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { alertcustom } from "../../utils/alertCustom.js";
 
-/* const BASE_URL = import.meta.env.VITE_BASE_URL; */
-
 export const LoginUser = () => {
   const { signin, errors, setErrors } = useAuth();
   const { email, password, handleOnChange, setFormData } = useForm({
@@ -63,14 +61,14 @@ export const LoginUser = () => {
     errors && !!errors.find((err) => err.path === path);
 
   return (
-    <Col class="_formCard_7jj89_1 card"
+    <Col
       id={container}
       className="d-flex justify-content-center animate__animated animate__backInLeft"
     >
       <Container>
         <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-center">
-            <h1 className="display-5 fw-semibold text-black"> Login</h1>
+            <h1 className="display-5 fw-semibold text-black">Acceso</h1>
           </div>
         </div>
 
@@ -125,9 +123,9 @@ export const LoginUser = () => {
             </InputGroup>
           </Form.Group>
 
-          <div className="fw-bold text-black mt-3 d-flex text-end">
+          <div className="fw-bold text-black m-3">
             ¿Todavía no te registraste?
-            <Link to="/register" className="fw-bold text-decoration-none">
+            <Link to="/register" className="fw-bold text-decoration-none p-2">
               <span> Registrarse</span>
             </Link>
           </div>
@@ -137,7 +135,7 @@ export const LoginUser = () => {
             className="my-3 w-100 fw-bold text-white"
             variant="primary"
             type="submit"
-          >
+          ><Link to="/categorias" className="fw-bold text-decoration-none p-2"></Link>
             Iniciar sesión
           </Button>
         </Form>

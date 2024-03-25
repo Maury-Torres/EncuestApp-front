@@ -132,7 +132,7 @@ export const FormRegister = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label className="fw-bold text-black">Email</Form.Label>
+          <Form.Label className="fw-bold text-black">Correo electrónico</Form.Label>
           <Form.Control
             id={inputField}
             type="email"
@@ -155,14 +155,14 @@ export const FormRegister = () => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label className="fw-bold text-black">Password</Form.Label>
+          <Form.Label className="fw-bold text-black">Contraseña</Form.Label>
           <InputGroup className="mb-3">
             <Form.Control
               id={inputField2}
               name="password"
               type={passwordVisible ? "text" : "password"}
               aria-describedby="passwordHelpBlock"
-              placeholder="Password"
+              placeholder="Contraseña"
               className={errors.password?.message ? "is-invalid" : ""}
               {...register("password", {
                 required: {
@@ -193,7 +193,7 @@ export const FormRegister = () => {
         </Form.Group>
 
         <Form.Label className="fw-bold mt-3 text-black">
-          Confirm Password
+          Confirmar contraseña
         </Form.Label>
         <InputGroup>
           <Form.Control
@@ -201,9 +201,9 @@ export const FormRegister = () => {
             name="password"
             onPaste={(e) => e.preventDefault()}
             type={passwordVisibleConfirm ? "text" : "password"}
-            placeholder="Confirm Password"
+            placeholder="Confirmar contraseña"
             className={errors.confirmPassword?.message ? "is-invalid" : ""}
-            {...register("confirmPassword", {
+            {...register("confirmarPassword", {
               required: {
                 value: true,
                 message: "Campo requerido",

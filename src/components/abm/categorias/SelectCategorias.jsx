@@ -19,7 +19,7 @@ export const SelectCategorias = ({
         Categorias
       </option>
       <option value="Default">Por defecto</option>
-      {isLoading && <option value="">Loading...</option>}
+      {isLoading && <option value="">Cargando...</option>}
       {data?.categorias &&
         data?.categorias.map((categoria) => (
           <option key={categoria._id} value={categoria._id}>

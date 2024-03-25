@@ -22,10 +22,10 @@ const Errors = () => {
                 
             </Card.Text >
             <Card.Text>
-                <Link to='/' className='fw-bold text-black'> <FontAwesomeIcon icon={faHandPointRight} /> Go to home</Link>
+                <Link to='/' className='fw-bold text-black'> <FontAwesomeIcon icon={faHandPointRight} />Ir al inicio</Link>
             </Card.Text>
             <Card.Text>
-                <Link to='/login' className='fw-bold text-black'><FontAwesomeIcon icon={faHandPointRight} /> Login</Link>
+                <Link to='/login' className='fw-bold text-black'><FontAwesomeIcon icon={faHandPointRight} />Acceso</Link>
             </Card.Text>
             </Card.ImgOverlay>
         </Card>
