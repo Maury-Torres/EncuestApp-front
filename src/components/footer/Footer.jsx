@@ -2,6 +2,7 @@ import { CiFacebook, CiInstagram, CiTwitter } from "react-icons/ci";
 import { Container, Row, Col } from "react-bootstrap";
 import logo from "../../assets/logo-no-fondo.png";
 import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
@@ -25,6 +26,7 @@ export const Footer = () => {
                   <CiTwitter size={32} />
                 </a>
               </li>
+              <Link to='/infoEquipo'>Acerca de nosotros</Link>
             </ul>
           </Col>
           <Col className={`text-center py-4 text-white`}>

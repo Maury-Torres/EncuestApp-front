@@ -15,6 +15,7 @@ export const Encuestas = () => {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
+  const [updateState, setUpdateState] = useState(0);
 
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
@@ -49,11 +50,13 @@ export const Encuestas = () => {
               No hay categorias para mostrar.
             </p>
           ) : (
-            encuestas.map((encuesta) => (
-              <Col key={encuesta._id}>
-                <EncuestasCard encuesta={encuesta} />
-              </Col>
-            ))
+            encuestas
+              .filter((encuesta) => encuesta.available)
+              .map((encuesta) => (
+                <Col key={encuesta._id}>
+                  <EncuestasCard encuesta={encuesta} />
+                </Col>
+              ))
           )}
         </Row>
         <ABMPagination

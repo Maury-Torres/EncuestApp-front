@@ -8,7 +8,7 @@ import {
   submitBtn,
   hiddenButton,
   inputField,
-  inputField2
+  inputField2,
 } from "../login/LoginUser1.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -35,23 +35,18 @@ export const LoginUser = () => {
         password,
       });
 
-      if (response?.message) {
-        alertcustom(response.message, "Error", "error");
+      console.log(response);
+
+      if (!response) {
+        alertcustom("", "Credenciales incorrectas", "error");
         return;
       }
 
-      if (response) {
-        alertcustom(
-          "Inicio de sesión exitoso",
-          "Logueado",
-          "success",
-          () => {
-            setErrors(null);
-            setFormData({ email: "", password: "" });
-            navigate("/");
-          }
-        );
-      }
+      alertcustom("Inicio de sesión exitoso", "Logueado", "success", () => {
+        setErrors(null);
+        setFormData({ email: "", password: "" });
+        navigate("/");
+      });
     } catch (error) {
       console.log(error);
     }
@@ -62,66 +57,65 @@ export const LoginUser = () => {
 
   return (
     <Col
+    <Col
       id={container}
-      className="d-flex justify-content-center animate__animated animate__backInLeft"
+      className="d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1"
     >
       <Container>
         <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
           <div className="ms-4 text-center">
             <h1 className="display-5 fw-semibold text-black">Acceso</h1>
           </div>
-        </div>
-
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label className="fw-bold text-black">
-              Correo electrónico
-            </Form.Label>
-            <Form.Control
-              id={inputField}
-              type="email"
-              name="email"
-              placeholder="Ingrese su correo electrónico"
-              value={email}
-              onChange={handleOnChange}
-              isInvalid={hasError("email")}
-            />
-            {hasError("email") && (
-              <Form.Control.Feedback type="invalid">
-                {errors.find((error) => error.path === "email").msg}
-              </Form.Control.Feedback>
-            )}
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label className="fw-bold text-black">Contraseña</Form.Label>
-            <InputGroup className="d-flex">
+          <Form onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Label className="fw-bold text-white">
+                Correo electrónico
+              </Form.Label>
               <Form.Control
-                id={inputField2}
-                placeholder="Ingrese su contraseña"
-                name="password"
-                type={passwordVisible ? "text" : "password"}
-                value={password}
+                id={inputField}
+                type="email"
+                name="email"
+                placeholder="Ingrese su correo electrónico"
+                value={email}
                 onChange={handleOnChange}
-                isInvalid={hasError("password")}
+                isInvalid={hasError("email")}
               />
-              <InputGroup.Text
-                id={hiddenButton}
-                onClick={togglePasswordVisibility}
-              >
-                <FontAwesomeIcon
-                  icon={passwordVisible ? faEyeSlash : faEye}
-                  className="d-flex justify-content-center text-dark"
-                />
-              </InputGroup.Text>
-
-              {hasError("password") && (
+              {hasError("email") && (
                 <Form.Control.Feedback type="invalid">
-                  {errors.find((error) => error.path === "password").msg}
+                  {errors.find((error) => error.path === "email").msg}
                 </Form.Control.Feedback>
               )}
-            </InputGroup>
-          </Form.Group>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label className="fw-bold text-white">Contraseña</Form.Label>
+              <InputGroup className="d-flex">
+                <Form.Control
+                  id={inputField2}
+                  placeholder="Ingrese su contraseña"
+                  name="password"
+                  type={passwordVisible ? "text" : "password"}
+                  value={password}
+                  onChange={handleOnChange}
+                  isInvalid={hasError("password")}
+                />
+                <InputGroup.Text
+                  id={hiddenButton}
+                  onClick={togglePasswordVisibility}
+                >
+                  <FontAwesomeIcon
+                    icon={passwordVisible ? faEyeSlash : faEye}
+                    className="d-flex justify-content-center text-dark"
+                  />
+                </InputGroup.Text>
+
+                {hasError("password") && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.find((error) => error.path === "password").msg}
+                  </Form.Control.Feedback>
+                )}
+              </InputGroup>
+            </Form.Group>
 
           <div className="fw-bold text-black m-3">
             ¿Todavía no te registraste?

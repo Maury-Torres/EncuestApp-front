@@ -16,9 +16,7 @@ export const EncuestasForm = () => {
   const [categorias, setCategorias] = useState("");
   const [categoriasData, setCategoriasData] = useState([]);
 
-  // TODO Agregar validaciones para las preguntas y respuestas
-  //! Refactorizar el código
-
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const handleOnClickNewFormData = () => {
     setFormData((prevState) => [
       ...prevState,
@@ -134,14 +132,14 @@ export const EncuestasForm = () => {
         });
       }
     } catch (error) {
-      console.log();
+      console.log(error);
     }
   };
 
   useEffect(() => {
     const getCategorias = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/categorias", {
+        const response = await fetch(`${BASE_URL}/categorias`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -162,15 +160,12 @@ export const EncuestasForm = () => {
     if (id) {
       const getEncuesta = async () => {
         try {
-          const response = await fetch(
-            `http://localhost:3000/api/encuestas/${id}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
+          const response = await fetch(`${BASE_URL}/encuestas/${id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
 
           const data = await response.json();
 

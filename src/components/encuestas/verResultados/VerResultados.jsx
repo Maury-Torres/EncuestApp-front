@@ -45,12 +45,12 @@ export const VerResultados = () => {
           </Row>
         ))}
 
-      <Row>
+      {/* <Row>
         <Col className="text-center">
           <h3>Gráfico de resultados</h3>
           <p>En construcción...</p>
         </Col>
-      </Row>
+      </Row> */}
 
       <Row>
         <Col className="text-center">

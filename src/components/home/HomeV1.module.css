@@ -1,6 +1,4 @@
 body{
- 
-  margin-top: 6%;
   padding: 0;
   background-image: url(/src/assets/fondo.webp);
   background-size: cover ;
@@ -13,8 +11,17 @@ body{
   /* position: absolute; */
   /* top: 300px;
   left: 50px; */
-  margin-top: 200px;
-  margin-left: 50px;
+  /* margin-left: 10px; */
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+h1, Button{
+  margin-left: 15px;
+}
+
+p{
+  padding: 0 15px;
 }
 
 img{
@@ -24,7 +31,7 @@ img{
   right: 50px; */
   /* width="30"
   height="30" */
-  width: 500px;
+  width: 400px;
   height: 500px;
 }
 
@@ -42,5 +49,11 @@ img{
 @media (max-width: 911px){
   #secctionImg{
       text-align: center;
+}
+}
+
+@media (max-width: 415px){
+  img{
+      width: 300px;
 }
 }

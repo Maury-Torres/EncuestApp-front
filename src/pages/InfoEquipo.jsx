@@ -1,15 +1,16 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
-import Errors from "../components/error/Errors";
+import InfoEquipo1 from "../components/infoEquipo/InfoEquipo1";
 
-const Error = () => {
+
+const InfoEquipo = () => {
   return (
     <Container>
       <Row>
-        <Errors />
+        <InfoEquipo1/>
       </Row>
     </Container>
   );
 };
 
-export default Error;
+export default InfoEquipo;
