@@ -129,52 +129,50 @@ export const FormRegister = () => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label className="fw-bold text-white">
-              Correo electrónico
-            </Form.Label>
+        <Form.Group className="mb-3">
+          <Form.Label className="fw-bold text-black">Correo electrónico</Form.Label>
+          <Form.Control
+            id={inputField}
+            type="email"
+            placeholder="Email"
+            className={errors.email?.message ? "is-invalid" : ""}
+            {...register("email", {
+              required: {
+                value: true,
+                message: "Ingrese un email",
+              },
+              pattern: {
+                value: emailRegex,
+                message: "Ingrese un email valido",
+              },
+            })}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.email?.message}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label className="fw-bold text-black">Contraseña</Form.Label>
+          <InputGroup className="mb-3">
             <Form.Control
-              id={inputField}
-              type="email"
-              placeholder="Ingrese su correo electrónico"
-              className={errors.email?.message ? "is-invalid" : ""}
-              {...register("email", {
+              id={inputField2}
+              name="password"
+              type={passwordVisible ? "text" : "password"}
+              aria-describedby="passwordHelpBlock"
+              placeholder="Contraseña"
+              className={errors.password?.message ? "is-invalid" : ""}
+              {...register("password", {
                 required: {
                   value: true,
-                  message: "Ingrese un correo electrónico",
+                  message: "La contraseña es requerida",
                 },
                 pattern: {
-                  value: emailRegex,
-                  message: "Ingrese un correo electrónico valido",
+                  value: passwordRegex,
+                  message:
+                    "Su contraseña debe contener como minimo 8 caracteres, una letra mayúscula, una minúscula, un numero, un caracter especial",
                 },
               })}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.email?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label className="fw-bold text-white">Contraseña</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control
-                id={inputField2}
-                name="password"
-                type={passwordVisible ? "text" : "password"}
-                aria-describedby="passwordHelpBlock"
-                placeholder="Ingrese su contraseña"
-                className={errors.password?.message ? "is-invalid" : ""}
-                {...register("password", {
-                  required: {
-                    value: true,
-                    message: "La contraseña es requerida",
-                  },
-                  pattern: {
-                    value: passwordRegex,
-                    message:
-                      "Su contraseña debe contener como minimo 8 caracteres, una letra mayúscula, una minúscula, un numero, un caracter especial",
-                  },
-                })}
               />
               <div className="input-group-append">
                 <button
@@ -194,29 +192,29 @@ export const FormRegister = () => {
             </InputGroup>
           </Form.Group>
 
-          <Form.Label className="fw-bold text-white">
-            Confirmar Contraseña
-          </Form.Label>
-          <InputGroup>
-            <Form.Control
-              id={inputField3}
-              name="password"
-              onPaste={(e) => e.preventDefault()}
-              type={passwordVisibleConfirm ? "text" : "password"}
-              placeholder="Ingrese nuevamente su contraseña"
-              className={errors.confirmPassword?.message ? "is-invalid" : ""}
-              {...register("confirmPassword", {
-                required: {
-                  value: true,
-                  message: "Campo requerido",
-                },
-                validate: (value) => {
-                  if (value == watch("password")) {
-                    return true;
-                  }
-                  return "Las contraseñas no coinciden";
-                },
-              })}
+        <Form.Label className="fw-bold mt-3 text-black">
+          Confirmar contraseña
+        </Form.Label>
+        <InputGroup>
+          <Form.Control
+            id={inputField3}
+            name="password"
+            onPaste={(e) => e.preventDefault()}
+            type={passwordVisibleConfirm ? "text" : "password"}
+            placeholder="Confirmar contraseña"
+            className={errors.confirmPassword?.message ? "is-invalid" : ""}
+            {...register("confirmarPassword", {
+              required: {
+                value: true,
+                message: "Campo requerido",
+              },
+              validate: (value) => {
+                if (value == watch("password")) {
+                  return true;
+                }
+                return "Las contraseñas no coinciden";
+              },
+            })}
             />
             <div>
               <button

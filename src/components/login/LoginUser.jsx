@@ -13,7 +13,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { alertcustom } from "../../utils/alertCustom.js";
-import { FormCard } from "../ui/formcard/FormCard.jsx";
 
 export const LoginUser = () => {
   const { signin, errors, setErrors } = useAuth();
@@ -60,11 +59,10 @@ export const LoginUser = () => {
       className="d-flex justify-content-center animate__animated animate__backInLeft _formCard_7jj89_1"
     >
       <Container>
-        <FormCard>
-          <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
-            <div className="ms-4 text-center">
-              <h1 className="display-5 fw-semibold text-white"> Login</h1>
-            </div>
+        <div className="d-flex justify-content-center align-items-center my-3 pb-3 border border-light border-0 border-bottom">
+          <div className="ms-4 text-center">
+            <h1 className="display-5 fw-semibold text-black">Acceso</h1>
+          </div>
           </div>
           <Form onSubmit={handleSubmit}>
             <Form.Group>
@@ -117,23 +115,22 @@ export const LoginUser = () => {
               </InputGroup>
             </Form.Group>
 
-            <div className="fw-bold text-white mt-3 d-flex text-end">
-              ¿Todavía no te registraste?
-              <Link to="/register" className="fw-bold text-decoration-none">
-                <span> Registrarse</span>
-              </Link>
-            </div>
+          <div className="fw-bold text-black m-3">
+            ¿Todavía no te registraste?
+            <Link to="/register" className="fw-bold text-decoration-none p-2">
+              <span> Registrarse</span>
+            </Link>
+          </div>
 
-            <Button
-              id={submitBtn}
-              className="my-3 w-100 fw-bold text-white"
-              variant="primary"
-              type="submit"
-            >
-              Iniciar sesión
-            </Button>
-          </Form>
-        </FormCard>
+          <Button
+            id={submitBtn}
+            className="my-3 w-100 fw-bold text-white"
+            variant="primary"
+            type="submit"
+          ><Link to="/categorias" className="fw-bold text-decoration-none p-2"></Link>
+            Iniciar sesión
+          </Button>
+        </Form>
       </Container>
     </Col>
   );

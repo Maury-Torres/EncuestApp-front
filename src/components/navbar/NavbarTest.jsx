@@ -31,29 +31,14 @@ export const NavbarTest = () => {
           <Nav className="gap-3" id={containerNav}>
             <Button id={button} size="sm">
               <Navbar.Text>
-                <Link to="/" className="fw-bold text-decoration-none">
-                  Home
-                </Link>
+                <Link to='/' className='fw-bold text-decoration-none'>Inicio</Link>
               </Navbar.Text>
             </Button>
             {!isAuth && (
               <>
                 <Button id={button2} size="sm">
                   <Navbar.Text>
-                    <Link to="/login" className="fw-bold text-decoration-none">
-                      Login
-                    </Link>
-                  </Navbar.Text>
-                </Button>
-              </>
-            )}
-            {isAuth && user.roles[0].nombre == "Administrador" && (
-              <>
-                <Button id={button3} size="sm">
-                  <Navbar.Text>
-                    <Link to="/abm" className="fw-bold text-decoration-none">
-                      Administración
-                    </Link>
+                    <Link to='/login' className='fw-bold text-decoration-none'>Acceso</Link>
                   </Navbar.Text>
                 </Button>
               </>
