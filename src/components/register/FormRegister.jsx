@@ -193,7 +193,7 @@ export const FormRegister = () => {
           </Form.Group>
 
         <Form.Label className="fw-bold mt-3 text-black">
-          Confirmar contraseña
+          Confirmar contraseña.
         </Form.Label>
         <InputGroup>
           <Form.Control
