@@ -22,7 +22,9 @@ export const EncuestasCard = ({ encuesta }) => {
     (encuestaRealizada) => encuestaRealizada.encuesta === encuesta._id
   );
 
-  console.log(encuestasRealizadas, encuestaRespondida);
+  // console.log(encuestasRealizadas, encuestaRespondida);
+  // console.log(user);
+  // console.log(encuesta);
 
   return (
     <Card className={`${styles.cardMargin} ${styles.cardBackground}`}>
